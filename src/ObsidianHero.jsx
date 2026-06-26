@@ -525,7 +525,7 @@ function Content({ quality }) {
       {/* SVG refraction filters — one per surfacing section. */}
       <svg className="obs-filters" aria-hidden="true" focusable="false">
         <defs>
-          {[0, 1, 2].map((i) => (
+          {[0, 1, 2, 3].map((i) => (
             <filter
               key={i}
               id={`obs-warp-${i}`}
@@ -557,12 +557,16 @@ function Content({ quality }) {
       </svg>
 
       {/* ACT 1 / ACT 2 — the hero, etched into the polished glass. */}
-      <header className="obs-hero">
-        <div className="obs-mark">GAELWORX · ONE FORGE</div>
+      <header className="obs-hero" id="top">
+        <div className="obs-mark">GAELWORX · POINT THE SWORD</div>
         <div className="obs-hero__center">
+          <span className="obs-eyebrow">Four Branches · One Forge</span>
           <h1 className="obs-headline etched">Automatic Execution</h1>
-          <p className="obs-sub">Business owners don&rsquo;t need Artificial Intelligence.</p>
-          <a className="obs-cta" href="#forge">
+          <p className="obs-sub">
+            Business owners don&rsquo;t need <strong>Artificial Intelligence.</strong> They
+            need <em>Automatic Execution.</em>
+          </p>
+          <a className="obs-cta" href="#arsenal">
             <span>POINT THE SWORD</span>
           </a>
         </div>
@@ -574,39 +578,93 @@ function Content({ quality }) {
 
       {/* ACT 3 — each section emerges from beneath the obsidian. */}
       <main>
-        <Surface index={0} id="forge" kicker="THE AFTERMATH">
-          <h2>The forge never went out.</h2>
+        <Surface index={0} id="clan" kicker="00 · The Clan">
+          <h2>One clan. Many forges.</h2>
           <p>
-            We don&rsquo;t sell intelligence. We sell its consequence — systems that
-            execute on their own, the way molten work cools into something hard,
-            sharp, and permanent.
+            GAELWORX is an engineering forge. We ship our own platforms —{' '}
+            <strong>YardWorx, RepairWorx, SalesWorx, AgentWorx</strong> — and bring that
+            same hammer to client work. We move like a clan, not an agency: small,
+            accountable, always in the work. No discovery-call theater. You talk to the
+            people who hold the hammer.
           </p>
         </Surface>
 
-        <Surface index={1} kicker="WHAT SURFACES">
-          <h2>Implementation, not imagination.</h2>
-          <ul className="obs-list">
-            <li>Agents wired into the work that already pays you.</li>
-            <li>Pipelines that run while the lights are off.</li>
-            <li>One forge. Every department downstream of it.</li>
-          </ul>
+        <Surface index={1} id="arsenal" kicker="01 · Four Branches · One Forge">
+          <h2>Four forges. One clan.</h2>
+          <p>
+            Software, automations, voice agents, and web design — engineered as one
+            cohesive arsenal. Pick the blade. We sharpen the rest.
+          </p>
+          <div className="obs-branches">
+            <Branch
+              id="GW–01 · Software"
+              name="Platforms that decide."
+              line="Custom software, forged to your trade."
+            >
+              Bespoke operational platforms, internal tooling, and trade-shaped
+              applications — the same forge that built YardWorx, RepairWorx, SalesWorx,
+              and AgentWorx, pointed at your business.
+            </Branch>
+            <Branch
+              id="GW–02 · Voice Agents"
+              name="A receptionist that never blinks."
+              line="Meet Maeve, the Warrior Queen."
+            >
+              Inbound and outbound voice agents that qualify leads, book jobs, recover
+              quotes, and handle reception — in your voice, on your script, 24/7.
+            </Branch>
+            <Branch
+              id="GW–03 · Automations"
+              name="Pipelines that don't sleep."
+              line="Silent machines, built once, paid forever."
+            >
+              Quiet engines that run the empire after the fires die down: lead routing,
+              billing follow-ups, supplier arbitrage, document workflows, and
+              cross-system bridges.
+            </Branch>
+            <Branch
+              id="GW–04 · Web Design"
+              name="Lead engines, not brochures."
+              line="Your mark, forged for the modern web."
+            >
+              Conversion-tuned local sites and studio-grade interactive reels. Every page
+              is a magnet; every CTA captures the contact before the competitor&rsquo;s
+              page finishes loading.
+            </Branch>
+          </div>
         </Surface>
 
-        <Surface index={2} kicker="POINT IT">
-          <h2>Tell us where to strike.</h2>
+        <Surface index={2} kicker="02 · Built For The Long Campaign">
+          <h2>Software, forged to the shape of your trade.</h2>
           <p>
-            You bring the target. We bring the edge. What rises through the glass
-            is execution that doesn&rsquo;t ask twice.
+            Bespoke systems, internal tooling, and the workflow automations that quietly
+            run the empire after the fires die down.{' '}
+            <strong>Dashboards that decide. Pipelines that don&rsquo;t sleep. Systems
+            built once, sharpened forever.</strong>
+          </p>
+        </Surface>
+
+        <Surface index={3} id="contact" kicker="03 · Point The Sword">
+          <h2>Start the forge.</h2>
+          <p>
+            One call. No discovery-call theater. You&rsquo;ll talk to the people who hold
+            the hammer, not an account manager.
           </p>
           <a className="obs-cta obs-cta--solid" href="#top">
             <span>POINT THE SWORD</span>
           </a>
+          <span className="obs-avail">
+            <i>Available</i> · Continental US · 7 Days
+          </span>
         </Surface>
 
         <footer className="obs-foot">
           <span>GAELWORX</span>
-          <span>· ONE FORGE ·</span>
-          <span>AUTOMATIC EXECUTION</span>
+          <span>· One Forge ·</span>
+          <span>Point The Sword</span>
+          <span className="obs-foot__tag">
+            Point the sword. We take care of the battlefield.
+          </span>
         </footer>
       </main>
     </div>
@@ -623,6 +681,17 @@ function Surface({ index, id, kicker, children }) {
         </div>
       </div>
     </section>
+  )
+}
+
+function Branch({ id, name, line, children }) {
+  return (
+    <div className="obs-branch">
+      <span className="obs-branch__id">{id}</span>
+      <h3 className="obs-branch__name">{name}</h3>
+      <p className="obs-branch__line">{line}</p>
+      <p>{children}</p>
+    </div>
   )
 }
 
@@ -716,13 +785,36 @@ function ObsidianStyles() {
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: `
-:root { color-scheme: dark; }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&display=swap');
+
+/* ── GAELWORX brand tokens ──────────────────────────────────────────────
+   Palette/type/motion from the brand book (Palette, Typography, Motion Laws,
+   Kinetic Code). Hex are matched to the brand book; swap to exact source
+   values when the gaelworx repo is in scope. */
+:root {
+  color-scheme: dark;
+  --gw-void: #050608;        /* obsidian / void black — the slab + page */
+  --gw-obsidian: #0a0b10;
+  --gw-iron: #15161c;        /* iron — panel fill */
+  --gw-steel: #9aa1ad;       /* steel / silver — muted text */
+  --gw-bone: #efe6da;        /* bone white — primary text */
+  --gw-ember: #ff5a1e;       /* ember orange — primary accent */
+  --gw-ember-deep: #ff3b0a;
+  --gw-forge: #d72638;       /* forge red — secondary accent / strike */
+  --gw-display: 'Cinzel', 'Trajan Pro', 'Times New Roman', serif; /* the wordmark serif */
+  --gw-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Inter, Roboto, sans-serif;
+  /* Motion Laws */
+  --gw-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gw-dur-fast: 240ms;
+  --gw-dur: 600ms;
+  --gw-dur-slow: 1100ms;
+}
 * { box-sizing: border-box; }
 html, body, #root { margin: 0; padding: 0; height: 100%; }
 body {
-  background: #000;
-  color: #efe5d8;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+  background: var(--gw-void);
+  color: var(--gw-bone);
+  font-family: var(--gw-sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -777,13 +869,25 @@ body {
   .obs-hero__center { animation: none; }
 }
 
-/* Etched headline — engraved into the polished glass, catching warm light. */
+/* Eyebrow above the headline — FOUR BRANCHES · ONE FORGE */
+.obs-eyebrow {
+  display: block;
+  font-size: clamp(10px, 1.1vw, 12.5px);
+  letter-spacing: 0.46em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gw-ember);
+  margin: 0 0 clamp(16px, 2vw, 26px);
+}
+/* Etched headline — the brand serif, engraved into the polished glass. */
 .obs-headline {
   margin: 0;
-  font-size: clamp(2.7rem, 9.2vw, 8.4rem);
-  line-height: 0.94;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-family: var(--gw-display);
+  font-size: clamp(2.3rem, 8vw, 6.6rem);
+  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
 }
 .etched {
   color: rgba(236, 226, 214, 0.94);
@@ -795,11 +899,19 @@ body {
 }
 .obs-sub {
   margin: clamp(18px, 2.4vw, 30px) 0 0;
-  font-size: clamp(1rem, 2.1vw, 1.5rem);
+  font-size: clamp(1.05rem, 2.1vw, 1.5rem);
   font-weight: 400;
+  line-height: 1.32;
   letter-spacing: 0.01em;
-  color: rgba(226, 214, 200, 0.72);
-  max-width: 36ch;
+  color: var(--gw-steel);
+  max-width: 30ch;
+}
+.obs-sub strong { color: var(--gw-bone); font-weight: 600; }
+.obs-sub em {
+  font-style: normal;
+  color: var(--gw-ember);
+  font-weight: 600;
+  text-shadow: 0 0 26px rgba(255,90,30,0.35);
 }
 
 /* CTA — POINT THE SWORD */
@@ -878,36 +990,69 @@ body {
 .obs-kicker {
   display: block;
   font-size: 11px; letter-spacing: 0.4em; font-weight: 700;
-  color: rgba(255, 140, 80, 0.75); text-transform: uppercase;
+  color: var(--gw-ember); text-transform: uppercase;
   margin-bottom: 18px;
 }
 .obs-surface h2 {
   margin: 0 0 18px;
-  font-size: clamp(1.7rem, 4.6vw, 3.2rem);
-  line-height: 1.02; letter-spacing: -0.02em; font-weight: 800;
-  color: #efe6da;
+  font-family: var(--gw-display);
+  font-size: clamp(1.5rem, 4vw, 2.8rem);
+  line-height: 1.06; letter-spacing: 0; font-weight: 700;
+  color: var(--gw-bone);
 }
 .obs-surface p {
   margin: 0; font-size: clamp(1rem, 1.5vw, 1.18rem); line-height: 1.6;
-  color: rgba(222, 210, 196, 0.74); max-width: 56ch;
+  color: var(--gw-steel); max-width: 60ch;
 }
-.obs-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
-.obs-list li {
-  position: relative; padding-left: 26px;
-  font-size: clamp(1rem, 1.5vw, 1.15rem); color: rgba(222,210,196,0.82);
+.obs-surface p strong { color: var(--gw-bone); font-weight: 600; }
+
+/* ── Four branches · one forge (the arsenal grid) ────────────────────── */
+.obs-branches {
+  margin: clamp(28px, 4vw, 44px) 0 0;
+  display: grid; gap: 1px;
+  grid-template-columns: repeat(2, 1fr);
+  background: rgba(255,150,90,0.10);
+  border: 1px solid rgba(255,150,90,0.10);
+  border-radius: 4px; overflow: hidden;
 }
-.obs-list li::before {
-  content: ""; position: absolute; left: 0; top: 0.6em;
-  width: 9px; height: 9px; transform: rotate(45deg);
-  background: linear-gradient(135deg, #ff7a2a, #d23a0c);
-  box-shadow: 0 0 14px rgba(255,90,30,0.6);
+@media (max-width: 640px) { .obs-branches { grid-template-columns: 1fr; } }
+.obs-branch {
+  position: relative;
+  padding: clamp(20px, 2.6vw, 30px);
+  background: linear-gradient(180deg, rgba(12,13,19,0.86), rgba(4,5,9,0.92));
+  transition: background var(--gw-dur-fast) var(--gw-ease);
 }
+.obs-branch:hover { background: linear-gradient(180deg, rgba(22,16,12,0.92), rgba(8,5,4,0.95)); }
+.obs-branch__id {
+  font-size: 10.5px; letter-spacing: 0.34em; font-weight: 700;
+  text-transform: uppercase; color: var(--gw-ember);
+}
+.obs-branch__name {
+  margin: 12px 0 6px;
+  font-family: var(--gw-display); font-weight: 700;
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem); color: var(--gw-bone);
+}
+.obs-branch__line { margin: 0 0 10px; color: var(--gw-steel); font-size: 0.92rem; font-style: italic; }
+.obs-branch p { margin: 0; font-size: 0.95rem; line-height: 1.55; color: rgba(154,161,173,0.85); max-width: none; }
+
+/* contact availability tag */
+.obs-avail {
+  display: inline-block; margin-top: clamp(20px, 2.5vw, 28px);
+  font-size: 10.5px; letter-spacing: 0.34em; font-weight: 700; text-transform: uppercase;
+  color: var(--gw-steel);
+}
+.obs-avail i { font-style: normal; color: var(--gw-ember); }
 
 .obs-foot {
-  display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
+  display: flex; gap: 14px 18px; flex-wrap: wrap; justify-content: center; align-items: center;
   padding: clamp(60px, 12vh, 140px) 20px clamp(40px, 8vh, 90px);
   font-size: clamp(10px, 1.2vw, 13px); letter-spacing: 0.42em; font-weight: 600;
-  color: rgba(255, 200, 170, 0.4); text-transform: uppercase;
+  color: rgba(255, 200, 170, 0.4); text-transform: uppercase; text-align: center;
+}
+.obs-foot__tag {
+  flex-basis: 100%; margin-top: 14px;
+  font-family: var(--gw-display); font-weight: 600; letter-spacing: 0.08em;
+  text-transform: none; color: var(--gw-steel); font-size: clamp(13px, 1.4vw, 16px);
 }
 `,
       }}
