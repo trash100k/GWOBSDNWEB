@@ -1,0 +1,27 @@
+{
+  "name": "gaelworx-obsidian-hero",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "GAELWORX — a slab of living obsidian, lit from within by a forge that never went out.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.114.3",
+    "@react-three/fiber": "^8.17.10",
+    "@react-three/postprocessing": "^2.16.3",
+    "gsap": "^3.12.5",
+    "leva": "^0.9.35",
+    "postprocessing": "^6.36.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}
