@@ -1,5 +1,5 @@
-import ObsidianHero from './ObsidianHero.jsx'
+import ForgeExperience from './ForgeExperience.jsx'
 
 export default function App() {
-  return <ObsidianHero debug />
+  return <ForgeExperience />
 }
