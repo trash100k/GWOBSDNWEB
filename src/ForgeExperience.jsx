@@ -4,7 +4,7 @@ import { forge } from './store.js'
 import { useQuality } from './hooks.js'
 import ForgeCanvas from './scene/ForgeCanvas.jsx'
 import Loader from './ui/Loader.jsx'
-import Hud from './ui/Hud.jsx'
+import Nav from './ui/Nav.jsx'
 import Cursor from './ui/Cursor.jsx'
 import Content from './ui/Content.jsx'
 import { STYLES } from './styles.js'
@@ -57,7 +57,7 @@ export default function ForgeExperience() {
           <ForgeCanvas quality={quality} />
         </CanvasBoundary>
       </div>
-      <Hud />
+      <Nav />
       <Cursor />
       <Content />
     </div>

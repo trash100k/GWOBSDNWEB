@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
@@ -8,9 +8,10 @@ function strike() {
   forge.strikeAt = performance.now() / 1000
 }
 
-function ArsenalCards() {
+/** Floating branch list — no cards. Hover (desktop) or tap (mobile) ignites the
+    matching monolith; reads forge.hovered back so 3D↔DOM stay in sync. */
+function BranchList() {
   const [hovered, setHovered] = useState(-1)
-  // Reflect the 3D blade hover into the DOM (one-way read each frame).
   useEffect(() => {
     let raf
     const tick = () => {
@@ -21,20 +22,22 @@ function ArsenalCards() {
     return () => cancelAnimationFrame(raf)
   }, [])
   return (
-    <div className="arsenal-cards">
+    <ul className="branch-list">
       {COPY.arsenal.branches.map((b, i) => (
-        <article
+        <li
           key={b.id}
-          className={`branch ${hovered === i ? 'on' : ''}`}
+          className={`branch-row ${hovered === i ? 'on' : ''}`}
+          style={{ '--bi': i }}
           onMouseEnter={() => (forge.hovered = i)}
           onMouseLeave={() => forge.hovered === i && (forge.hovered = -1)}
+          onClick={() => (forge.hovered = i)}
         >
           <span className="branch-id">{b.id} · {b.tag}</span>
-          <h3 className="branch-line">{b.line}</h3>
-          <p>{b.body}</p>
-        </article>
+          <span className="branch-line">{b.line}</span>
+          <span className="branch-body">{b.body}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
@@ -48,10 +51,9 @@ function Body({ children, className = '' }) {
 }
 
 export default function Content() {
-  const drawRef = useRef(null)
   return (
     <div className="content">
-      {/* 01 — THE CORE / hero */}
+      {/* 01 — hero */}
       <section className="sec sec--hero" id="sec-core">
         <div className="hero-inner">
           <span className="eyebrow">{COPY.hero.eyebrow}</span>
@@ -61,15 +63,15 @@ export default function Content() {
             <span>{COPY.hero.cta}</span>
           </a>
         </div>
-        <div className="scrollcue" aria-hidden="true"><span>Draw</span><i /></div>
+        <div className="scrollcue" aria-hidden="true"><span>Descend</span><i /></div>
       </section>
 
-      {/* 02 — THE DRAW (interstitial) */}
-      <section className="sec sec--draw" ref={drawRef}>
+      {/* 02 — interstitial */}
+      <section className="sec sec--draw">
         <ForgeText as="p" className="draw-line" text={COPY.draw} />
       </section>
 
-      {/* 03 — THE CLAN */}
+      {/* 03 — the clan */}
       <section className="sec sec--left" id="sec-clan">
         <div className="block">
           <span className="kicker">{COPY.clan.kicker}</span>
@@ -78,17 +80,17 @@ export default function Content() {
         </div>
       </section>
 
-      {/* 04 — THE ARSENAL */}
+      {/* 04 — the arsenal */}
       <section className="sec sec--arsenal" id="sec-arsenal">
         <div className="block block--wide">
           <span className="kicker">{COPY.arsenal.kicker}</span>
           <ForgeText as="h2" className="head" text={COPY.arsenal.head} />
           <Body className="intro">{COPY.arsenal.intro}</Body>
-          <ArsenalCards />
+          <BranchList />
         </div>
       </section>
 
-      {/* 05 — POINT THE SWORD */}
+      {/* 05 — point the sword */}
       <section className="sec sec--left" id="sec-point">
         <div className="block">
           <span className="kicker">{COPY.point.kicker}</span>

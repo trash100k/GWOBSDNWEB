@@ -39,7 +39,7 @@ export const COPY = {
     cta: 'Point the Sword',
   },
 
-  draw: 'From black, a blade.',
+  draw: 'From black, the light.',
 
   clan: {
     kicker: '01 · The Clan',
