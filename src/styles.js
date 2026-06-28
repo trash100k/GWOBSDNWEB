@@ -53,6 +53,10 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 /* slab/mirror canvas, fixed behind everything */
 .canvas-fixed{position:fixed; inset:0; z-index:0;}
 .canvas-fixed canvas{display:block; touch-action:pan-y;}
+/* mask the scene's warm top-light — darken the top of the canvas to true black so
+   no orange horizon bar reads behind the nav. Veins/embers below are untouched. */
+.canvas-fixed::after{content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, #050507 0%, rgba(5,5,7,0.95) 13%, rgba(5,5,7,0.62) 24%, rgba(5,5,7,0.2) 33%, rgba(5,5,7,0) 41%);}
 .canvas-fallback{background:
   radial-gradient(70% 50% at 50% 75%, rgba(255,80,25,0.20), transparent 60%),
   linear-gradient(180deg,#05060a,#000); }

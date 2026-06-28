@@ -107,7 +107,10 @@ export default function Content() {
       for (let i = 0; i < FRAMES; i++) {
         const el = frameRefs.current[i]
         if (!el) continue
-        const d = (p - CENTERS[i]) / HALF[i]
+        let d = (p - CENTERS[i]) / HALF[i]
+        // pin the ends: hero stays sharp at the very top, sign-off at the very bottom
+        if (i === 0) d = Math.max(d, 0)
+        else if (i === FRAMES - 1) d = Math.min(d, 0)
         const ad = Math.abs(d)
         const opacity = ad <= HOLD ? 1 : Math.max(0, 1 - (ad - HOLD) / (FADE - HOLD))
         if (i === ARSENAL) arsenalOpacity = opacity
