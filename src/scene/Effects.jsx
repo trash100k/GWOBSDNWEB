@@ -1,7 +1,6 @@
 import {
   EffectComposer,
   Bloom,
-  GodRays,
   ChromaticAberration,
   HueSaturation,
   BrightnessContrast,
@@ -12,27 +11,22 @@ import {
 import { BlendFunction } from 'postprocessing'
 
 /**
- * God-rays from the ember sun + warm bloom, refraction-edge aberration, a warm
- * cinematic grade (richer fire + crushed blacks), vignette, grain.
+ * Restrained finish: warm bloom on the vein cores + opal flecks, subtle
+ * refraction-edge aberration, a warm grade (richer fire + crushed blacks so the
+ * obsidian stays deep), vignette, grain, and SMAA on the high tier.
  */
-export default function Effects({ quality, sun }) {
+export default function Effects({ quality }) {
   const high = quality === 'high'
   return (
     <EffectComposer disableNormalPass multisampling={high ? 2 : 0}>
-      {high && sun ? (
-        <GodRays sun={sun} samples={28} density={0.9} decay={0.93} weight={0.5} exposure={0.5} clampMax={1} blur />
-      ) : (
-        <></>
-      )}
-      <Bloom mipmapBlur luminanceThreshold={0.5} luminanceSmoothing={0.3} intensity={high ? 0.95 : 0.6} radius={0.8} />
+      <Bloom mipmapBlur luminanceThreshold={0.55} luminanceSmoothing={0.3} intensity={high ? 0.9 : 0.6} radius={0.8} />
       {high ? (
-        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={[0.001, 0.0015]} radialModulation modulationOffset={0.4} />
+        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={[0.0008, 0.0012]} radialModulation modulationOffset={0.42} />
       ) : (
         <></>
       )}
-      {/* warm cinematic grade — the 60/30/10 fire pops, the obsidian crushes darker */}
-      <HueSaturation saturation={0.14} />
-      <BrightnessContrast brightness={-0.03} contrast={0.14} />
+      <HueSaturation saturation={0.12} />
+      <BrightnessContrast brightness={-0.04} contrast={0.16} />
       <Vignette eskil={false} offset={0.22} darkness={0.96} />
       <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={high ? 0.05 : 0.035} />
       {high ? <SMAA /> : <></>}
