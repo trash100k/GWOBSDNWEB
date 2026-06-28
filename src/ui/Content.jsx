@@ -93,12 +93,21 @@ export default function Content() {
   // Drive the frame composite from scroll progress every rAF.
   useEffect(() => {
     let raf
+    let px = 0, py = 0
+    const root = document.documentElement
     const H = 0.18 // half-width held fully sharp
     const W = 0.96 // half-width fully faded
     const tick = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight
       const p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0
       const pos = p * (N - 1)
+      // depth parallax: copy, haze + slab drift at different rates with pointer
+      if (!reduced) {
+        px += (forge.pointer.x - px) * 0.06
+        py += (forge.pointer.y - py) * 0.06
+        root.style.setProperty('--px', px.toFixed(4))
+        root.style.setProperty('--py', (-py).toFixed(4))
+      }
       for (let i = 0; i < N; i++) {
         const el = frameRefs.current[i]
         if (!el) continue
@@ -139,7 +148,7 @@ export default function Content() {
         <div className="frame frame--hero" ref={setRef(0)}>
           <div className="fbody">
             <span className="eyebrow">{COPY.hero.eyebrow}</span>
-            <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1200} ignite />
+            <ForgeText as="h1" className="headline etched flame" text={COPY.hero.headline} delay={1200} ignite />
             <p className="hero-sub">{COPY.hero.sub}</p>
             <button className="cta magnetic" onClick={() => { strike(); scrollToFrame(4) }}>
               <span>{COPY.hero.cta}</span>
@@ -150,14 +159,14 @@ export default function Content() {
 
         {/* 01 — interstitial */}
         <div className="frame frame--draw" ref={setRef(1)}>
-          <p className="draw-line">{COPY.draw}</p>
+          <p className="draw-line flame">{COPY.draw}</p>
         </div>
 
         {/* 02 — the clan */}
         <div className="frame" ref={setRef(2)}>
           <div className="fbody">
             <span className="kicker">{COPY.clan.kicker}</span>
-            <ForgeText as="h2" className="head" text={COPY.clan.head} />
+            <ForgeText as="h2" className="head flame" text={COPY.clan.head} />
             <p className="body"><BrandText text={COPY.clan.body} /></p>
           </div>
         </div>
@@ -166,7 +175,7 @@ export default function Content() {
         <div className="frame frame--arsenal" ref={setRef(3)}>
           <div className="fbody fbody--wide">
             <span className="kicker">{COPY.arsenal.kicker}</span>
-            <ForgeText as="h2" className="head" text={COPY.arsenal.head} />
+            <ForgeText as="h2" className="head flame" text={COPY.arsenal.head} />
             <p className="body intro"><BrandText text={COPY.arsenal.intro} /></p>
             <BranchList />
           </div>
@@ -176,7 +185,7 @@ export default function Content() {
         <div className="frame" ref={setRef(4)}>
           <div className="fbody">
             <span className="kicker">{COPY.point.kicker}</span>
-            <ForgeText as="h2" className="head" text={COPY.point.head} />
+            <ForgeText as="h2" className="head flame" text={COPY.point.head} />
             <p className="body"><BrandText text={COPY.point.body} /></p>
             <button className="cta cta--solid magnetic" onClick={() => { strike(); scrollToFrame(0) }}>
               <span>{COPY.point.cta}</span>

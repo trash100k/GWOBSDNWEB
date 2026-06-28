@@ -130,12 +130,30 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
    "frames" are scroll-jacked IN (pinned, never physically moving) from a random
    entry vector each, blur→sharp. A tall invisible track supplies scroll distance
    so the 3D scene stays scroll-reactive and the nav still scrubs. ───────────── */
-.stage{position:fixed; inset:0; z-index:1; pointer-events:none;
+.stage{position:fixed; inset:0; z-index:2; pointer-events:none;
   padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);}
-/* soft ambient vignette — keeps pinned copy legible over bright veins; no edges, no frame */
+/* ambient vignette + faint warm forge-light — legibility over the veins, no edges */
 .stage::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:radial-gradient(80% 66% at 50% 50%, rgba(4,5,8,0.62), rgba(4,5,8,0.18) 56%, transparent 84%);}
+  background:
+    radial-gradient(64% 52% at 50% 46%, rgba(232,93,4,0.06), transparent 64%),
+    radial-gradient(82% 68% at 50% 50%, rgba(4,5,8,0.6), rgba(4,5,8,0.16) 56%, transparent 84%);}
 .scroll-track{position:relative; z-index:0; width:1px; opacity:0; pointer-events:none;}
+
+/* ── atmosphere: mid-ground haze (behind copy) · foreground embers · grain ─── */
+.haze{position:fixed; inset:-12%; z-index:1; pointer-events:none; mix-blend-mode:screen;
+  background:
+    radial-gradient(38% 30% at 22% 30%, rgba(232,93,4,0.11), transparent 70%),
+    radial-gradient(40% 34% at 80% 66%, rgba(193,41,46,0.11), transparent 72%),
+    radial-gradient(52% 42% at 50% 52%, rgba(227,74,39,0.06), transparent 76%);
+  background-size:150% 150%;
+  transform:translate3d(calc(var(--px,0) * -2.4vw), calc(var(--py,0) * -2vh), 0);
+  animation:hazeDrift 26s ease-in-out infinite alternate; will-change:transform, background-position;}
+@keyframes hazeDrift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
+.atmos{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;}
+.grain{position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size:140px 140px; animation:grain .5s steps(3) infinite;}
+@keyframes grain{0%{transform:translate(0,0)}33%{transform:translate(-3%,2%)}66%{transform:translate(2%,-3%)}100%{transform:translate(0,0)}}
 
 .frame{position:absolute; inset:0; z-index:1; display:flex; flex-direction:column;
   justify-content:center; align-items:flex-start; padding:12vh clamp(24px,7vw,120px);
@@ -145,7 +163,8 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 /* only the active frame's controls take pointer input (the canvas keeps its gestures) */
 .frame .cta,.frame .branch-row{pointer-events:none;}
 .frame.is-active .cta,.frame.is-active .branch-row{pointer-events:auto;}
-.fbody{position:relative; width:100%; max-width:680px;}
+.fbody{position:relative; width:100%; max-width:680px; will-change:transform;
+  transform:translate3d(calc(var(--px,0) * 0.9vw), calc(var(--py,0) * 0.8vh), 0);}
 .fbody--wide{max-width:1180px;}
 
 .eyebrow{display:block; font-size:clamp(10px,1.1vw,12.5px); letter-spacing:0.46em;
@@ -230,6 +249,18 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   transition-delay:calc(var(--i)*16ms + var(--d,0ms));}
 .forge-text.shown .word>span{opacity:1; transform:none; filter:blur(0);}
 
+/* ── headlines forged from the fire — display type filled with the live, flowing
+   fire-opal gradient (the type IS the forge fire). Per-letter for kinetic heads. */
+.flame,.flame .word>span{
+  background:linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
+  background-size:100% 250%;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+  animation:lavaFlow 5s infinite alternate ease-in-out;}
+/* dark halo so the fire pops over BOTH dark obsidian and bright veins + warm bloom */
+.flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
+  0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
+
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:880px){
   .branch-list{grid-template-columns:repeat(2,1fr);}
@@ -251,5 +282,6 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   .forge-text .word>span{transition:none; opacity:1; transform:none; filter:none;}
   .loader-mark{animation:none;} .loader-bar i{animation:none; width:100%;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
+  .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
 }
 `

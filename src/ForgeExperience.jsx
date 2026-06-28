@@ -8,6 +8,7 @@ import Loader from './ui/Loader.jsx'
 import Nav from './ui/Nav.jsx'
 import Cursor from './ui/Cursor.jsx'
 import Content from './ui/Content.jsx'
+import Atmosphere from './ui/Atmosphere.jsx'
 import { STYLES } from './styles.js'
 
 /* WebGL error boundary → static forge fallback. */
@@ -63,9 +64,10 @@ export default function ForgeExperience() {
           <ForgeCanvas quality={quality} />
         </CanvasBoundary>
       </div>
+      <Content />
+      <Atmosphere />
       <Nav />
       <Cursor />
-      <Content />
     </div>
   )
 }
