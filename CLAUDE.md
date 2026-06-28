@@ -13,9 +13,11 @@ _"Automatic Execution. Clan Protected."_
 - Used for: the **GAELWORX** wordmark, **"Automatic Execution"**, and brand headings. "Play with the letters."
 - Self-hosted via `@fontsource/cinzel-decorative` (700, 900). Token: `--gw-display`.
 
-**A+E IGNITED — mandatory.** Every `A` and every `E` in a brand proper-noun renders in
-**900 Cinzel Decorative with the forge-glow gradient** (the continuous fire of the forge).
-The ignited terms — wherever they appear, including inside body copy:
+**A+E IGNITED — mandatory.** Within each WORD of a brand proper-noun, only the **first `A`
+and first `E`** ignite — in **900 Cinzel Decorative with the forge-glow gradient** (the fire of
+the forge). NOT every A/E: it's "Automatic Execution" (leading A, leading E), never
+"AutomAtic ExEcution". One A and one E per word, max. The ignited terms — wherever they appear,
+including inside body copy:
 **GAELWORX · Automatic Execution · Maeve · YardWorx · RepairWorx · SalesWorx · AgentWorx.**
 Implemented as `.forge-letter` (see `src/styles.js`), applied via `<Ignite>` (`src/ui/Ignite.jsx`),
 `ForgeText ignite` (`src/ui/ForgeText.jsx`), and auto-detected in prose by `<BrandText>`
