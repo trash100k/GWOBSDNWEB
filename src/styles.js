@@ -215,23 +215,25 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .intro{margin-bottom:10px;}
 .body strong{color:var(--gw-bone); font-weight:600;}
 
-/* branch list — ambient, no cards; hairline divider + ember ignite underline */
-.branch-list{list-style:none; margin:clamp(20px,2.6vw,38px) 0 0; padding:0; display:grid;
-  grid-template-columns:repeat(4,1fr); gap:clamp(16px,2vw,32px);}
-.branch-row{position:relative; padding-top:16px; cursor:pointer;
-  border-top:1px solid rgba(141,153,174,0.24);
-  transition:border-color .35s var(--ease), transform .35s var(--ease);}
-.branch-row::before{content:""; position:absolute; top:-1px; left:0; width:0; height:1px;
-  background:var(--gw-ember); box-shadow:0 0 10px var(--gw-ember); transition:width .4s var(--ease);}
-.branch-row.on::before{width:66%;}
-.branch-row.on{transform:translateY(-2px); border-color:rgba(255,120,60,0.4);}
-.branch-id{display:block; font-size:10px; letter-spacing:0.28em; font-weight:700;
-  text-transform:uppercase; color:var(--gw-ember); margin-bottom:10px;}
-.branch-line{display:block; font-family:var(--gw-headline); font-weight:700;
-  font-size:clamp(1.05rem,1.4vw,1.3rem); color:var(--gw-bone); margin-bottom:10px; line-height:1.1;}
-.branch-body{display:block; font-size:0.92rem; line-height:1.55; color:rgba(154,161,173,0.82);
-  opacity:0.7; transition:opacity .35s var(--ease);}
-.branch-row.on .branch-body{opacity:1;}
+/* arsenal — vertical 3D carousel (rolodex). Scroll rotates the wheel up/down;
+   the front branch is sharp + lit, the rest tilt away and blur (ethereal). */
+.carousel{position:relative; width:100%; height:clamp(300px,48vh,430px);
+  margin-top:clamp(14px,2.4vh,28px); perspective:1150px; perspective-origin:50% 46%;}
+.wheel{position:absolute; inset:0; margin:0; padding:0; list-style:none;
+  transform-style:preserve-3d; will-change:transform;}
+.car-item{position:absolute; top:50%; left:0; right:0; margin:0 auto; max-width:680px;
+  transform-origin:center center; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  cursor:pointer; padding:0 4px; will-change:transform,opacity,filter;}
+.branch-id{display:block; font-size:11px; letter-spacing:0.3em; font-weight:700;
+  text-transform:uppercase; color:var(--gw-steel); margin-bottom:14px;}
+.branch-line{display:block; font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
+  font-size:clamp(1.6rem,5vw,2.6rem); line-height:1.06; margin-bottom:14px;
+  transition:color .4s var(--ease), text-shadow .4s var(--ease);}
+.branch-body{display:block; font-size:clamp(0.98rem,1.5vw,1.14rem); line-height:1.55; max-width:36ch;
+  color:rgba(160,167,180,0.85); text-shadow:0 2px 22px rgba(0,0,0,0.85);}
+/* the front branch lights up — ember rim + warm glow */
+.car-item.is-front .branch-id{color:var(--gw-ember);}
+.car-item.is-front .branch-line{color:#fff; text-shadow:0 0 28px rgba(232,93,4,0.55), 0 2px 10px rgba(0,0,0,0.6);}
 
 .avail{display:block; margin-top:clamp(20px,2.4vw,28px); font-size:10.5px; letter-spacing:0.32em;
   font-weight:700; text-transform:uppercase; color:var(--gw-steel);}
@@ -262,17 +264,12 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
 
 /* ── responsive ──────────────────────────────────────────────────────── */
-@media (max-width:880px){
-  .branch-list{grid-template-columns:repeat(2,1fr);}
-}
 @media (max-width:560px){
   .frame{padding:11vh 18px;}
   .fbody,.fbody--wide{max-width:none; width:100%;}
   .hero-sub{max-width:none;}
-  .branch-list{grid-template-columns:1fr; gap:clamp(10px,2.6vw,16px);}
-  /* keep the arsenal frame inside one screen — collapse branch copy, expand the active one */
-  .branch-body{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
-  .branch-row.on .branch-body{-webkit-line-clamp:7;}
+  .carousel{height:clamp(290px,52vh,400px); perspective:900px;}
+  .branch-body{max-width:none;}
   /* stronger ambient vignette on phones so copy holds over the brightest veins */
   .stage::before{background:radial-gradient(98% 72% at 50% 48%, rgba(4,5,8,0.74), rgba(4,5,8,0.3) 56%, transparent 88%);}
 }

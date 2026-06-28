@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
@@ -8,52 +8,47 @@ function strike() {
   forge.strikeAt = performance.now() / 1000
 }
 
-/** Arsenal branch list — ambient, no cards. Hover (desktop) or tap (mobile)
-    ignites the matching vein region; reads forge.hovered back so 3D↔DOM sync. */
-function BranchList() {
-  const [hovered, setHovered] = useState(-1)
-  useEffect(() => {
-    let raf
-    const tick = () => {
-      setHovered((h) => (h === forge.hovered ? h : forge.hovered))
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [])
-  return (
-    <ul className="branch-list">
-      {COPY.arsenal.branches.map((b, i) => (
-        <li
-          key={b.id}
-          className={`branch-row ${hovered === i ? 'on' : ''}`}
-          style={{ '--bi': i }}
-          onMouseEnter={() => (forge.hovered = i)}
-          onMouseLeave={() => forge.hovered === i && (forge.hovered = -1)}
-          onClick={() => (forge.hovered = i)}
-        >
-          <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
-          <span className="branch-line"><BrandText text={b.line} /></span>
-          <span className="branch-body"><BrandText text={b.body} /></span>
-        </li>
-      ))}
-    </ul>
-  )
-}
-
 const rnd = (a, b) => a + Math.random() * (b - a)
+const clamp = (x, a, b) => Math.min(Math.max(x, a), b)
 const easeOut = (x) => 1 - Math.pow(1 - x, 3)
 const easeIn = (x) => x * x * x
 
+// Six frames, weighted scroll allocation — the Arsenal gets the long pin so its
+// 3D carousel has room to rotate. Centers + half-spans are in progress space.
+const FRAMES = 6
+const ARSENAL = 3
+const WEIGHTS = [1, 0.8, 1, 2.6, 1, 1]
+const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
+const CENTERS = []
+const HALF = []
+;(() => {
+  let acc = 0
+  for (let i = 0; i < FRAMES; i++) {
+    HALF[i] = WEIGHTS[i] / 2 / TOTAL
+    CENTERS[i] = (acc + WEIGHTS[i] / 2) / TOTAL
+    acc += WEIGHTS[i]
+  }
+})()
+
+const HOLD = 0.55 // |d| held fully sharp (d = signed distance in own half-spans)
+const FADE = 1.6 //  |d| fully faded
+const BRANCHES = COPY.arsenal.branches
+const BR = BRANCHES.length
+const STEP = 44 // degrees between carousel branches (vertical rolodex)
+const RADIUS = 200 // cylinder radius, px
+const SPAN = 0.5 // the carousel rotates across d ∈ [-SPAN, SPAN] (inside the sharp zone)
+
 /**
- * Ambient scroll-jacked stage. There are no containers — the obsidian is the
- * environment, and the copy "frames" are jacked IN on scroll (pinned in place,
- * never physically scrolling) from a RANDOM entry vector each, blur→sharp. A tall
- * invisible track supplies the scroll distance (so the 3D scene stays scroll-
- * reactive and the nav still scrubs).
+ * Ambient scroll-jacked stage. No containers — the obsidian IS the environment;
+ * copy "frames" are jacked IN on scroll (pinned, never physically moving) from a
+ * random entry vector each, blur→sharp. The Arsenal is a vertical 3D carousel:
+ * scrolling rotates a wheel of branches up/down, the front one sharp + lit, and
+ * the obsidian veins light the active branch (page light moves with the scroll).
  */
 export default function Content() {
   const frameRefs = useRef([])
+  const carRefs = useRef([])
+  const wheelRef = useRef(null)
   const reduced = useMemo(
     () =>
       typeof window !== 'undefined' &&
@@ -61,22 +56,20 @@ export default function Content() {
     []
   )
 
-  // Per-frame random entry/exit vectors — fixed for this mount. Randomizing the
-  // entry point is what gives each reveal its own punch.
-  const N = 6
+  // Per-frame random entry/exit vectors — fixed for this mount.
   const vecs = useMemo(
     () =>
-      Array.from({ length: N }, () => {
+      Array.from({ length: FRAMES }, () => {
         const ang = Math.random() * Math.PI * 2
         const dist = rnd(52, 96)
         const exAng = ang + Math.PI + rnd(-0.7, 0.7)
         return {
-          ex: Math.cos(ang) * dist, // entry translate, vw / vh
+          ex: Math.cos(ang) * dist,
           ey: Math.sin(ang) * dist * 0.85,
           rot: rnd(-10, 10),
           blur: rnd(18, 32),
           scale: rnd(0.82, 0.92),
-          ox: Math.cos(exAng) * rnd(22, 44), // exit drift
+          ox: Math.cos(exAng) * rnd(22, 44),
           oy: Math.sin(exAng) * rnd(18, 36) - 10,
           orot: rnd(-6, 6),
           oblur: rnd(10, 20),
@@ -87,38 +80,42 @@ export default function Content() {
 
   const scrollToFrame = (i) => {
     const max = document.documentElement.scrollHeight - window.innerHeight
-    window.scrollTo({ top: max > 0 ? (i / (N - 1)) * max : 0, behavior: 'smooth' })
+    window.scrollTo({ top: max > 0 ? CENTERS[i] * max : 0, behavior: 'smooth' })
+  }
+  const scrollToBranch = (j) => {
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    const d = -SPAN + (j / (BR - 1)) * 2 * SPAN
+    window.scrollTo({ top: max > 0 ? (CENTERS[ARSENAL] + d * HALF[ARSENAL]) * max : 0, behavior: 'smooth' })
   }
 
-  // Drive the frame composite from scroll progress every rAF.
+  // Drive frame composite + the carousel from scroll progress every rAF.
   useEffect(() => {
     let raf
     let px = 0, py = 0
     const root = document.documentElement
-    const H = 0.18 // half-width held fully sharp
-    const W = 0.96 // half-width fully faded
     const tick = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight
-      const p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0
-      const pos = p * (N - 1)
-      // depth parallax: copy, haze + slab drift at different rates with pointer
+      const p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0
       if (!reduced) {
         px += (forge.pointer.x - px) * 0.06
         py += (forge.pointer.y - py) * 0.06
         root.style.setProperty('--px', px.toFixed(4))
         root.style.setProperty('--py', (-py).toFixed(4))
       }
-      for (let i = 0; i < N; i++) {
+
+      let arsenalOpacity = 0
+      for (let i = 0; i < FRAMES; i++) {
         const el = frameRefs.current[i]
         if (!el) continue
-        const t = pos - i
-        const at = Math.abs(t)
-        const opacity = at <= H ? 1 : Math.max(0, 1 - (at - H) / (W - H))
+        const d = (p - CENTERS[i]) / HALF[i]
+        const ad = Math.abs(d)
+        const opacity = ad <= HOLD ? 1 : Math.max(0, 1 - (ad - HOLD) / (FADE - HOLD))
+        if (i === ARSENAL) arsenalOpacity = opacity
         const v = vecs[i]
         let tx = 0, ty = 0, rot = 0, blur = 0, sc = 1
-        if (!reduced && at > H) {
-          const f0 = Math.min((at - H) / (W - H), 1)
-          if (t < 0) {
+        if (!reduced && ad > HOLD) {
+          const f0 = Math.min((ad - HOLD) / (FADE - HOLD), 1)
+          if (d < 0) {
             const f = easeOut(f0)
             tx = v.ex * f; ty = v.ey * f; rot = v.rot * f; blur = v.blur * f; sc = 1 - (1 - v.scale) * f
           } else {
@@ -133,6 +130,36 @@ export default function Content() {
         el.style.filter = !reduced && blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none'
         el.classList.toggle('is-active', opacity > 0.6)
       }
+
+      // Arsenal carousel — scroll rotates the vertical wheel through the branches.
+      const dA = (p - CENTERS[ARSENAL]) / HALF[ARSENAL]
+      const branchF = clamp((dA + SPAN) / (2 * SPAN), 0, 1) * (BR - 1)
+      const active = arsenalOpacity > 0.4
+      for (let j = 0; j < BR; j++) {
+        const el = carRefs.current[j]
+        if (!el) continue
+        const off = j - branchF
+        const aoff = Math.abs(off)
+        const ang = reduced ? 0 : -off * STEP
+        // front branch lands at z=0 (crisp, unscaled) because the wheel is pushed
+        // back by RADIUS; the others rotate away and recede.
+        el.style.transform = `translateY(-50%) rotateX(${ang.toFixed(2)}deg) translateZ(${RADIUS}px)`
+        el.style.opacity = clamp(1.12 - aoff * 0.62, 0, 1).toFixed(3)
+        const blur = reduced ? 0 : Math.min(aoff * 4.4, 11)
+        el.style.filter = blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none'
+        el.style.zIndex = String(100 - Math.round(aoff * 10))
+        const front = aoff < 0.5
+        el.classList.toggle('is-front', front)
+        el.style.pointerEvents = front && active ? 'auto' : 'none'
+      }
+      if (wheelRef.current) {
+        wheelRef.current.style.transform = reduced
+          ? `translateZ(${-RADIUS}px)`
+          : `translateZ(${-RADIUS}px) rotateY(${(px * 7).toFixed(2)}deg) rotateX(${(-py * 4).toFixed(2)}deg)`
+      }
+      // page lighting follows the carousel — veins light the active branch
+      forge.hovered = active ? clamp(Math.round(branchF), 0, BR - 1) : -1
+
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
@@ -140,6 +167,7 @@ export default function Content() {
   }, [vecs, reduced])
 
   const setRef = (i) => (el) => (frameRefs.current[i] = el)
+  const setCar = (j) => (el) => (carRefs.current[j] = el)
 
   return (
     <>
@@ -171,13 +199,22 @@ export default function Content() {
           </div>
         </div>
 
-        {/* 03 — the arsenal */}
+        {/* 03 — the arsenal (vertical 3D carousel) */}
         <div className="frame frame--arsenal" ref={setRef(3)}>
           <div className="fbody fbody--wide">
             <span className="kicker">{COPY.arsenal.kicker}</span>
             <ForgeText as="h2" className="head flame" text={COPY.arsenal.head} />
-            <p className="body intro"><BrandText text={COPY.arsenal.intro} /></p>
-            <BranchList />
+            <div className="carousel">
+              <ul className="wheel" ref={wheelRef}>
+                {BRANCHES.map((b, j) => (
+                  <li key={b.id} className="car-item" ref={setCar(j)} onClick={() => scrollToBranch(j)}>
+                    <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
+                    <span className="branch-line"><BrandText text={b.line} /></span>
+                    <span className="branch-body"><BrandText text={b.body} /></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -204,7 +241,7 @@ export default function Content() {
       </div>
 
       {/* invisible track: supplies scroll distance for the jack + the 3D scene */}
-      <div className="scroll-track" style={{ height: `${N * 100}vh` }} aria-hidden="true" />
+      <div className="scroll-track" style={{ height: `${TOTAL * 100}vh` }} aria-hidden="true" />
     </>
   )
 }
