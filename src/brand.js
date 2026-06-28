@@ -33,62 +33,62 @@ export const COPY = {
   loader: 'One Forge',
 
   hero: {
-    eyebrow: 'Four Blades · One Fire',
+    eyebrow: 'Four Branches · One Forge',
     headline: 'Automatic Execution',
-    sub: 'Intelligence is the spark. We forge the blade that swings without you.',
-    cta: 'Point the Sword',
+    sub: 'We forge AI systems that run your business while you sleep. Built to execute, not to babysit.',
+    cta: 'Start the Forge',
   },
 
   draw: 'From black, the light.',
 
   clan: {
     kicker: '01 · The Clan',
-    head: 'One fire. Many blades.',
-    body: 'GAELWORX is an engineering forge. We ship our own platforms — YardWorx, RepairWorx, SalesWorx, AgentWorx — and bring the same hammer to yours. We move like a clan, not an agency. You talk to the hand that holds the hammer.',
+    head: 'One forge. Four branches.',
+    body: 'GAELWORX is an engineering forge, not an agency. We ship our own platforms — YardWorx, RepairWorx, SalesWorx, AgentWorx — and build the same caliber of systems for you. We move like a clan: small, fast, fully accountable. You talk to the people who build it.',
   },
 
   arsenal: {
     kicker: '02 · The Arsenal',
-    head: 'Four blades. One fire.',
-    intro: 'Pick the blade. We sharpen the rest.',
+    head: 'Four branches. One forge.',
+    intro: 'Tell us the bottleneck. We build the system that ends it.',
     branches: [
       {
         id: 'GW–01',
         tag: 'Software',
-        line: 'Platforms that decide.',
-        body: 'Bespoke operational systems and internal tooling — the forge that built YardWorx, pointed at your trade.',
+        line: 'Platforms that run the operation.',
+        body: 'Custom operational platforms and internal tools that schedule, dispatch, and track the work. The same forge that built YardWorx, built for how you run.',
       },
       {
         id: 'GW–02',
         tag: 'Voice',
-        line: 'A receptionist that never blinks.',
-        body: 'Inbound and outbound agents that qualify, book, and recover — your voice, your script, 24/7. Her name is Maeve.',
+        line: 'A front desk that never clocks out.',
+        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — your script, your voice, around the clock. No missed call, no lost revenue.',
       },
       {
         id: 'GW–03',
         tag: 'Automations',
-        line: "Pipelines that don't sleep.",
-        body: 'Silent machines that quote, follow up, invoice, and chase reviews while the fires die down. Built once. Paid forever.',
+        line: 'Pipelines that do the busywork.',
+        body: 'Systems that quote, follow up, invoice, and pull reviews on their own. You build them once and they earn every day after.',
       },
       {
         id: 'GW–04',
         tag: 'Web',
-        line: 'Lead engines, not brochures.',
-        body: "Studio-grade sites that drop the visitor's guard and route the lead straight to the truck.",
+        line: 'Sites that book jobs.',
+        body: 'Studio-grade lead-gen sites that turn visitors into booked work and route every lead straight to your phone.',
       },
     ],
   },
 
   point: {
-    kicker: '03 · Point the Sword',
-    head: 'Name the target.',
-    body: 'One call. No discovery-call theater. You point. We take the battlefield.',
-    cta: 'Point the Sword',
+    kicker: '03 · Start the Forge',
+    head: 'Tell us the problem.',
+    body: 'One call. No discovery-call theater. You name the bottleneck — we build the system that kills it.',
+    cta: 'Start the Forge',
     avail: 'Available · Continental US · 7 Days',
   },
 
   footer: {
     mark: 'GAELWORX · One Forge',
-    tag: 'Point the sword. We take care of the battlefield.',
+    tag: 'You run the business. We forge the systems that run it.',
   },
 }

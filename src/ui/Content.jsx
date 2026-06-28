@@ -3,6 +3,7 @@ import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
 import BrandText from './BrandText.jsx'
+import Panel from './Panel.jsx'
 import { useReveal } from '../hooks.js'
 
 function strike() {
@@ -27,7 +28,7 @@ function BranchList() {
       {COPY.arsenal.branches.map((b, i) => (
         <li
           key={b.id}
-          className={`branch-row ${hovered === i ? 'on' : ''}`}
+          className={`branch-row branch-panel ${hovered === i ? 'on' : ''}`}
           style={{ '--bi': i }}
           onMouseEnter={() => (forge.hovered = i)}
           onMouseLeave={() => forge.hovered === i && (forge.hovered = -1)}
@@ -56,14 +57,14 @@ export default function Content() {
     <div className="content">
       {/* 01 — hero */}
       <section className="sec sec--hero" id="sec-core">
-        <div className="hero-inner">
+        <Panel className="panel--hero hero-inner" parallax={0.03}>
           <span className="eyebrow">{COPY.hero.eyebrow}</span>
           <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1500} ignite />
           <p className="hero-sub">{COPY.hero.sub}</p>
           <a className="cta magnetic" href="#sec-point" onClick={strike}>
             <span>{COPY.hero.cta}</span>
           </a>
-        </div>
+        </Panel>
         <div className="scrollcue" aria-hidden="true"><span>Descend</span><i /></div>
       </section>
 
@@ -74,26 +75,26 @@ export default function Content() {
 
       {/* 03 — the clan */}
       <section className="sec sec--left" id="sec-clan">
-        <div className="block">
+        <Panel className="panel--block block">
           <span className="kicker">{COPY.clan.kicker}</span>
           <ForgeText as="h2" className="head" text={COPY.clan.head} />
           <Body>{COPY.clan.body}</Body>
-        </div>
+        </Panel>
       </section>
 
       {/* 04 — the arsenal */}
       <section className="sec sec--arsenal" id="sec-arsenal">
-        <div className="block block--wide">
+        <Panel className="panel--block panel--wide block block--wide" parallax={0.03}>
           <span className="kicker">{COPY.arsenal.kicker}</span>
           <ForgeText as="h2" className="head" text={COPY.arsenal.head} />
           <Body className="intro">{COPY.arsenal.intro}</Body>
           <BranchList />
-        </div>
+        </Panel>
       </section>
 
       {/* 05 — point the sword */}
       <section className="sec sec--left" id="sec-point">
-        <div className="block">
+        <Panel className="panel--block panel--point block">
           <span className="kicker">{COPY.point.kicker}</span>
           <ForgeText as="h2" className="head" text={COPY.point.head} />
           <Body>{COPY.point.body}</Body>
@@ -101,7 +102,7 @@ export default function Content() {
             <span>{COPY.point.cta}</span>
           </a>
           <span className="avail">{COPY.point.avail}</span>
-        </div>
+        </Panel>
       </section>
 
       <footer className="foot">

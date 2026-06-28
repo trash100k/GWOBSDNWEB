@@ -23,10 +23,15 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   -webkit-font-smoothing:antialiased; overflow-x:hidden;}
 ::selection{background:rgba(193,41,46,0.4); color:#fff;}
 
-/* A+E IGNITED — the forge fire. Every A and E in the brand wordmark + "Automatic
-   Execution" carries this gradient glow, in 900 Cinzel Decorative. Mandatory. */
+/* A+E IGNITED — the forge fire. The first A and first E of brand proper-nouns
+   carry this gradient glow in 900 Cinzel Decorative. DISPLAY/WORDMARK ONLY (the
+   GAELWORX mark + the AUTOMATIC EXECUTION headline) — never in lowercase body
+   prose, where Cinzel's caps-only glyphs would read as ransom-note text. */
 .forge-letter{
   font-family:var(--gw-display); font-weight:900;
+  /* sit flush with adjacent display letters — no baseline float from the
+     gradient-clipped glyph. inline-block + baseline align + matched metrics. */
+  display:inline-block; vertical-align:baseline; line-height:1;
   background:linear-gradient(to bottom, #E85D04, #C1292E, #E34A27, #C0392B);
   background-size:100% 200%;
   -webkit-background-clip:text; background-clip:text; color:transparent;
@@ -36,10 +41,12 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 }
 @keyframes lavaFlow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
 
-/* Brand proper-nouns inline in body copy: their non-A/E letters stay in the
-   reading font but carry a touch more weight so the name reads as a unit; the
-   A/E inside still ignite via .forge-letter. */
-.brand-term{font-weight:700; letter-spacing:0.01em;}
+/* Brand proper-nouns inline in body copy. A+E ignite is a display/wordmark rule
+   only (Cinzel has no lowercase — igniting mid-sentence looks like ransom-note
+   text), so here the term stays in the reading font and just carries a touch
+   more weight + a faint warm tint so the name reads as a single unit. */
+.brand-term{font-family:inherit; font-weight:700; letter-spacing:0.01em;
+  color:var(--gw-bone);}
 
 .forge-root{position:relative; width:100%;}
 
@@ -82,11 +89,15 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .nav-toggle.open i:nth-child(2){opacity:0;}
 .nav-toggle.open i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 
-.nav-spine{position:fixed; z-index:40; right:0; top:0; bottom:0; width:2px;
-  background:rgba(255,150,90,0.08);}
+/* Progress spine: a deliberate scroll indicator, inset from the edge so it never
+   reads as a border bleeding off-screen. Slim 1px rail + faint Ash track; the
+   fill is scaled by scroll (Nav.jsx) with a measured ember glow. */
+.nav-spine{position:fixed; z-index:40;
+  right:calc(var(--safe-r) + clamp(10px,1.4vw,18px)); top:18vh; bottom:18vh; width:1px;
+  background:rgba(141,153,174,0.16);}
 .nav-spine__fill{position:absolute; top:0; left:0; right:0; height:100%;
   transform-origin:top; transform:scaleY(0); background:linear-gradient(180deg,var(--gw-ember),var(--gw-forge));
-  box-shadow:0 0 12px rgba(255,90,30,0.6);}
+  box-shadow:0 0 5px rgba(232,93,4,0.45);}
 
 .menu{position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:6px; opacity:0; visibility:hidden;
@@ -115,26 +126,69 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   box-shadow:0 0 34px rgba(255,90,30,0.5);}
 @media (pointer:coarse){.forge-cursor{display:none;}}
 
-/* ── content (floating, no containers) ───────────────────────────────── */
+/* ── content (floating ethereal panels over the obsidian) ────────────── */
 .content{position:relative; z-index:1; pointer-events:none;}
 .content a,.content button,.content .branch-row{pointer-events:auto;}
 
-.sec{position:relative; min-height:100svh; display:flex; align-items:center;
-  padding:14vh clamp(24px,6vw,96px);}
-.sec--hero{flex-direction:column; justify-content:center; align-items:flex-start;}
-.sec--draw{min-height:150svh; justify-content:center; text-align:center;}
-.sec--left{min-height:118svh; justify-content:flex-start;}
-.sec--arsenal{min-height:165svh; justify-content:flex-start; align-items:flex-end; padding-bottom:16vh;}
+/* Iron Grid gutter — one consistent inline padding for every section so panels
+   align to the same column rails. Content-driven heights, deliberate rhythm. */
+.sec{position:relative; display:flex; align-items:center;
+  padding:clamp(96px,16vh,180px) clamp(20px,6vw,96px);}
+.sec--hero{min-height:100svh; flex-direction:column; justify-content:center; align-items:flex-start;}
+.sec--draw{min-height:auto; padding-block:clamp(110px,20vh,220px); justify-content:center; text-align:center;}
+.sec--left{justify-content:flex-start;}
+.sec--arsenal{justify-content:flex-start; align-items:center;}
 
+/* lighter section scrims — the frosted panels now carry legibility, so the page
+   scrims just deepen the obsidian a touch and never hide the veins between panels */
 .sec--hero::before,.sec--left::before{content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(90deg, rgba(4,5,8,0.82), rgba(4,5,8,0.36) 40%, transparent 68%);}
+  background:linear-gradient(90deg, rgba(4,5,8,0.42), rgba(4,5,8,0.12) 46%, transparent 72%);}
 .sec--arsenal::before{content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(0deg, rgba(4,5,8,0.88), rgba(4,5,8,0.22) 54%, transparent 80%);}
+  background:linear-gradient(0deg, rgba(4,5,8,0.5), rgba(4,5,8,0.1) 60%, transparent 82%);}
 .sec--draw::before{content:""; position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(60% 26% at 50% 24%, rgba(4,5,8,0.7), transparent 70%);}
+  background:radial-gradient(60% 26% at 50% 50%, rgba(4,5,8,0.55), transparent 72%);}
 .hero-inner,.block{position:relative; z-index:1;}
 
-.hero-inner{max-width:980px;}
+/* ── ethereal panel — frosted-obsidian glass, sharp 0px corners ────────── */
+.panel{position:relative; z-index:1; width:100%;
+  /* Forge Reveal: blur-to-sharp + small atmospheric float on entry */
+  --panel-shift:0px;
+  opacity:0; transform:translateY(calc(26px + var(--panel-shift))); filter:blur(8px);
+  transition:opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease);}
+.panel.shown{opacity:1; transform:translateY(var(--panel-shift)); filter:blur(0);}
+.panel__inner{position:relative; z-index:1;
+  /* frosted obsidian fill — veins bleed through */
+  background:linear-gradient(180deg, rgba(8,9,14,0.56), rgba(8,9,14,0.44));
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
+  backdrop-filter:blur(14px) saturate(1.1);
+  border:1px solid rgba(141,153,174,0.22);   /* luminous Ash hairline */
+  border-radius:0;                            /* SHARP — brand non-negotiable */
+  padding:clamp(26px,4vw,52px) clamp(22px,4vw,56px);
+  /* L2 inner forge-light glow + softened, layered atmospheric depth shadow */
+  box-shadow:
+    inset 0 0 60px rgba(227,74,39,0.10),
+    inset 0 1px 0 rgba(241,242,246,0.06),
+    0 2px 14px rgba(0,0,0,0.45),
+    0 22px 60px -28px rgba(0,0,0,0.85);
+  transition:border-color .35s var(--ease), box-shadow .5s var(--ease);}
+/* top light-leak hairline */
+.panel__inner::before{content:""; position:absolute; top:0; left:0; right:0; height:1px; pointer-events:none;
+  background:linear-gradient(90deg, transparent, rgba(255,150,90,0.45), rgba(141,153,174,0.4), transparent);
+  opacity:0.7;}
+/* Molten Edge — soft outward ember bloom on hover/focus-within */
+.panel:hover .panel__inner,.panel:focus-within .panel__inner{
+  border-color:rgba(255,120,60,0.5);
+  box-shadow:
+    inset 0 0 70px rgba(227,74,39,0.16),
+    inset 0 1px 0 rgba(241,242,246,0.08),
+    0 0 0 1px rgba(255,120,60,0.18),
+    0 18px 70px -22px rgba(255,80,20,0.4),
+    0 22px 60px -28px rgba(0,0,0,0.85);}
+
+.panel--hero .panel__inner{padding:clamp(30px,5vw,60px) clamp(26px,5vw,64px);}
+.panel--wide{max-width:1180px;}
+
+.hero-inner{max-width:760px;}
 .eyebrow{display:block; font-size:clamp(10px,1.1vw,12.5px); letter-spacing:0.46em;
   font-weight:700; text-transform:uppercase; color:var(--gw-ember); margin-bottom:clamp(16px,2vw,26px);}
 .headline{margin:0; font-family:var(--gw-display); text-transform:uppercase; font-weight:900;
@@ -146,7 +200,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   line-height:1.32; color:var(--gw-steel); max-width:32ch;}
 
 .cta{position:relative; display:inline-flex; align-items:center; margin-top:clamp(26px,3.4vw,44px);
-  padding:16px 30px; border:1px solid rgba(255,120,50,0.55); border-radius:2px; color:#ffd9c2;
+  padding:16px 30px; border:1px solid rgba(255,120,50,0.55); border-radius:0; color:#ffd9c2;
   text-decoration:none; font-size:0.8rem; font-weight:700; letter-spacing:0.3em; text-transform:uppercase;
   background:linear-gradient(180deg,rgba(255,90,30,0.07),rgba(255,90,30,0.02));
   transition:color .4s,border-color .4s,box-shadow .5s,transform .3s; overflow:hidden;}
@@ -175,6 +229,9 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 
 .block{max-width:620px;}
 .block--wide{max-width:1180px; width:100%;}
+/* inside a frosted panel, copy clears its own width rails */
+.panel .hero-sub,.panel .reveal{max-width:46ch;}
+.panel--wide .reveal{max-width:62ch;}
 .kicker{display:block; font-size:11px; letter-spacing:0.4em; font-weight:700;
   text-transform:uppercase; color:var(--gw-ember); margin-bottom:18px;}
 .head{margin:0 0 18px; font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
@@ -184,15 +241,20 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .intro{margin-bottom:8px;}
 .reveal strong{color:var(--gw-bone); font-weight:600;}
 
-/* floating branch list — no cards */
+/* branch list — ethereal frosted mini-panels on the Iron Grid */
 .branch-list{list-style:none; margin:clamp(26px,3vw,44px) 0 0; padding:0; display:grid;
-  grid-template-columns:repeat(4,1fr); gap:clamp(18px,2vw,34px);}
-.branch-row{position:relative; padding-top:18px; cursor:pointer;
-  border-top:1px solid rgba(255,150,90,0.16); transition:border-color .35s var(--ease), transform .35s var(--ease);}
-.branch-row::before{content:""; position:absolute; top:-1px; left:0; width:0; height:1px;
+  grid-template-columns:repeat(4,1fr); gap:clamp(12px,1.4vw,20px);}
+.branch-row{position:relative; padding:18px clamp(14px,1.4vw,20px); cursor:pointer;
+  background:linear-gradient(180deg, rgba(8,9,14,0.42), rgba(8,9,14,0.3));
+  -webkit-backdrop-filter:blur(10px) saturate(1.1); backdrop-filter:blur(10px) saturate(1.1);
+  border:1px solid rgba(141,153,174,0.18); border-radius:0;
+  box-shadow:inset 0 0 40px rgba(227,74,39,0.07);
+  transition:border-color .35s var(--ease), transform .35s var(--ease), box-shadow .4s var(--ease);}
+.branch-row::before{content:""; position:absolute; top:0; left:0; width:0; height:1px;
   background:var(--gw-ember); box-shadow:0 0 10px var(--gw-ember); transition:width .4s var(--ease);}
-.branch-row.on::before{width:60%;}
-.branch-row.on{transform:translateY(-3px);}
+.branch-row.on::before{width:70%;}
+.branch-row.on,.branch-row:hover{transform:translateY(-3px); border-color:rgba(255,120,60,0.45);
+  box-shadow:inset 0 0 50px rgba(227,74,39,0.13), 0 14px 40px -20px rgba(255,80,20,0.4);}
 .branch-id{display:block; font-size:10px; letter-spacing:0.28em; font-weight:700;
   text-transform:uppercase; color:var(--gw-ember); margin-bottom:10px;}
 .branch-line{display:block; font-family:var(--gw-headline); font-weight:700;
@@ -225,21 +287,28 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:880px){
   .branch-list{grid-template-columns:repeat(2,1fr);}
-  .sec--arsenal{align-items:center; padding-bottom:12vh;}
 }
 @media (max-width:560px){
-  .branch-list{grid-template-columns:1fr; gap:0;}
-  .branch-row{padding:16px 0;}
-  .hero-sub,.reveal{max-width:none;}
-  /* fuller scrim on phones so copy stays legible over the bright sun/aurora */
+  /* tighter Iron-Grid gutter + rhythm on phones, no horizontal overflow */
+  .sec{padding:clamp(72px,11vh,120px) 16px;}
+  .panel__inner{padding:clamp(22px,6vw,30px) clamp(18px,5vw,26px);}
+  .panel--hero .panel__inner{padding:clamp(24px,7vw,34px) clamp(18px,5vw,26px);}
+  .branch-list{grid-template-columns:1fr; gap:10px;}
+  .branch-row{padding:16px 18px;}
+  .hero-inner,.block{max-width:none; width:100%;}
+  .panel .hero-sub,.panel .reveal,.panel--wide .reveal{max-width:none;}
+  /* on phones lean the frosted fill a touch more opaque for copy over bright veins */
+  .panel__inner{background:linear-gradient(180deg, rgba(8,9,14,0.64), rgba(8,9,14,0.52));}
+  /* keep the section scrims light so the obsidian still reads between panels */
   .sec--hero::before,.sec--left::before{
-    background:linear-gradient(180deg, rgba(4,5,8,0.66), rgba(4,5,8,0.5) 60%, rgba(4,5,8,0.62));}
-  .sec--arsenal::before{background:linear-gradient(0deg, rgba(4,5,8,0.9), rgba(4,5,8,0.45) 70%, rgba(4,5,8,0.55));}
+    background:linear-gradient(180deg, rgba(4,5,8,0.4), rgba(4,5,8,0.12) 55%, transparent);}
+  .sec--arsenal::before{background:linear-gradient(0deg, rgba(4,5,8,0.5), rgba(4,5,8,0.1) 65%, transparent);}
 }
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .forge-text .word>span,.reveal{transition:none; opacity:1; transform:none; filter:none;}
+  .panel{transition:none; opacity:1; transform:none; filter:none;}
   .loader-mark{animation:none;} .loader-bar i{animation:none; width:100%;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
 }
