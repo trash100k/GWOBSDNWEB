@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
 import BrandText from './BrandText.jsx'
-import Panel from './Panel.jsx'
-import { useReveal } from '../hooks.js'
 
 function strike() {
   forge.strikeAt = performance.now() / 1000
 }
 
-/** Floating branch list — no cards. Hover (desktop) or tap (mobile) ignites the
-    matching monolith; reads forge.hovered back so 3D↔DOM stay in sync. */
+/** Arsenal branch list — ambient, no cards. Hover (desktop) or tap (mobile)
+    ignites the matching vein region; reads forge.hovered back so 3D↔DOM sync. */
 function BranchList() {
   const [hovered, setHovered] = useState(-1)
   useEffect(() => {
@@ -28,7 +26,7 @@ function BranchList() {
       {COPY.arsenal.branches.map((b, i) => (
         <li
           key={b.id}
-          className={`branch-row branch-panel ${hovered === i ? 'on' : ''}`}
+          className={`branch-row ${hovered === i ? 'on' : ''}`}
           style={{ '--bi': i }}
           onMouseEnter={() => (forge.hovered = i)}
           onMouseLeave={() => forge.hovered === i && (forge.hovered = -1)}
@@ -43,72 +41,161 @@ function BranchList() {
   )
 }
 
-function Body({ children, className = '' }) {
-  const [ref, shown] = useReveal()
-  return (
-    <p ref={ref} className={`reveal ${shown ? 'shown' : ''} ${className}`}>
-      {typeof children === 'string' ? <BrandText text={children} /> : children}
-    </p>
-  )
-}
+const rnd = (a, b) => a + Math.random() * (b - a)
+const easeOut = (x) => 1 - Math.pow(1 - x, 3)
+const easeIn = (x) => x * x * x
 
+/**
+ * Ambient scroll-jacked stage. There are no containers — the obsidian is the
+ * environment, and the copy "frames" are jacked IN on scroll (pinned in place,
+ * never physically scrolling) from a RANDOM entry vector each, blur→sharp. A tall
+ * invisible track supplies the scroll distance (so the 3D scene stays scroll-
+ * reactive and the nav still scrubs).
+ */
 export default function Content() {
+  const frameRefs = useRef([])
+  const reduced = useMemo(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    []
+  )
+
+  // Per-frame random entry/exit vectors — fixed for this mount. Randomizing the
+  // entry point is what gives each reveal its own punch.
+  const N = 6
+  const vecs = useMemo(
+    () =>
+      Array.from({ length: N }, () => {
+        const ang = Math.random() * Math.PI * 2
+        const dist = rnd(52, 96)
+        const exAng = ang + Math.PI + rnd(-0.7, 0.7)
+        return {
+          ex: Math.cos(ang) * dist, // entry translate, vw / vh
+          ey: Math.sin(ang) * dist * 0.85,
+          rot: rnd(-10, 10),
+          blur: rnd(18, 32),
+          scale: rnd(0.82, 0.92),
+          ox: Math.cos(exAng) * rnd(22, 44), // exit drift
+          oy: Math.sin(exAng) * rnd(18, 36) - 10,
+          orot: rnd(-6, 6),
+          oblur: rnd(10, 20),
+        }
+      }),
+    []
+  )
+
+  const scrollToFrame = (i) => {
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    window.scrollTo({ top: max > 0 ? (i / (N - 1)) * max : 0, behavior: 'smooth' })
+  }
+
+  // Drive the frame composite from scroll progress every rAF.
+  useEffect(() => {
+    let raf
+    const H = 0.18 // half-width held fully sharp
+    const W = 0.96 // half-width fully faded
+    const tick = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      const p = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0
+      const pos = p * (N - 1)
+      for (let i = 0; i < N; i++) {
+        const el = frameRefs.current[i]
+        if (!el) continue
+        const t = pos - i
+        const at = Math.abs(t)
+        const opacity = at <= H ? 1 : Math.max(0, 1 - (at - H) / (W - H))
+        const v = vecs[i]
+        let tx = 0, ty = 0, rot = 0, blur = 0, sc = 1
+        if (!reduced && at > H) {
+          const f0 = Math.min((at - H) / (W - H), 1)
+          if (t < 0) {
+            const f = easeOut(f0)
+            tx = v.ex * f; ty = v.ey * f; rot = v.rot * f; blur = v.blur * f; sc = 1 - (1 - v.scale) * f
+          } else {
+            const f = easeIn(f0)
+            tx = v.ox * f; ty = v.oy * f; rot = v.orot * f; blur = v.oblur * f; sc = 1 - 0.03 * f
+          }
+        }
+        el.style.opacity = opacity.toFixed(3)
+        el.style.transform = reduced
+          ? 'none'
+          : `translate3d(${tx.toFixed(2)}vw, ${ty.toFixed(2)}vh, 0) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(3)})`
+        el.style.filter = !reduced && blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none'
+        el.classList.toggle('is-active', opacity > 0.6)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [vecs, reduced])
+
+  const setRef = (i) => (el) => (frameRefs.current[i] = el)
+
   return (
-    <div className="content">
-      {/* 01 — hero */}
-      <section className="sec sec--hero" id="sec-core">
-        <Panel className="panel--hero hero-inner" parallax={0.03}>
-          <span className="eyebrow">{COPY.hero.eyebrow}</span>
-          <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1500} ignite />
-          <p className="hero-sub">{COPY.hero.sub}</p>
-          <a className="cta magnetic" href="#sec-point" onClick={strike}>
-            <span>{COPY.hero.cta}</span>
-          </a>
-        </Panel>
-        <div className="scrollcue" aria-hidden="true"><span>Descend</span><i /></div>
-      </section>
+    <>
+      <div className="stage" aria-label="GAELWORX">
+        {/* 00 — hero */}
+        <div className="frame frame--hero" ref={setRef(0)}>
+          <div className="fbody">
+            <span className="eyebrow">{COPY.hero.eyebrow}</span>
+            <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1200} ignite />
+            <p className="hero-sub">{COPY.hero.sub}</p>
+            <button className="cta magnetic" onClick={() => { strike(); scrollToFrame(4) }}>
+              <span>{COPY.hero.cta}</span>
+            </button>
+          </div>
+          <div className="scrollcue" aria-hidden="true"><span>Descend</span><i /></div>
+        </div>
 
-      {/* 02 — interstitial */}
-      <section className="sec sec--draw">
-        <ForgeText as="p" className="draw-line" text={COPY.draw} />
-      </section>
+        {/* 01 — interstitial */}
+        <div className="frame frame--draw" ref={setRef(1)}>
+          <p className="draw-line">{COPY.draw}</p>
+        </div>
 
-      {/* 03 — the clan */}
-      <section className="sec sec--left" id="sec-clan">
-        <Panel className="panel--block block">
-          <span className="kicker">{COPY.clan.kicker}</span>
-          <ForgeText as="h2" className="head" text={COPY.clan.head} />
-          <Body>{COPY.clan.body}</Body>
-        </Panel>
-      </section>
+        {/* 02 — the clan */}
+        <div className="frame" ref={setRef(2)}>
+          <div className="fbody">
+            <span className="kicker">{COPY.clan.kicker}</span>
+            <ForgeText as="h2" className="head" text={COPY.clan.head} />
+            <p className="body"><BrandText text={COPY.clan.body} /></p>
+          </div>
+        </div>
 
-      {/* 04 — the arsenal */}
-      <section className="sec sec--arsenal" id="sec-arsenal">
-        <Panel className="panel--block panel--wide block block--wide" parallax={0.03}>
-          <span className="kicker">{COPY.arsenal.kicker}</span>
-          <ForgeText as="h2" className="head" text={COPY.arsenal.head} />
-          <Body className="intro">{COPY.arsenal.intro}</Body>
-          <BranchList />
-        </Panel>
-      </section>
+        {/* 03 — the arsenal */}
+        <div className="frame frame--arsenal" ref={setRef(3)}>
+          <div className="fbody fbody--wide">
+            <span className="kicker">{COPY.arsenal.kicker}</span>
+            <ForgeText as="h2" className="head" text={COPY.arsenal.head} />
+            <p className="body intro"><BrandText text={COPY.arsenal.intro} /></p>
+            <BranchList />
+          </div>
+        </div>
 
-      {/* 05 — point the sword */}
-      <section className="sec sec--left" id="sec-point">
-        <Panel className="panel--block panel--point block">
-          <span className="kicker">{COPY.point.kicker}</span>
-          <ForgeText as="h2" className="head" text={COPY.point.head} />
-          <Body>{COPY.point.body}</Body>
-          <a className="cta cta--solid magnetic" href="#sec-core" onClick={strike}>
-            <span>{COPY.point.cta}</span>
-          </a>
-          <span className="avail">{COPY.point.avail}</span>
-        </Panel>
-      </section>
+        {/* 04 — point */}
+        <div className="frame" ref={setRef(4)}>
+          <div className="fbody">
+            <span className="kicker">{COPY.point.kicker}</span>
+            <ForgeText as="h2" className="head" text={COPY.point.head} />
+            <p className="body"><BrandText text={COPY.point.body} /></p>
+            <button className="cta cta--solid magnetic" onClick={() => { strike(); scrollToFrame(0) }}>
+              <span>{COPY.point.cta}</span>
+            </button>
+            <span className="avail">{COPY.point.avail}</span>
+          </div>
+        </div>
 
-      <footer className="foot">
-        <span><BrandText text={COPY.footer.mark} /></span>
-        <span className="foot-tag">{COPY.footer.tag}</span>
-      </footer>
-    </div>
+        {/* 05 — sign-off */}
+        <div className="frame frame--foot" ref={setRef(5)}>
+          <div className="fbody">
+            <span className="foot-mark"><BrandText text={COPY.footer.mark} /></span>
+            <span className="foot-tag">{COPY.footer.tag}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* invisible track: supplies scroll distance for the jack + the 3D scene */}
+      <div className="scroll-track" style={{ height: `${N * 100}vh` }} aria-hidden="true" />
+    </>
   )
 }
