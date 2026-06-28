@@ -62,6 +62,9 @@ export default function MirrorPlane({ quality }) {
             float horizon = smoothstep(-46.0, -12.0, vW.z) * smoothstep(-2.0, -10.0, vW.z + 4.0);
             vec3 col = uWarm * (c*0.5 + max(ring,0.0)*0.25) * window
                      + uWarm * horizon * 0.10;
+            // fire-opal play-of-color on the brightest surface glints
+            vec3 opal = 0.5 + 0.5*cos(6.2831*(c*1.4 + vW.x*0.04 + vec3(0.0,0.33,0.67)));
+            col += opal * pow(clamp(c,0.0,1.5)*window, 3.0) * 0.12;
             gl_FragColor = vec4(col * (0.35 + 0.65*uAmbient), 1.0);
           }
         `,

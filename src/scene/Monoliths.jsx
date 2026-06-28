@@ -1,45 +1,57 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 import { forge, range } from '../store.js'
 import { GLSL_NOISE } from './shaders.js'
+import { PAL, v3 } from './palette.js'
 
 const { clamp, damp, smoothstep, lerp } = THREE.MathUtils
 const XS = [-4.2, -1.4, 1.4, 4.2]
 
+// a tall faceted crystal (octahedron bipyramid) — gem facets catch the light
+const crystalGeo = (() => {
+  const g = new THREE.OctahedronGeometry(1, 0)
+  g.scale(0.66, 1.7, 0.66)
+  g.computeVertexNormals()
+  return g
+})()
+
 const HEAD = /* glsl */ `
   uniform float uTime; uniform float uGlow;
-  uniform vec3 uEmber; uniform vec3 uCaustic;
   ${GLSL_NOISE}
 `
+// warm fire-opal interior glow injected on top of the physical (iridescent) material
 const COLOR = /* glsl */ `
   float ndv = clamp(dot(normalize(vNormal), normalize(vViewPosition)), 0.0, 1.0);
-  float interior = 1.0 - pow(1.0 - ndv, 3.0);
+  float interior = 1.0 - pow(1.0 - ndv, 2.0);
   float t = uTime * 0.3;
-  float c = gw_caustic(vUv * 2.2, t);
-  c *= smoothstep(0.1, 0.8, gw_fbm(vUv * 0.7 + vec2(t*0.1, 0.0)));
-  float edge = pow(1.0 - ndv, 2.5);
-  vec3 warm = uCaustic * c * interior * (0.25 + uGlow * 1.6)
-            + uEmber * edge * uGlow * 1.4;
-  gl_FragColor.rgb += warm;
+  float c = gw_caustic(vUv * 2.4, t);
+  c *= smoothstep(0.05, 0.8, gw_fbm(vUv * 0.8 + vec2(t*0.1, 0.0)));
+  float edge = pow(1.0 - ndv, 2.2);
+  vec3 fire = ${v3(PAL.red)} * c * interior * (0.6 + uGlow * 1.9)
+            + ${v3(PAL.ember)} * edge * (0.5 + uGlow * 1.8)
+            + ${v3(PAL.crimson)} * interior * 0.2;   // always-lit fire-opal body
+  gl_FragColor.rgb += fire;
 `
 
-function makeMaterial() {
-  const u = {
-    uTime: { value: 0 },
-    uGlow: { value: 0 },
-    uEmber: { value: new THREE.Color(1.0, 0.32, 0.06) },
-    uCaustic: { value: new THREE.Color(1.6, 0.55, 0.16) },
-  }
+function makeMaterial(transmissive) {
+  const u = { uTime: { value: 0 }, uGlow: { value: 0 } }
   const m = new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color('#05060b'),
+    color: new THREE.Color('#0a0406'),
     metalness: 0,
-    roughness: 0.14,
+    roughness: 0.08,
     clearcoat: 1,
-    clearcoatRoughness: 0.05,
-    envMapIntensity: 1.0,
-    ior: 1.7,
+    clearcoatRoughness: 0.04,
+    envMapIntensity: 1.2,
+    ior: 1.46, // fire opal
+    transmission: transmissive ? 0.85 : 0,
+    thickness: transmissive ? 1.3 : 0,
+    attenuationColor: PAL.crimson.clone(),
+    attenuationDistance: 1.4,
+    iridescence: 1.0, // the opal play-of-color
+    iridescenceIOR: 1.3,
+    iridescenceThicknessRange: [120, 480],
+    transparent: transmissive,
   })
   m.defines = { USE_UV: '' }
   m.userData.u = u
@@ -52,9 +64,9 @@ function makeMaterial() {
   return m
 }
 
-function Monolith({ i }) {
+function Monolith({ i, transmissive }) {
   const groupRef = useRef()
-  const material = useMemo(() => makeMaterial(), [])
+  const material = useMemo(() => makeMaterial(transmissive), [transmissive])
   useEffect(() => () => material.dispose(), [material])
 
   useFrame((state, dt) => {
@@ -66,39 +78,39 @@ function Monolith({ i }) {
     const p = forge.scrollDamped
     const rise = clamp(range(p, 0.58, 0.74) - range(p, 0.86, 0.94), 0, 1)
     const g = groupRef.current
-    const baseY = lerp(-3.6, 0, smoothstep(0, 1, rise))
-    g.position.y = baseY + (on ? 0.12 : 0)
+    g.position.y = lerp(-4.2, 0, smoothstep(0, 1, rise)) + (on ? 0.16 : 0)
     g.visible = rise > 0.02
-    g.scale.setScalar(0.96 + (on ? 0.06 : 0))
+    g.rotation.y += dt * (0.05 + (on ? 0.25 : 0)) // slow gem turn
+    const s = 0.96 + (on ? 0.08 : 0)
+    g.scale.setScalar(damp(g.scale.x, s, 6, dt))
   })
-
-  const select = (e) => {
-    e.stopPropagation()
-    forge.hovered = i
-  }
 
   return (
     <group
       ref={groupRef}
-      position={[XS[i], -3.6, -3]}
+      position={[XS[i], -4.2, -3]}
       onPointerOver={(e) => {
         e.stopPropagation()
         forge.hovered = i
       }}
       onPointerOut={() => forge.hovered === i && (forge.hovered = -1)}
-      onClick={select}
+      onClick={(e) => {
+        e.stopPropagation()
+        forge.hovered = i
+      }}
     >
-      <RoundedBox args={[0.85, 3.4, 0.5]} radius={0.06} smoothness={3} material={material} />
+      <mesh geometry={crystalGeo} material={material} />
     </group>
   )
 }
 
-/** Four obsidian monoliths that surface from the mirror for the four branches. */
-export default function Monoliths() {
+/** Four fire-opal crystals that surface from the mirror for the four branches. */
+export default function Monoliths({ quality }) {
+  const transmissive = quality === 'high'
   return (
-    <group position={[0, 1.7, 0]}>
+    <group position={[0, 1.8, 0]}>
       {[0, 1, 2, 3].map((i) => (
-        <Monolith key={i} i={i} />
+        <Monolith key={i} i={i} transmissive={transmissive} />
       ))}
     </group>
   )

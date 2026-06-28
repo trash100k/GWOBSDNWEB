@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import CameraRig from './CameraRig.jsx'
 import MirrorPlane from './MirrorPlane.jsx'
 import Aurora from './Aurora.jsx'
+import Cosmos from './Cosmos.jsx'
 import Monoliths from './Monoliths.jsx'
 import Embers from './Embers.jsx'
 import Effects from './Effects.jsx'
@@ -43,9 +44,10 @@ export default function ForgeCanvas({ quality }) {
           <Lightformer form="ring" intensity={1.8} color="#ffd2a0" position={[5, 2, -5]} scale={2.4} />
         </Environment>
 
+        <Cosmos quality={quality} />
         <Aurora ref={sunRef} />
         <MirrorPlane quality={quality} />
-        <Monoliths />
+        <Monoliths quality={quality} />
         <Embers count={quality === 'high' ? 300 : 110} />
       </Suspense>
 
