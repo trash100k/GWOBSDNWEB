@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { forge, ACTS } from '../store.js'
 import { NAV, COPY } from '../brand.js'
+import Ignite from './Ignite.jsx'
 
 function scrollToProgress(p) {
   const max = document.documentElement.scrollHeight - window.innerHeight
@@ -31,7 +32,7 @@ export default function Nav() {
   return (
     <>
       <button className="nav-mark magnetic" onClick={() => scrollToProgress(0)}>
-        GAELWORX
+        <Ignite text="GAELWORX" />
       </button>
 
       <button className={`nav-toggle magnetic ${open ? 'open' : ''}`} onClick={() => setOpen((o) => !o)} aria-label="Menu">

@@ -1,11 +1,17 @@
 export const STYLES = `
 :root{
   color-scheme: dark;
-  --gw-void:#040507; --gw-obsidian:#0a0b10; --gw-iron:#15161c;
-  --gw-steel:#9aa1ad; --gw-bone:#efe6da; --gw-ember:#ff5a1e;
-  --gw-ember-deep:#ff3b0a; --gw-forge:#d72638;
-  --gw-display:'Cinzel','Trajan Pro','Times New Roman',serif;
-  --gw-sans:ui-sans-serif,system-ui,-apple-system,'Segoe UI',Inter,Roboto,sans-serif;
+  /* GAELWORX official palette — Industrial Metallurgy */
+  --gw-void:#0B0C10;        /* Forged Iron */
+  --gw-obsidian:#0a0b10; --gw-iron:#1F2833;  /* Cold Steel */
+  --gw-steel:#8D99AE;       /* Ash */
+  --gw-bone:#F1F2F6;        /* Fog White */
+  --gw-ember:#E85D04;       /* Ember Glow */
+  --gw-ember-deep:#E34A27; --gw-forge:#C1292E;  /* Celtic Blood */
+  /* Type — Cinzel Decorative (brand/display, 700-900 only) · Bricolage (headlines) · Hanken (body) */
+  --gw-display:'Cinzel Decorative','Times New Roman',serif;
+  --gw-headline:'Bricolage Grotesque Variable',ui-sans-serif,system-ui,sans-serif;
+  --gw-sans:'Hanken Grotesk',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --ease:cubic-bezier(0.16,1,0.3,1);
   --safe-t:env(safe-area-inset-top,0px); --safe-r:env(safe-area-inset-right,0px);
   --safe-b:env(safe-area-inset-bottom,0px); --safe-l:env(safe-area-inset-left,0px);
@@ -15,7 +21,25 @@ html,body,#root{margin:0; padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans);
   -webkit-font-smoothing:antialiased; overflow-x:hidden;}
-::selection{background:rgba(255,90,30,0.35); color:#fff;}
+::selection{background:rgba(193,41,46,0.4); color:#fff;}
+
+/* A+E IGNITED — the forge fire. Every A and E in the brand wordmark + "Automatic
+   Execution" carries this gradient glow, in 900 Cinzel Decorative. Mandatory. */
+.forge-letter{
+  font-family:var(--gw-display); font-weight:900;
+  background:linear-gradient(to bottom, #E85D04, #C1292E, #E34A27, #C0392B);
+  background-size:100% 200%;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 22px rgba(232,93,4,0.45);
+  animation:lavaFlow 3s infinite alternate ease-in-out;
+}
+@keyframes lavaFlow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
+
+/* Brand proper-nouns inline in body copy: their non-A/E letters stay in the
+   reading font but carry a touch more weight so the name reads as a unit; the
+   A/E inside still ignite via .forge-letter. */
+.brand-term{font-weight:700; letter-spacing:0.01em;}
 
 .forge-root{position:relative; width:100%;}
 
@@ -72,14 +96,14 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .menu.open{opacity:1; visibility:visible;}
 .menu-list{display:flex; flex-direction:column; align-items:center; gap:clamp(4px,1vw,10px);}
 .menu-item{background:none; border:0; cursor:pointer; display:flex; align-items:baseline;
-  gap:14px; color:var(--gw-bone); font-family:var(--gw-display); font-weight:600;
+  gap:14px; color:var(--gw-bone); font-family:var(--gw-headline); font-weight:700;
   font-size:clamp(1.6rem,5.5vw,3rem); letter-spacing:0.02em; line-height:1.1;
   opacity:0; transform:translateY(18px); transition:color .3s, opacity .5s var(--ease), transform .5s var(--ease);
   transition-delay:calc(var(--mi)*40ms);}
 .menu.open .menu-item{opacity:1; transform:none;}
 .menu-item:hover{color:var(--gw-ember);}
 .menu-num{font-size:0.5em; color:var(--gw-ember); font-family:var(--gw-sans); letter-spacing:0.2em;}
-.menu-foot{margin-top:clamp(24px,4vw,48px); font-family:var(--gw-display); color:var(--gw-steel);
+.menu-foot{margin-top:clamp(24px,4vw,48px); font-family:var(--gw-headline); color:var(--gw-steel);
   letter-spacing:0.06em; font-size:clamp(12px,1.5vw,16px); opacity:0.8; text-align:center; padding:0 24px;}
 
 /* ── magnetic cursor ─────────────────────────────────────────────────── */
@@ -113,8 +137,8 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .hero-inner{max-width:980px;}
 .eyebrow{display:block; font-size:clamp(10px,1.1vw,12.5px); letter-spacing:0.46em;
   font-weight:700; text-transform:uppercase; color:var(--gw-ember); margin-bottom:clamp(16px,2vw,26px);}
-.headline{margin:0; font-family:var(--gw-display); text-transform:uppercase; font-weight:700;
-  font-size:clamp(2.3rem,8.4vw,6.8rem); line-height:0.98; letter-spacing:0.012em;}
+.headline{margin:0; font-family:var(--gw-display); text-transform:uppercase; font-weight:900;
+  font-size:clamp(1.7rem,6vw,4.6rem); line-height:1.04; letter-spacing:0.02em;}
 .etched{color:rgba(236,226,214,0.96);
   text-shadow:0 1px 0 rgba(255,190,130,0.10),0 -1px 1px rgba(0,0,0,0.85),
     0 2px 2px rgba(0,0,0,0.65),0 0 44px rgba(255,90,30,0.16);}
@@ -153,7 +177,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .block--wide{max-width:1180px; width:100%;}
 .kicker{display:block; font-size:11px; letter-spacing:0.4em; font-weight:700;
   text-transform:uppercase; color:var(--gw-ember); margin-bottom:18px;}
-.head{margin:0 0 18px; font-family:var(--gw-display); font-weight:700; color:var(--gw-bone);
+.head{margin:0 0 18px; font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
   font-size:clamp(1.6rem,4.4vw,3rem); line-height:1.04;}
 .reveal,.intro{margin:0; font-size:clamp(1rem,1.5vw,1.18rem); line-height:1.62; color:var(--gw-steel);
   max-width:58ch; text-shadow:0 2px 30px rgba(0,0,0,0.7);}
@@ -171,7 +195,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .branch-row.on{transform:translateY(-3px);}
 .branch-id{display:block; font-size:10px; letter-spacing:0.28em; font-weight:700;
   text-transform:uppercase; color:var(--gw-ember); margin-bottom:10px;}
-.branch-line{display:block; font-family:var(--gw-display); font-weight:700;
+.branch-line{display:block; font-family:var(--gw-headline); font-weight:700;
   font-size:clamp(1.05rem,1.4vw,1.3rem); color:var(--gw-bone); margin-bottom:10px; line-height:1.1;}
 .branch-body{display:block; font-size:0.92rem; line-height:1.55; color:rgba(154,161,173,0.82);
   opacity:0.7; transition:opacity .35s var(--ease);}
@@ -184,7 +208,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   padding:clamp(70px,14vh,160px) 20px calc(var(--safe-b) + clamp(50px,9vh,110px));}
 .foot>span:first-child{font-size:clamp(11px,1.3vw,14px); letter-spacing:0.42em; font-weight:600;
   text-transform:uppercase; color:rgba(255,200,170,0.5);}
-.foot-tag{font-family:var(--gw-display); font-weight:600; letter-spacing:0.06em;
+.foot-tag{font-family:var(--gw-headline); font-weight:600; letter-spacing:0.06em;
   font-size:clamp(14px,1.6vw,19px); color:var(--gw-steel);}
 
 /* ── kinetic type ────────────────────────────────────────────────────── */

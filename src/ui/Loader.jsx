@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { forge } from '../store.js'
 import { COPY } from '../brand.js'
+import Ignite from './Ignite.jsx'
 
 /** ACT 00 — Ignition. Gates the journey until fonts are ready, then lifts. */
 export default function Loader() {
@@ -24,7 +25,7 @@ export default function Loader() {
   if (phase === 'gone') return null
   return (
     <div className={`loader ${phase === 'out' ? 'out' : ''}`}>
-      <div className="loader-mark">GAELWORX</div>
+      <div className="loader-mark"><Ignite text="GAELWORX" /></div>
       <div className="loader-sub">{COPY.loader}</div>
       <div className="loader-bar"><i /></div>
     </div>

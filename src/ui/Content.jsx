@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
+import BrandText from './BrandText.jsx'
 import { useReveal } from '../hooks.js'
 
 function strike() {
@@ -32,9 +33,9 @@ function BranchList() {
           onMouseLeave={() => forge.hovered === i && (forge.hovered = -1)}
           onClick={() => (forge.hovered = i)}
         >
-          <span className="branch-id">{b.id} · {b.tag}</span>
-          <span className="branch-line">{b.line}</span>
-          <span className="branch-body">{b.body}</span>
+          <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
+          <span className="branch-line"><BrandText text={b.line} /></span>
+          <span className="branch-body"><BrandText text={b.body} /></span>
         </li>
       ))}
     </ul>
@@ -45,7 +46,7 @@ function Body({ children, className = '' }) {
   const [ref, shown] = useReveal()
   return (
     <p ref={ref} className={`reveal ${shown ? 'shown' : ''} ${className}`}>
-      {children}
+      {typeof children === 'string' ? <BrandText text={children} /> : children}
     </p>
   )
 }
@@ -57,7 +58,7 @@ export default function Content() {
       <section className="sec sec--hero" id="sec-core">
         <div className="hero-inner">
           <span className="eyebrow">{COPY.hero.eyebrow}</span>
-          <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1500} />
+          <ForgeText as="h1" className="headline etched" text={COPY.hero.headline} delay={1500} ignite />
           <p className="hero-sub">{COPY.hero.sub}</p>
           <a className="cta magnetic" href="#sec-point" onClick={strike}>
             <span>{COPY.hero.cta}</span>
@@ -104,7 +105,7 @@ export default function Content() {
       </section>
 
       <footer className="foot">
-        <span>{COPY.footer.mark}</span>
+        <span><BrandText text={COPY.footer.mark} /></span>
         <span className="foot-tag">{COPY.footer.tag}</span>
       </footer>
     </div>
