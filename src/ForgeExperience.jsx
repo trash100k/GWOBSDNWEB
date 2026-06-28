@@ -1,4 +1,5 @@
 import { Component, useEffect } from 'react'
+import { Leva } from 'leva'
 import * as THREE from 'three'
 import { forge } from './store.js'
 import { useQuality } from './hooks.js'
@@ -48,9 +49,14 @@ export default function ForgeExperience() {
     }
   }, [])
 
+  const debug =
+    typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug')
+
   return (
     <div className="forge-root">
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+      {/* live tuning panel — hidden unless the URL has ?debug */}
+      <Leva hidden={!debug} collapsed titleBar={{ title: 'GAELWORX' }} />
       <Loader />
       <div className="canvas-fixed">
         <CanvasBoundary>
