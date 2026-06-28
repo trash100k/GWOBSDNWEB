@@ -11,9 +11,13 @@ export const forge = {
   // Pointer in NDC (-1..1) and a damped copy for parallax / "point the sword".
   pointer: new THREE.Vector2(0, 0),
   pointerDamped: new THREE.Vector2(0, 0),
-  // Time of the last CTA "strike" (for spark bursts). -10 = none.
+  // Time of the last "strike" — a headline arriving / the carousel turning / the
+  // CTA. Drives a vein surge in the obsidian so the background reacts to the text.
   strikeAt: -10,
-  // Which arsenal blade is hovered (act 4), -1 = none.
+  // Dissolve emitter: where receding copy sheds embers into the scene, and how
+  // hard. x,y in viewport fraction (0..1, y down); amt 0..1. Read by Atmosphere.
+  emit: { x: 0.5, y: 0.4, amt: 0 },
+  // Which arsenal branch is in focus (carousel), -1 = none.
   hovered: -1,
   // Quality tier, set once on mount.
   quality: 'high',

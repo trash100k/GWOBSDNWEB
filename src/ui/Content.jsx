@@ -92,6 +92,7 @@ export default function Content() {
   useEffect(() => {
     let raf
     let px = 0, py = 0
+    let lastFront = -1, lastBranch = -1
     const root = document.documentElement
     const tick = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight
@@ -101,9 +102,12 @@ export default function Content() {
         py += (forge.pointer.y - py) * 0.06
         root.style.setProperty('--px', px.toFixed(4))
         root.style.setProperty('--py', (-py).toFixed(4))
+        // shared forge-light position (viewport %) — drives the DOM warm pool
+        root.style.setProperty('--mx', (forge.pointer.x * 50 + 50).toFixed(1) + '%')
+        root.style.setProperty('--my', (forge.pointer.y * -50 + 50).toFixed(1) + '%')
       }
 
-      let arsenalOpacity = 0
+      let arsenalOpacity = 0, frontI = -1, frontOp = 0, emitAmt = 0
       for (let i = 0; i < FRAMES; i++) {
         const el = frameRefs.current[i]
         if (!el) continue
@@ -114,6 +118,9 @@ export default function Content() {
         const ad = Math.abs(d)
         const opacity = ad <= HOLD ? 1 : Math.max(0, 1 - (ad - HOLD) / (FADE - HOLD))
         if (i === ARSENAL) arsenalOpacity = opacity
+        if (opacity > frontOp) { frontOp = opacity; frontI = i }
+        // a frame fading into the back (d>0) sheds embers as it dissolves
+        if (d > 0 && opacity > 0.12 && opacity < 0.9) emitAmt = Math.max(emitAmt, opacity * (1 - opacity) * 4)
         const v = vecs[i]
         let tx = 0, ty = 0, rot = 0, blur = 0, sc = 1
         if (!reduced && ad > HOLD) {
@@ -161,7 +168,23 @@ export default function Content() {
           : `translateZ(${-RADIUS}px) rotateY(${(px * 7).toFixed(2)}deg) rotateX(${(-py * 4).toFixed(2)}deg)`
       }
       // page lighting follows the carousel — veins light the active branch
-      forge.hovered = active ? clamp(Math.round(branchF), 0, BR - 1) : -1
+      const bi = active ? clamp(Math.round(branchF), 0, BR - 1) : -1
+      forge.hovered = bi
+
+      // background reacts to the foreground: a vein surge when a new headline
+      // arrives, and again each time the carousel turns to a new branch.
+      if (frontI !== lastFront && frontOp > 0.6) {
+        forge.strikeAt = performance.now() / 1000
+        lastFront = frontI
+      }
+      if (bi !== lastBranch) {
+        if (active && bi >= 0) forge.strikeAt = performance.now() / 1000
+        lastBranch = bi
+      }
+      // dissolve: receding copy melts into the obsidian as embers/highlights
+      forge.emit.x = 0.33
+      forge.emit.y = 0.46
+      forge.emit.amt = emitAmt
 
       raf = requestAnimationFrame(tick)
     }

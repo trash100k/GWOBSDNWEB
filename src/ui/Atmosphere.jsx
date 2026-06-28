@@ -20,6 +20,7 @@ export default function Atmosphere() {
 
     let motes = []
     let mist = []
+    let sparks = [] // dissolve: embers shed by receding copy
     const seed = () => {
       const count = innerWidth < 760 ? 26 : 46
       motes = Array.from({ length: count }, () => ({
@@ -76,6 +77,29 @@ export default function Atmosphere() {
         ctx.fillStyle = `hsla(${p.hue},100%,76%,${Math.min(1, p.a * 1.6)})`
         ctx.beginPath(); ctx.arc(sx, sy, p.r, 0, 7); ctx.fill()
       }
+      // dissolve sparks — receding copy melts into highlights that rise into the scene
+      const em = forge.emit
+      if (!reduce && em.amt > 0.14 && sparks.length < 120) {
+        const n = Math.random() < em.amt ? 2 : 1
+        for (let k = 0; k < n; k++) sparks.push({
+          x: em.x * w + rnd(-46, 46) * dpr, y: em.y * h + rnd(-30, 34) * dpr,
+          vx: rnd(-12, 12) * dpr, vy: -rnd(14, 42) * dpr, life: 1,
+          r: rnd(0.8, 2.1) * dpr, hue: rnd(18, 40),
+        })
+      }
+      for (let i = sparks.length - 1; i >= 0; i--) {
+        const s = sparks[i]
+        if (!reduce) { s.x += s.vx * dt; s.y += s.vy * dt; s.vy += 9 * dpr * dt; s.life -= dt * 0.85 }
+        if (s.life <= 0) { sparks.splice(i, 1); continue }
+        const a = s.life * 0.7
+        const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 5)
+        g.addColorStop(0, `hsla(${s.hue},100%,66%,${a})`)
+        g.addColorStop(1, 'hsla(20,95%,50%,0)')
+        ctx.fillStyle = g
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 5, 0, 7); ctx.fill()
+        ctx.fillStyle = `hsla(${s.hue},100%,82%,${Math.min(1, a * 1.8)})`
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 7); ctx.fill()
+      }
     }
 
     let raf, last = performance.now()
@@ -96,6 +120,7 @@ export default function Atmosphere() {
     <>
       <div className="haze" aria-hidden="true" />
       <canvas ref={canvasRef} className="atmos" aria-hidden="true" />
+      <div className="forge-light" aria-hidden="true" />
       <div className="grain" aria-hidden="true" />
     </>
   )

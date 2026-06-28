@@ -22,6 +22,7 @@ const HEAD = /* glsl */ `
   uniform float uBump;
   uniform vec2  uPointer;
   uniform float uPointerOn;
+  uniform float uSurge;
   ${GLSL_NOISE}
   vec2  gwPw; float gwVein; float gwFlow; float gwCore; float gwN;
   void gwVeins(vec2 uv){
@@ -56,8 +57,12 @@ const COLOR = /* glsl */ `
   float gwIrN = gw_fbm(gwPw * 2.2 + 5.0);
   vec3 opal = gwOpal(gwIrN * 1.6 + uTime * 0.08 + gwFres * 0.6);
   vec3 veinCol = mix(body, opal * 1.5, clamp(uIrid * (0.45 + 0.55 * gwIrN), 0.0, 0.85));
-  float nearCur = exp(-distance(vUv, uPointer) * 3.5) * uPointerOn * 0.5;
-  vec3 fire = (veinCol * gwVein * gwFlow * 1.1 + ${v3(PAL.hot)} * gwCore * 1.3) * (uVeinGlow + nearCur);
+  // shared forge-light: a warm pool follows the finger and lights the bare glass,
+  // not just the veins — the same touch that lights the copy lights the obsidian.
+  float gwCur = exp(-distance(vUv, uPointer) * 2.6) * uPointerOn;
+  float nearCur = gwCur * 1.15;
+  vec3 fire = (veinCol * gwVein * gwFlow * 1.1 + ${v3(PAL.hot)} * gwCore * 1.3) * (uVeinGlow + uSurge + nearCur);
+  gl_FragColor.rgb += ${v3(PAL.ember)} * gwCur * 0.11;
   gl_FragColor.rgb += fire;
 `
 
@@ -90,6 +95,7 @@ export default function ObsidianSlab({ quality }) {
       uBump: { value: 0.16 },
       uPointer: { value: new THREE.Vector2(0.5, 0.5) },
       uPointerOn: { value: 0 },
+      uSurge: { value: 0 },
     }),
     [],
   )
@@ -143,6 +149,10 @@ export default function ObsidianSlab({ quality }) {
     uniforms.uBump.value = c.bump
     uniforms.uPointer.value.lerp(pointerTarget.current, 1 - Math.pow(0.002, dt))
     uniforms.uPointerOn.value = damp(uniforms.uPointerOn.value, pointerOn.current, 6, dt)
+    // vein surge when a headline arrives / the carousel turns (forge.strikeAt is
+    // performance.now()/1000 — same base used here so the pulse lines up).
+    const since = performance.now() / 1000 - forge.strikeAt
+    uniforms.uSurge.value = since >= 0 && since < 1.6 ? Math.exp(-since * 3.0) * 0.85 : 0
     material.envMapIntensity = c.reflect
     material.roughness = c.roughness
     if (transmissive) material.transmission = c.transmission
