@@ -48,7 +48,7 @@ export default function ForgeCanvas({ quality }) {
         <Aurora ref={sunRef} />
         <MirrorPlane quality={quality} />
         <Monoliths quality={quality} />
-        <Embers count={quality === 'high' ? 300 : 110} />
+        <Embers count={quality === 'high' ? 700 : 240} />
       </Suspense>
 
       {quality !== 'static' && ready && <Effects quality={quality} sun={sunRef.current} />}

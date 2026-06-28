@@ -7,6 +7,7 @@ import {
   BrightnessContrast,
   Vignette,
   Noise,
+  SMAA,
 } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 
@@ -34,6 +35,7 @@ export default function Effects({ quality, sun }) {
       <BrightnessContrast brightness={-0.03} contrast={0.14} />
       <Vignette eskil={false} offset={0.22} darkness={0.96} />
       <Noise premultiply blendFunction={BlendFunction.SOFT_LIGHT} opacity={high ? 0.05 : 0.035} />
+      {high ? <SMAA /> : <></>}
     </EffectComposer>
   )
 }

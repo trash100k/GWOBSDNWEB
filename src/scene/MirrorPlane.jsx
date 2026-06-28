@@ -14,6 +14,23 @@ import { GLSL_NOISE } from './shaders.js'
 export default function MirrorPlane({ quality }) {
   const reflect = quality === 'high'
 
+  // procedural distortion map — breaks the perfect mirror into a rippled surface
+  const distortionMap = useMemo(() => {
+    const size = 256
+    const data = new Uint8Array(size * size * 4)
+    for (let i = 0; i < size * size; i++) {
+      data[i * 4] = Math.random() * 255
+      data[i * 4 + 1] = Math.random() * 255
+      data[i * 4 + 2] = 255
+      data[i * 4 + 3] = 255
+    }
+    const tex = new THREE.DataTexture(data, size, size, THREE.RGBAFormat)
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping
+    tex.repeat.set(6, 6)
+    tex.needsUpdate = true
+    return tex
+  }, [])
+
   // cursor → world point on the plane (for the ripple origin)
   const raycaster = useMemo(() => new THREE.Raycaster(), [])
   const plane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), [])
@@ -107,16 +124,18 @@ export default function MirrorPlane({ quality }) {
         {reflect ? (
           <MeshReflectorMaterial
             resolution={1024}
-            mirror={0.85}
-            mixStrength={1.6}
-            mixBlur={1.0}
-            blur={[200, 60]}
-            roughness={0.45}
+            mirror={0.92}
+            mixStrength={2.1}
+            mixBlur={1.1}
+            blur={[260, 80]}
+            roughness={0.4}
             depthScale={1.1}
             minDepthThreshold={0.4}
             maxDepthThreshold={1.2}
+            distortion={0.22}
+            distortionMap={distortionMap}
             color="#04050a"
-            metalness={0.6}
+            metalness={0.65}
           />
         ) : (
           <primitive object={cheap} attach="material" />

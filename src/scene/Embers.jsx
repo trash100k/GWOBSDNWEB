@@ -14,12 +14,12 @@ export default function Embers({ count = 320 }) {
     const speed = new Float32Array(count)
     const size = new Float32Array(count)
     for (let i = 0; i < count; i++) {
-      pos[i * 3 + 0] = (Math.random() - 0.5) * 7
-      pos[i * 3 + 1] = Math.random() * 7 - 1
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 2.2
+      pos[i * 3 + 0] = (Math.random() - 0.5) * 18
+      pos[i * 3 + 1] = Math.random() * 9 - 1
+      pos[i * 3 + 2] = 2 - Math.random() * 28 // spread toward the horizon for depth
       seed[i] = Math.random() * 6.28
-      speed[i] = 0.3 + Math.random() * 0.7
-      size[i] = 1.5 + Math.random() * 4.5
+      speed[i] = 0.25 + Math.random() * 0.7
+      size[i] = 1.5 + Math.random() * 5.5
     }
     g.setAttribute('position', new THREE.BufferAttribute(pos, 3))
     g.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1))
