@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Environment, AdaptiveDpr, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
-import sunsetHdri from '@pmndrs/assets/hdri/sunset.exr'
 import CameraRig from './CameraRig.jsx'
 import ObsidianSlab from './ObsidianSlab.jsx'
 import Embers from './Embers.jsx'
@@ -26,25 +25,25 @@ export default function ForgeCanvas({ quality }) {
 
       <CameraRig />
 
-      <ambientLight intensity={0.04} color="#1a1410" />
+      <ambientLight intensity={0.05} color="#1a1410" />
       {/* one warm key for a sharp specular streak across the glass */}
-      <directionalLight position={[3, 4, 5]} intensity={1.2} color="#ffcaa0" />
+      <directionalLight position={[3, 4, 5]} intensity={1.3} color="#ffcaa0" />
 
+      {/* Procedural warm environment for the obsidian's reflections — purely built
+          from lightformers (no file load), so it can't suspend/throw like an EXR.
+          Isolated in its own Suspense; the slab renders independently below. */}
       <Suspense fallback={null}>
-        {/* real HDRI for the obsidian's reflections (bundled, no runtime fetch).
-            Background stays black — only the glass picks it up. */}
-        {quality === 'high' ? (
-          <Environment files={sunsetHdri} environmentIntensity={0.7} />
-        ) : (
-          <Environment resolution={128} environmentIntensity={0.6}>
-            <Lightformer form="rect" intensity={2.4} color="#ff7a2a" position={[0, 3, 4]} scale={[12, 2, 1]} />
-            <Lightformer form="ring" intensity={1.6} color="#ffd2a0" position={[4, 1, 3]} scale={2.2} />
-          </Environment>
-        )}
-
-        <ObsidianSlab quality={quality} />
-        <Embers count={quality === 'high' ? 220 : 90} />
+        <Environment resolution={quality === 'high' ? 256 : 128}>
+          <Lightformer form="rect" intensity={2.8} color="#ff8a3a" position={[0, 3, 4]} scale={[14, 2.4, 1]} />
+          <Lightformer form="rect" intensity={1.6} color="#ff4d12" position={[-6, 0, 3]} scale={[3, 5, 1]} rotation={[0, 0.4, 0]} />
+          <Lightformer form="ring" intensity={2.2} color="#ffd2a0" position={[5, 1.6, 3]} scale={2.4} />
+          <Lightformer form="rect" intensity={0.5} color="#2a1206" position={[0, -3, 4]} scale={[14, 4, 1]} />
+        </Environment>
       </Suspense>
+
+      {/* Slab + embers are NOT gated by the environment — they always render. */}
+      <ObsidianSlab quality={quality} />
+      <Embers count={quality === 'high' ? 220 : 90} />
 
       {quality !== 'static' && <Effects quality={quality} />}
       <AdaptiveDpr pixelated />

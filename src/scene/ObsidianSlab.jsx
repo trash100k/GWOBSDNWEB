@@ -90,7 +90,7 @@ export default function ObsidianSlab({ quality }) {
       roughness: 0.06,
       clearcoat: 1,
       clearcoatRoughness: 0.04,
-      envMapIntensity: 1.0,
+      envMapIntensity: 1.4,
       ior: 1.5,
       transmission: transmissive ? 0.22 : 0,
       thickness: transmissive ? 1.0 : 0,
