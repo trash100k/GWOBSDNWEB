@@ -100,6 +100,76 @@ export const COPY = {
     foot: 'Fixed scope. Fixed price. Continental US · 7 Days.',
   },
 
+  // Extractable Q/A for AEO/GEO — what answer engines lift verbatim. Keyed by
+  // route path. Each answer ≤320 chars, leads with the literal fact (price,
+  // yes/no, the number), brand voice second; every number is sourced from the
+  // branch prices/anchors above so nothing drifts. Mirrors real buyer questions.
+  // Rendered as plain text + FAQPage schema by scripts/prerender.mjs.
+  faq: {
+    '/software': [
+      {
+        q: 'How much does custom software cost?',
+        a: 'Custom software starts from $10,000, with a $5k deposit to start. That buys internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. Agencies bill $75k and months of discovery for the same scope.',
+      },
+      {
+        q: 'Do I own the code you build?',
+        a: 'Yes — every platform we build is documented and open-sourced to you, so you own the code outright. The same forge that built YardWorx builds for how you actually run. No lock-in, no black box.',
+      },
+    ],
+    '/voice': [
+      {
+        q: 'Does Maeve sound human?',
+        a: 'No caller clocks Maeve as AI. She answers every call, qualifies the lead, books the job, and chases no-shows in a lifelike voice — the same agent that runs our own front desk. Voice agents start from $499/mo plus a one-time setup.',
+      },
+      {
+        q: 'How much is an AI voice agent?',
+        a: 'Maeve runs from $499/mo plus a one-time setup. An in-house receptionist runs $48,000 a year and clocks out. Maeve answers every call, qualifies leads, books jobs, and chases no-shows — and never clocks out.',
+      },
+      {
+        q: 'Can Maeve actually book jobs?',
+        a: 'Yes — Maeve books the job directly and chases the no-shows, not just takes messages. She answers every call, qualifies the lead, and routes it straight to you. From $499/mo plus one-time setup.',
+      },
+    ],
+    '/automations': [
+      {
+        q: 'How much do workflow automations cost?',
+        a: 'Workflow automation starts from $1,500. We put quoting, follow-up, invoicing, and reviews on autopilot — and hand you your data to own and leverage like no one else can. The same automations that run our own shops.',
+      },
+      {
+        q: 'What can you automate for my business?',
+        a: 'We automate quoting, follow-up, invoicing, and review collection — the rote work that costs you hours every week by hand. It runs on its own and hands your data back to you. From $1,500.',
+      },
+    ],
+    '/web': [
+      {
+        q: 'How much does a website cost?',
+        a: 'A GAELWORX site starts from $1,299. You get a studio-grade, cinematic lead-gen site that turns visitors into booked work and routes every lead to your phone. Premium studios charge $50k+ for this.',
+      },
+      {
+        q: 'How fast can you ship a site?',
+        a: 'Fixed scope, fixed price, shipped in 7 days — Continental US. No pilots that rot in phase two. We put it live, it runs the work, and it pays for itself. Web from $1,299.',
+      },
+      {
+        q: 'Will the site actually generate leads?',
+        a: 'Yes — every site routes every lead straight to your phone and is built to book the truck, not just look good. Studio-grade and cinematic, from $1,299. Built to the standard of the page you are on.',
+      },
+    ],
+    '/pricing': [
+      {
+        q: 'What is the deposit to start?',
+        a: 'Software requires a $5k deposit to start; all work is fixed scope, fixed price. Voice from $499/mo plus one-time setup, Web from $1,299, Automations from $1,500, Software from $10,000. We carry the risk — you pay when it executes.',
+      },
+      {
+        q: 'Why are your prices lower than agencies?',
+        a: 'Fixed scope. Fixed price. Continental US, shipped in 7 days. You are not paying less for less — you are paying less because the forge is efficient. We systematized what others bill by the hour.',
+      },
+      {
+        q: 'What does each branch cost?',
+        a: 'Software starts from $10,000 with a $5k deposit. Voice from $499/mo plus one-time setup, Automations from $1,500, Web from $1,299. Every price is a fixed-scope "from" — name the bottleneck and we scope the build.',
+      },
+    ],
+  },
+
   point: {
     kicker: '03 · Start the Forge',
     head: 'Tell us the problem.',

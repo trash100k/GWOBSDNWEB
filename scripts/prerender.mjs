@@ -31,6 +31,10 @@ const SITE = 'https://gwobsdnweb.vercel.app'
 const urlFor = (p) => SITE + (p === '/' ? '' : p)
 const priceNum = (p) => (String(p).match(/[\d,]+/)?.[0] || '').replace(/,/g, '')
 
+// Intake email is a PLACEHOLDER — owner must confirm the real email/phone/
+// address and add social `sameAs` URLs before this entity is authoritative.
+const EMAIL = 'forge@gaelworx.com'
+
 const ORG = {
   '@type': 'Organization',
   '@id': SITE + '/#org',
@@ -39,7 +43,16 @@ const ORG = {
   description:
     'AI implementation forge — custom software, lifelike voice agents, workflow automation, and cinematic web design.',
   slogan: 'Automatic Execution. Clan Protected.',
+  email: EMAIL,
   areaServed: 'US',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: EMAIL,
+    areaServed: 'US',
+    availableLanguage: 'English',
+    description: COPY.point.avail, // "Available · Continental US · 7 Days"
+  },
 }
 
 // JSON-LD per route — Organization + WebSite everywhere; Service+Offer on service
@@ -72,6 +85,20 @@ function ldjson(route) {
         price: priceNum(b.price),
         priceCurrency: 'USD',
         description: b.price,
+      })),
+    })
+  }
+  // FAQPage — the structured Q/A answer engines lift verbatim. The schema `text`
+  // is the SAME string rendered as plain text in the .seo body (faqBlock), so
+  // visible answer === schema answer (engines penalize a mismatch).
+  const faqs = COPY.faq[route.path]
+  if (faqs) {
+    graph.push({
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
       })),
     })
   }
@@ -155,10 +182,20 @@ function body(route) {
   return `<h1>${esc(route.label)}</h1><p>${esc(route.desc)}</p>`
 }
 
+// FAQ block — plain text the no-JS crawler reads. The answer string MUST be
+// the exact same text emitted as the FAQPage acceptedAnswer in ldjson().
+function faqBlock(route) {
+  const faqs = COPY.faq[route.path]
+  if (!faqs) return ''
+  return `<section class="faq"><h2>Frequently Asked Questions</h2>${faqs
+    .map((f) => `<article><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></article>`)
+    .join('')}</section>`
+}
+
 const CRITICAL = `<style>:root{color-scheme:dark}#root>.seo{background:#0B0C10;color:#F1F2F6;font-family:system-ui,sans-serif;line-height:1.55}.seo{max-width:760px;margin:0 auto;padding:7vh 24px}.seo a{color:#E85D04}.seo s{color:#8D99AE}.seo h1{font-size:2rem}</style>`
 
 function pageHTML(template, route) {
-  const block = `<div class="seo">${nav()}<main>${body(route)}</main>${footer()}</div>`
+  const block = `<div class="seo">${nav()}<main>${body(route)}${faqBlock(route)}</main>${footer()}</div>`
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`)
     .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(route.desc)}" />`)
@@ -190,4 +227,22 @@ writeFileSync(
     `\n</urlset>\n`,
 )
 
-console.log(`prerendered ${n} routes + robots.txt + sitemap.xml → dist/`)
+// llms.txt — concise plaintext map for LLM ingestion. All values derived from
+// ROUTES / COPY / SITE so it never drifts from the site.
+const llmsTxt =
+  `# GAELWORX\n` +
+  `> ${COPY.footer.tag}\n\n` +
+  `${ORG.slogan}\n\n` +
+  `GAELWORX is an AI implementation forge — one forge, four branches: custom software, lifelike voice agents, workflow automation, and cinematic web design. ${COPY.finale.avail}\n\n` +
+  `## Branches\n` +
+  COPY.arsenal.branches
+    .map((b) => `- ${b.tag} — ${b.line} ${b.price}.`)
+    .join('\n') +
+  `\n\n## Pages\n` +
+  ROUTES.map((r) => `- [${r.label}](${urlFor(r.path)}): ${r.desc}`).join('\n') +
+  `\n\n## Contact\n` +
+  `- Start the Forge: ${urlFor('/contact')}\n` +
+  `- Email: ${EMAIL}\n`
+writeFileSync(join(DIST, 'llms.txt'), llmsTxt)
+
+console.log(`prerendered ${n} routes + robots.txt + sitemap.xml + llms.txt → dist/`)
