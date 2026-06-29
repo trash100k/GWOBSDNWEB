@@ -1,4 +1,4 @@
-import { Component, useEffect } from 'react'
+import { Component, Suspense, lazy, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Leva } from 'leva'
 import Lenis from 'lenis'
@@ -6,8 +6,12 @@ import * as THREE from 'three'
 import { forge } from './store.js'
 import { routeByPath } from './routes.js'
 import { useQuality } from './hooks.js'
-import ForgeCanvas from './scene/ForgeCanvas.jsx'
 import Loader from './ui/Loader.jsx'
+
+// Lazy + deferred: the obsidian scene loads AFTER content paints (perf research) —
+// the three stack is its own chunk, so the prerendered text/page is the LCP, not
+// WebGL init. A gradient fallback holds the frame until the scene mounts.
+const ForgeCanvas = lazy(() => import('./scene/ForgeCanvas.jsx'))
 import Nav from './ui/Nav.jsx'
 import Cursor from './ui/Cursor.jsx'
 import Atmosphere from './ui/Atmosphere.jsx'
@@ -28,10 +32,19 @@ class CanvasBoundary extends Component {
 export default function ForgeExperience() {
   const quality = useQuality()
   const { pathname } = useLocation()
+  // mount the scene only after the browser is idle post-first-paint
+  const [sceneReady, setSceneReady] = useState(false)
 
   useEffect(() => {
     forge.quality = quality
   }, [quality])
+
+  useEffect(() => {
+    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200))
+    const cancel = window.cancelIdleCallback || clearTimeout
+    const id = idle(() => setSceneReady(true))
+    return () => cancel(id)
+  }, [])
 
   // route → shared store: the obsidian forge re-tempers + re-frames per page.
   // also sync the document head on client-side nav (crawlers get the prerendered
@@ -108,7 +121,13 @@ export default function ForgeExperience() {
       <Loader />
       <div className="canvas-fixed">
         <CanvasBoundary>
-          <ForgeCanvas quality={quality} />
+          {sceneReady ? (
+            <Suspense fallback={<div className="canvas-fixed canvas-fallback" />}>
+              <ForgeCanvas quality={quality} />
+            </Suspense>
+          ) : (
+            <div className="canvas-fixed canvas-fallback" />
+          )}
         </CanvasBoundary>
       </div>
       {/* the active route renders here; the canvas + atmosphere + nav persist

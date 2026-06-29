@@ -9,7 +9,8 @@
 
 ## STATE
 - **LAST DONE:** SMOOTH/MOTION PASS — **Lenis** momentum scroll app-wide (reduced-motion-guarded; window.scrollY stays the smoothed source so scene/jack need no rewrite; route changes reset via `forge.lenis.scrollTo`); site-wide **Forge Reveal** (blur→sharp + rise) on every `<Section>` via IntersectionObserver (Safari-safe, JS-only so no-JS/crawler content stays visible); **bounded blur** (kinetic 10→7px, finale drain 12→8px) per the perf research. Build green, 0 console errors @ both viewports. (All 8 specialist pages already integrated.)
-- **NEXT UP:** (1) deploy to prod on owner word (pages + smooth pass); (2) dual-viewport visual QA; (3) Phase 2 lead endpoint + confirm intake email (`forge@gaelworx.com` placeholder); (4) Nav links to new routes; (5) type-elevation (proximity-ignite / 3D wordmark) + three-stack code-split.
+- **ALSO DONE (perf/UX sprint):** Nav rewired to the real routes (was scroll-only → pages were URL-only); **code-split** the three/r3f/gsap/lenis/leva vendor chunks (app chunk 1.43MB→202KB / 56KB gz); **lazy + idle-deferred canvas** (`React.lazy` + requestIdleCallback → content paints before WebGL init; DOM-probed: canvas mounts, not stuck on fallback, Lenis active, 0 errors).
+- **NEXT UP:** (1) **deploy to prod on owner word** — big verified batch waiting (8 pages + smooth pass + perf); (2) Phase 2 lead endpoint + confirm intake email; (3) type-elevation (proximity-ignite / 3D wordmark); (4) footer w/ internal links; (5) perf budget asserts in the harness.
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 
