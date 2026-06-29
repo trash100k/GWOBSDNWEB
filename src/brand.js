@@ -88,30 +88,31 @@ export const COPY = {
   },
 
   // The trust ladder — a 5-rung scroll-jacked whirlwind on what makes GAELWORX
-  // different. Each rung is a pillar of credibility (proven ground → ROI →
-  // ownership → accountability → guarantee). Built to bank trust per frame.
+  // different. Each rung banks a distinct pillar (first-hand knowledge → proven
+  // ground → the AI ethic → ROI → guarantee), with no overlap onto the
+  // hero/clan/arsenal story. Built to bank trust per frame.
   trust: {
     kicker: 'Why GAELWORX',
     rungs: [
       {
         n: '01',
+        head: 'We build what we know.',
+        body: 'Every build starts from decades of first-hand knowledge — we’ve run the operation, not just read the case study. We’ve worked the bottlenecks we automate and lived the problems we solve, so you’re never paying us to learn your business on your dime.',
+      },
+      {
+        n: '02',
         head: 'Built on enterprise ground.',
         body: 'We build on the same battle-tested platforms that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven rails. Behavior you can predict.',
       },
       {
-        n: '02',
+        n: '03',
         head: 'Curiosity, not reliance.',
         body: 'We point AI at the redundant work — never to breed dependence. No black-box oracle, no confident nonsense, no machine pretending to be the human in the room. It does the rote, shows its reasoning, and hands judgment back where it belongs — yours. Built to make you sharper, not hooked.',
       },
       {
-        n: '03',
+        n: '04',
         head: 'It ships. Then it earns.',
         body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, and hours handed back to you.',
-      },
-      {
-        n: '04',
-        head: 'Live in days, not quarters.',
-        body: 'No year-long rollout, no committee, no disruption to the jobs already on the board. You name the bottleneck; we scope it, build it, and put it live in days — then sharpen it in the real world, not a slide deck.',
       },
       {
         n: '05',

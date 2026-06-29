@@ -272,9 +272,26 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
   0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
 
-/* ── the trust ladder — five rungs of "why GAELWORX". Same frame look as the
-   clan/arsenal copy; the scroll-jack whirls each one in. ─────────────────── */
+/* ── the trust ladder — a 5-step ESCALATING whirlwind on "why GAELWORX".
+   Centered copy over a giant ghosted Cinzel numeral that slowly turns (priming
+   the finale's spin); the frames whip in from alternating sides, harder each
+   rung. A distinct, elevated register between the editorial opening frames and
+   the radial whirlpool finale. ────────────────────────────────────────────── */
+.frame--trust{align-items:center; justify-content:center; text-align:center;}
+.frame--trust .fbody{max-width:760px; margin:0 auto; text-align:center; z-index:1;}
 .frame--trust .kicker{color:var(--gw-ember);}
+.frame--trust .head{font-size:clamp(1.9rem,5.2vw,3.4rem);}
+.frame--trust .body{margin:0 auto;}
+.trust-num{position:absolute; top:50%; left:50%; z-index:0; pointer-events:none;
+  font-family:var(--gw-display); font-weight:900; line-height:1; white-space:nowrap;
+  font-size:clamp(11rem,46vw,26rem); letter-spacing:-0.02em;
+  color:transparent; -webkit-text-fill-color:transparent;
+  background:linear-gradient(180deg,#E85D04,#C1292E 55%,#E34A27); background-size:100% 220%;
+  -webkit-background-clip:text; background-clip:text; opacity:0.1;
+  transform:translate(-50%,-50%);
+  animation:trustWhirl 52s linear infinite, lavaFlow 6s infinite alternate ease-in-out;}
+@keyframes trustWhirl{from{transform:translate(-50%,-50%) rotate(0deg);}
+  to{transform:translate(-50%,-50%) rotate(360deg);}}
 
 /* ── FINALE ACT ──────────────────────────────────────────────────────────
    A scroll-jacked closer of its own: the visitor's problems drain into a Cinzel
@@ -363,5 +380,6 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   .loader-mark{animation:none;} .loader-bar i{animation:none; width:100%;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
   .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
+  .trust-num{animation:none;}
 }
 `

@@ -19,6 +19,7 @@ const easeIn = (x) => x * x * x
 const TRUST = COPY.trust.rungs
 const FRAMES = 4 + TRUST.length + 1 // hero,draw,clan,arsenal + trust + finale
 const ARSENAL = 3
+const TRUST_BASE = 4 // first trust-rung frame index (after hero,draw,clan,arsenal)
 const FINALE = FRAMES - 1
 const WEIGHTS = [1, 0.8, 1, 2.6, ...TRUST.map(() => 1), 4.4]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
@@ -67,7 +68,22 @@ export default function Content() {
 
   const vecs = useMemo(
     () =>
-      Array.from({ length: FRAMES }, () => {
+      Array.from({ length: FRAMES }, (_, i) => {
+        // Trust ladder: a coherent, ESCALATING whirlwind — each rung whips in
+        // from alternating sides and harder than the last (a building rush of
+        // wind into the finale), not the random scatter the opening frames use.
+        if (i >= TRUST_BASE && i < TRUST_BASE + TRUST.length) {
+          const k = i - TRUST_BASE
+          const side = k % 2 === 0 ? -1 : 1
+          const mag = 1 + k * 0.16
+          return {
+            ex: side * 74 * mag, ey: 30,
+            rot: side * (15 + k * 3),
+            blur: 26, scale: 0.82,
+            ox: -side * 26 * mag, oy: -34,
+            orot: -side * (9 + k * 2), oblur: 18,
+          }
+        }
         const ang = Math.random() * Math.PI * 2
         const dist = rnd(52, 96)
         const exAng = ang + Math.PI + rnd(-0.7, 0.7)
@@ -184,6 +200,11 @@ export default function Content() {
         if (active && bi >= 0) forge.strikeAt = performance.now() / 1000
         lastBranch = bi
       }
+      // the trust ladder builds the wind — embers thicken rung by rung, so the
+      // "rush" intensifies all the way into the finale.
+      if (frontI >= TRUST_BASE && frontI < TRUST_BASE + TRUST.length && frontOp > 0.5) {
+        emitAmt = Math.max(emitAmt, 0.45 + (frontI - TRUST_BASE) * 0.22)
+      }
       forge.emit.x = 0.33
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
@@ -260,7 +281,6 @@ export default function Content() {
 
   const setRef = (i) => (el) => (frameRefs.current[i] = el)
   const setCar = (j) => (el) => (carRefs.current[j] = el)
-  const TRUST_BASE = 4 // first trust frame index
 
   return (
     <>
@@ -311,11 +331,14 @@ export default function Content() {
           </div>
         </div>
 
-        {/* 04–08 — the trust ladder (5 rungs) */}
+        {/* 04–08 — the trust ladder: a 5-step escalating whirlwind. A giant
+            ghosted numeral turns behind centered copy (priming the finale's
+            spin); each rung whips in alternating sides, harder than the last. */}
         {TRUST.map((r, k) => (
           <div className="frame frame--trust" key={r.n} ref={setRef(TRUST_BASE + k)}>
+            <span className="trust-num" aria-hidden="true">{r.n}</span>
             <div className="fbody">
-              <span className="kicker">{COPY.trust.kicker} · {r.n}</span>
+              <span className="kicker">{COPY.trust.kicker}</span>
               <ForgeText as="h2" className="head flame" text={r.head} />
               <p className="body"><BrandText text={r.body} /></p>
             </div>
