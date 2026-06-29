@@ -200,11 +200,6 @@ export default function Content() {
         if (active && bi >= 0) forge.strikeAt = performance.now() / 1000
         lastBranch = bi
       }
-      // the trust ladder builds the wind — embers thicken rung by rung, so the
-      // "rush" intensifies all the way into the finale.
-      if (frontI >= TRUST_BASE && frontI < TRUST_BASE + TRUST.length && frontOp > 0.5) {
-        emitAmt = Math.max(emitAmt, 0.45 + (frontI - TRUST_BASE) * 0.22)
-      }
       forge.emit.x = 0.33
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
