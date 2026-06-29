@@ -143,22 +143,22 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
     radial-gradient(82% 68% at 50% 50%, rgba(4,5,8,0.6), rgba(4,5,8,0.16) 56%, transparent 84%);}
 .scroll-track{position:relative; z-index:0; width:1px; opacity:0; pointer-events:none;}
 
-/* ── atmosphere: mid-ground haze (behind copy) · foreground embers · grain ─── */
+/* ── atmosphere: mid-ground emerald haze (behind copy) · foreground fog · grain ─ */
 .haze{position:fixed; inset:-12%; z-index:1; pointer-events:none; mix-blend-mode:screen;
   background:
-    radial-gradient(38% 30% at 22% 30%, rgba(232,93,4,0.11), transparent 70%),
-    radial-gradient(40% 34% at 80% 66%, rgba(193,41,46,0.11), transparent 72%),
-    radial-gradient(52% 42% at 50% 52%, rgba(227,74,39,0.06), transparent 76%);
+    radial-gradient(38% 30% at 22% 30%, rgba(206,228,214,0.10), transparent 70%),
+    radial-gradient(40% 34% at 80% 66%, rgba(192,224,206,0.09), transparent 72%),
+    radial-gradient(52% 42% at 50% 52%, rgba(216,230,222,0.06), transparent 76%);
   background-size:150% 150%;
   transform:translate3d(calc(var(--px,0) * -2.4vw), calc(var(--py,0) * -2vh), 0);
   animation:hazeDrift 26s ease-in-out infinite alternate; will-change:transform, background-position;}
 @keyframes hazeDrift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
 .atmos{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;}
-/* shared forge-light — a warm pool that follows the finger and screen-blends over
-   BOTH the obsidian and the copy beneath it, so one touch lights the whole surface */
+/* shared forge-light — a cool emerald pool that follows the finger and screen-blends
+   over BOTH the obsidian and the copy beneath it, so one touch lights the surface */
 .forge-light{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;
   background:radial-gradient(260px 260px at var(--mx,50%) var(--my,42%),
-    rgba(232,93,4,0.18), rgba(193,41,46,0.07) 46%, transparent 72%);}
+    rgba(150,224,186,0.16), rgba(110,196,160,0.06) 46%, transparent 72%);}
 .grain{position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-size:140px 140px; animation:grain .5s steps(3) infinite;}

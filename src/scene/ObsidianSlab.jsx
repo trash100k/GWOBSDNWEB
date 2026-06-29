@@ -8,10 +8,12 @@ import { GLSL_NOISE } from './shaders.js'
 import { PAL, v3 } from './palette.js'
 
 /**
- * Hero: a full-frame slab of polished black volcanic glass (obsidian) that
- * reflects the environment sharply, with rivers of fire-opal light through cracks —
- * warm body + ANIMATED iridescent play-of-color (visible on a flat surface), flowing,
- * cursor/scroll aware. Live-tunable via the ?debug leva panel.
+ * Hero: a full-frame slab of deep chromium-green EMERALD. A saturated bluish-green
+ * body with a slow, architectural "hall of mirrors" — crisp bright/dark facet zones
+ * (extinction vs flash) — and a faint internal JARDIN (green garden of inclusions)
+ * with gold/white-gold specular glints. Chase light + facets, NOT movement: the
+ * internal life is near-static and slow, never rippling water. Cursor/scroll aware.
+ * Live-tunable via the ?debug leva panel.
  */
 const HEAD = /* glsl */ `
   uniform float uTime;
@@ -24,46 +26,68 @@ const HEAD = /* glsl */ `
   uniform float uPointerOn;
   uniform float uSurge;
   ${GLSL_NOISE}
-  vec2  gwPw; float gwVein; float gwFlow; float gwCore; float gwN;
+  vec2  gwPw; float gwVein; float gwFlow; float gwCore; float gwN; float gwFacet;
   void gwVeins(vec2 uv){
+    // very slow internal drift — a settling jardin, NOT flowing water.
+    float t = uTime * 0.012;
     vec2 p = uv * uVeinScale;
     vec2 toP = (uPointer - uv);
     p += toP * uPointerOn * 0.7 * exp(-length(toP) * 3.0);
-    vec2 w = vec2(gw_fbm(p*0.9 + vec2(0.0, uTime*0.05)),
-                  gw_fbm(p*0.9 + vec2(5.0, -uTime*0.04)));
-    gwPw = p + w * 1.1;
+    // near-static warp: tiny amplitude + barely-moving phase so the garden holds still.
+    vec2 w = vec2(gw_fbm(p*0.9 + vec2(0.0, t)),
+                  gw_fbm(p*0.9 + vec2(5.0, -t)));
+    gwPw = p + w * 0.45;
     gwN = gw_fbm(gwPw);
+    // jardin: thin internal inclusions — crisp, deep, sitting inside the stone.
     float vein = pow(clamp(1.0 - abs(gwN), 0.0, 1.0), 11.0);
-    float mask = smoothstep(0.0, 0.55, gw_fbm(uv*0.7 + vec2(uTime*0.02, -uTime*0.015)));
+    // FACETS: hard step zones (the emerald-cut hall of mirrors) — broad bright
+    // planes alternating with dark extinction. Static architecture, no uTime.
+    float fz = gw_fbm(uv * (uVeinScale * 0.55) + 13.0);
+    gwFacet = smoothstep(0.06, 0.10, fz) - smoothstep(0.30, 0.42, fz);
+    gwFacet = clamp(gwFacet, 0.0, 1.0);
+    // a static mask that gates the jardin into deep zones (extinction looks IN).
+    float mask = smoothstep(-0.1, 0.55, gw_fbm(uv*0.7 + 21.0));
     vein *= mask;
     gwVein = vein;
     gwCore = pow(clamp(vein, 0.0, 1.0), 2.0);
-    gwFlow = 0.5 + 0.5 * sin(gwN * 8.0 - uTime * 1.0);
+    // glint shimmer: kept but slowed hard so it's a faint breathe, not a ripple.
+    gwFlow = 0.62 + 0.38 * sin(gwN * 8.0 - uTime * 0.12);
   }
   vec3 gwOpal(float x){ return 0.5 + 0.5 * cos(6.2831 * (x + vec3(0.0, 0.33, 0.67))); }
 `
 
 const NORMAL = /* glsl */ `
   gwVeins(vUv);
-  float gwUnd = gw_fbm(vUv * 1.6 + uTime * 0.05);
-  vec3 gwBmp = vec3(dFdx(gwVein * 0.6 + gwUnd * 0.3), dFdy(gwVein * 0.6 + gwUnd * 0.3), 0.0);
+  // STATIC surface relief — crisp step-facet texture, no uTime so it never crawls.
+  float gwUnd = gw_fbm(vUv * 1.6 + 4.0);
+  float gwRelief = gwVein * 0.55 + gwUnd * 0.22 + gwFacet * 0.5;
+  vec3 gwBmp = vec3(dFdx(gwRelief), dFdy(gwRelief), 0.0);
   normal = normalize(normal - gwBmp * uBump);
 `
 
 const COLOR = /* glsl */ `
   float gwFres = pow(1.0 - clamp(dot(normalize(vNormal), normalize(vViewPosition)), 0.0, 1.0), 2.0);
-  vec3 body = mix(${v3(PAL.crimson)}, ${v3(PAL.ember)}, clamp(gwVein * 1.2, 0.0, 1.0));
-  body = mix(body, ${v3(PAL.hot)}, gwCore * (0.55 + 0.45 * uTemp));
+  // EMERALD body: deep saturated green → brighter jade in the jardin inclusions.
+  vec3 body = mix(${v3(PAL.emeraldDeep)}, ${v3(PAL.emerald)}, clamp(gwVein * 1.1, 0.0, 1.0));
+  body = mix(body, ${v3(PAL.jade)}, clamp(gwVein * 1.3, 0.0, 1.0) * 0.7);
+  // core glint is pale gold/white (the specular spark), NOT orange.
+  body = mix(body, ${v3(PAL.pale)}, gwCore * (0.50 + 0.40 * uTemp));
+  // HALL OF MIRRORS: crisp bright facet flashes vs dark extinction. Static, light-led.
+  vec3 bright = mix(${v3(PAL.jade)}, ${v3(PAL.emeraldBright)}, gwFres);
+  body = mix(body * 0.45, body, gwFacet);            // dark planes look INTO the stone
+  body += bright * gwFacet * (0.18 + 0.30 * gwFres); // broad bright reflected planes
+  // procedural play-of-color, tinted green/gold and kept subtle — slow phase, no ripple.
   float gwIrN = gw_fbm(gwPw * 2.2 + 5.0);
-  vec3 opal = gwOpal(gwIrN * 1.6 + uTime * 0.08 + gwFres * 0.6);
-  vec3 veinCol = mix(body, opal * 1.5, clamp(uIrid * (0.45 + 0.55 * gwIrN), 0.0, 0.85));
-  // shared forge-light: a warm pool follows the finger and lights the bare glass,
-  // not just the veins — the same touch that lights the copy lights the obsidian.
+  vec3 opal = gwOpal(gwIrN * 1.2 + uTime * 0.01 + gwFres * 0.5);
+  opal *= ${v3(PAL.jade)} + ${v3(PAL.gold)} * 0.5; // bias play-of-color to green/gold
+  vec3 veinCol = mix(body, opal * 1.4, clamp(uIrid * (0.30 + 0.40 * gwIrN), 0.0, 0.55));
+  // shared forge-light: a cool emerald pool follows the finger and lights the bare
+  // stone, not just the jardin — the same touch that lights the copy lights the gem.
   float gwCur = exp(-distance(vUv, uPointer) * 2.6) * uPointerOn;
   float nearCur = gwCur * 1.15;
-  vec3 fire = (veinCol * gwVein * gwFlow * 1.1 + ${v3(PAL.hot)} * gwCore * 1.3) * (uVeinGlow + uSurge + nearCur);
-  gl_FragColor.rgb += ${v3(PAL.ember)} * gwCur * 0.11;
-  gl_FragColor.rgb += fire;
+  vec3 glow = (veinCol * gwVein * gwFlow * 1.0 + ${v3(PAL.pale)} * gwCore * 1.1) * (uVeinGlow + uSurge + nearCur);
+  gl_FragColor.rgb += ${v3(PAL.jade)} * gwCur * 0.10;
+  gl_FragColor.rgb += glow;
 `
 
 export default function ObsidianSlab({ quality }) {
@@ -71,17 +95,17 @@ export default function ObsidianSlab({ quality }) {
   const pointerTarget = useRef(new THREE.Vector2(0.5, 0.5))
   const pointerOn = useRef(0)
 
-  const c = useControls('OBSIDIAN', {
-    glass: folder({
+  const c = useControls('EMERALD', {
+    gem: folder({
       reflect: { value: 1.4, min: 0, max: 5, step: 0.05, label: 'reflectivity' },
-      roughness: { value: 0.05, min: 0, max: 0.4, step: 0.005 },
-      bump: { value: 0.1, min: 0, max: 0.6, step: 0.01, label: 'surface ripple' },
-      transmission: { value: 0.1, min: 0, max: 0.8, step: 0.02 },
+      roughness: { value: 0.04, min: 0, max: 0.4, step: 0.005 },
+      bump: { value: 0.12, min: 0, max: 0.6, step: 0.01, label: 'facet relief' },
+      transmission: { value: 0.12, min: 0, max: 0.8, step: 0.02 },
     }),
-    veins: folder({
-      veinGlow: { value: 0.6, min: 0, max: 2, step: 0.02 },
-      veinScale: { value: 1.8, min: 0.6, max: 4, step: 0.05 },
-      iridescence: { value: 1.35, min: 0, max: 2, step: 0.02 },
+    jardin: folder({
+      veinGlow: { value: 0.45, min: 0, max: 2, step: 0.02, label: 'jardin glow' },
+      veinScale: { value: 2.0, min: 0.6, max: 4, step: 0.05, label: 'facet scale' },
+      iridescence: { value: 0.9, min: 0, max: 2, step: 0.02, label: 'play-of-color' },
     }),
   })
 
@@ -90,9 +114,9 @@ export default function ObsidianSlab({ quality }) {
       uTime: { value: 0 },
       uVeinGlow: { value: 0.0 },
       uTemp: { value: 0.0 },
-      uIrid: { value: 1.0 },
-      uVeinScale: { value: 1.8 },
-      uBump: { value: 0.16 },
+      uIrid: { value: 0.9 },
+      uVeinScale: { value: 2.0 },
+      uBump: { value: 0.12 },
       uPointer: { value: new THREE.Vector2(0.5, 0.5) },
       uPointerOn: { value: 0 },
       uSurge: { value: 0 },
@@ -102,19 +126,22 @@ export default function ObsidianSlab({ quality }) {
 
   const material = useMemo(() => {
     const m = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color('#030205'),
+      // raw emerald-in-rock dark green-black for the hero entry (the "before forging").
+      color: new THREE.Color('#021109'),
       metalness: 0,
       roughness: 0.05,
       clearcoat: 1,
       clearcoatRoughness: 0.03,
       envMapIntensity: 1.4,
-      ior: 1.5,
+      ior: 1.57, // beryl / emerald (was 1.5 obsidian)
       iridescence: 0.35,
       iridescenceIOR: 1.3,
       iridescenceThicknessRange: [120, 500],
+      // high tier keeps transmission/thickness up so thicker light paths read
+      // darker, more SATURATED green (Beer–Lambert = the rich emerald core).
       transmission: transmissive ? 0.12 : 0,
       thickness: transmissive ? 1.0 : 0,
-      attenuationColor: PAL.crimson.clone(),
+      attenuationColor: PAL.emerald.clone(),
       attenuationDistance: 2.0,
       transparent: transmissive,
     })
