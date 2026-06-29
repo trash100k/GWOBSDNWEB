@@ -319,16 +319,26 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .fin-line--sol{color:#fff;
   text-shadow:0 0 14px rgba(0,0,0,0.9),0 0 30px rgba(232,93,4,0.45),0 0 60px rgba(193,41,46,0.3);}
 
-/* the Cinzel mandala whirlpool — a radial ring of forge words spinning round the
-   drain. Decorative (aria-hidden). Zero-size center; each word orbits out. */
-.fin-mandala{width:0; height:0;}
-.mandala-word{position:absolute; top:0; left:0; white-space:nowrap;
-  font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
-  font-size:clamp(0.8rem,2.1vw,1.4rem); letter-spacing:0.12em; color:transparent;
-  background:linear-gradient(180deg,#E85D04,#C1292E 55%,#E34A27);
-  -webkit-background-clip:text; background-clip:text;
-  text-shadow:0 0 18px rgba(232,93,4,0.35); transform-origin:50% 50%;
-  transform:translate(-50%,-50%) rotate(calc(var(--i) * 360deg / var(--n))) translateY(calc(-1 * var(--Rring)));}
+/* the Celtic word-mandala — the eye of the whirlpool. A big SVG of layered,
+   counter-rotating word rings + braided knotwork seated in a black-shadow well
+   (src/ui/Mandala.jsx). The finale scroll-jack owns the whole layer's spin +
+   scale; these rings add their own slow interlace on top. */
+.fin-mandala{width:min(170vh,170vw); height:min(170vh,170vw);}
+.mandala-svg{width:100%; height:100%; display:block; overflow:visible;
+  filter:drop-shadow(0 0 26px rgba(232,93,4,0.28));}
+.mandala-ring-text{font-family:var(--gw-display); font-weight:900; fill:url(#mEmber);
+  text-transform:uppercase; paint-order:stroke fill; stroke:rgba(0,0,0,0.92); stroke-width:1.4;}
+.braid{fill:none; stroke:url(#mEmber); stroke-width:3; stroke-linecap:round; stroke-linejoin:round;}
+.braid--shadow{stroke:#000; stroke-width:9; opacity:0.85;}
+/* each ring + knot band counter-rotates around the mandala centre (viewBox 0,0) */
+.mw,.mk{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
+.mw--a{animation:spinR 132s linear infinite;} .mw--b{animation:spinL 104s linear infinite;}
+.mw--c{animation:spinR 88s linear infinite;}  .mw--d{animation:spinL 116s linear infinite;}
+.mw--e{animation:spinR 72s linear infinite;}
+.mk--k1{animation:spinL 150s linear infinite;} .mk--k2{animation:spinR 120s linear infinite;}
+.mk--k3{animation:spinL 96s linear infinite;}
+@keyframes spinR{to{transform:rotate(360deg);}}
+@keyframes spinL{to{transform:rotate(-360deg);}}
 
 /* the eye of the whirlpool — the line both journeys pivot on */
 .fin-seed{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0;
@@ -381,5 +391,6 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
   .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
   .trust-num{animation:none;}
+  .mw,.mk{animation:none;}
 }
 `

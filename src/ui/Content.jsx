@@ -4,6 +4,7 @@ import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
 import BrandText from './BrandText.jsx'
 import Ignite from './Ignite.jsx'
+import Mandala from './Mandala.jsx'
 
 function strike() {
   forge.strikeAt = performance.now() / 1000
@@ -42,8 +43,6 @@ const STEP = 44
 const RADIUS = 200
 const SPAN = 0.5
 
-// Cinzel mandala ring — a radial whirl of forge words the problems drain into.
-const MANDALA = ['FORGE', 'EXECUTE', 'BUILD', 'RUN', 'FORGE', 'EXECUTE', 'BUILD', 'RUN', 'FORGE', 'EXECUTE', 'BUILD', 'RUN']
 const FORGES = COPY.finale.forges
 
 export default function Content() {
@@ -225,7 +224,7 @@ export default function Content() {
       if (mandalaRef.current) {
         const appear = clamp((fp - 0.16) / 0.12, 0, 1)
         const gone = clamp((fp - 0.50) / 0.16, 0, 1)
-        mandalaRef.current.style.opacity = (appear * (1 - gone) * 0.85).toFixed(3)
+        mandalaRef.current.style.opacity = (appear * (1 - gone)).toFixed(3)
         const sc = (0.35 + appear * 0.65) * (1 + gone * 0.7)
         mandalaRef.current.style.transform = `translate(-50%,-50%) rotate(${(spin * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
       }
@@ -350,9 +349,7 @@ export default function Content() {
             </div>
 
             <div className="fin-layer fin-mandala" ref={mandalaRef} aria-hidden="true">
-              {MANDALA.map((t, i) => (
-                <span key={i} className="mandala-word" style={{ '--i': i, '--n': MANDALA.length }}>{t}</span>
-              ))}
+              <Mandala />
             </div>
             <div className="fin-seed" ref={seedRef} aria-hidden="true">{COPY.finale.seed}</div>
 
