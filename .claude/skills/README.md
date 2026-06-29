@@ -13,6 +13,10 @@ it stops being re-derived every session.
 | **`forge-scene`** | Give a route its own 3D world, or fix a dark/janky scene. Single-renderer, dt-damped route presets, quality tiers, the WebGL scars (no EXR, decoupled Suspense, dispose). | `ForgeCanvas.jsx`, `scenes.js`, `ObsidianSlab.jsx`, `CameraRig.jsx`, `palette.js` |
 | **`qa-route`** | Verify a route/change without pasting screenshots — build + 0 console errors @ both viewports + DOM probes. | `scripts/shot.mjs`, `package.json` build |
 | **`ship`** | Deploy to production + confirm it's live. Production = `main` only; verify through the Vercel MCP (the sandbox 403s `*.vercel.app`). Owner-gated. | `vercel.json`, Vercel MCP, today's deploy lesson |
+| **`add-route`** | Adding a new page end-to-end — ROUTES row → PageShell page → App.jsx route → scenes.js preset → prerender/sitemap/Nav. Notes the silent half-wired traps. | `routes.js`, `App.jsx`, `prerender.mjs`, `Nav.jsx` |
+| **`kinetic-type`** | Adding an animated/ignited heading or wordmark — which component (ForgeText/Ignite/BrandText) + the forge-glow + etch reveal. The *mechanics* (the *rule* is `brand-check`). | `ForgeText.jsx`, `Ignite.jsx`, `BrandText.jsx`, `styles.js` |
+| **`aeo-geo`** | Making a page extractable/citable by AI answer engines — FAQPage + entity/NAP + per-page schema + `llms.txt`, verified in `dist/`. | `prerender.mjs`, `routes.js`, `brand.js` |
+| **`lead-capture`** | Turning the dead CTAs into a real conversion path — form → store → confirm → analytics. Kills the two dead `strike()` CTAs in the home journey. | `Contact.jsx`, `Content.jsx` CTAs, `BUILD_PLAN.md` Phase 2 |
 
 ## Conventions
 - **Source of truth:** `CLAUDE.md` (brand) + `docs/research/*` (strategy/pacing/perf). Skills point
