@@ -164,9 +164,9 @@ flood every feed, designers are pivoting to **grit, grain, and physical imperfec
   "starts at / typical range" anchors + a productized entry rung + an estimator → custom quote;
   keep the final bespoke number a conversation. Sequence the page outcome/proof/process **before**
   the number.
-- **B. Productized entry offer** *(open)* — define the fixed-scope, fixed-price first rung (e.g. a
-  paid "Forge Audit" discovery sprint, or a voice-agent pilot) so a buyer can transact trust early.
-  Need: name, scope, price.
+- **B. Service pricing — LOCKED (2026‑06‑29).** Full anchor card in Part 4. The **Voice Agent**
+  (from $499/mo + ~$2.5k setup) is the productized entry rung; **Web from $1,299**; **Automations
+  $1,500–$5,000**; **Software $10,000–$35,000 with a $5,000 minimum deposit** to start.
 - **C. Lead-tracking stack** *(open)* — where do leads land and how are they nurtured over the
   ~6-month window? Connectors available: **Supabase, Attio, Gmail/AgentMail, n8n, Lovable.**
 
@@ -190,10 +190,10 @@ control the comparison).
 | **Agency benchmark — what to CHARGE clients** | (industry guidance) | **$199–$599/mo per client**, ~**85–90% gross margin** at ~$0.09–0.15/min real cost |
 | The anchor (cost of NOT using us) | in-house receptionist | **$4,000/mo · $48,000/yr** (Smith.ai's own anchor) |
 
-> **Read:** Maeve is the obvious **productized entry rung.** Premium-anchor it at the *top* of
-> the agency band — e.g. **Maeve from ~$499/mo per location, all-in managed**, plus a **one-time
-> forge/setup fee (~$2,000–$5,000)** for the custom build. Against a $48k/yr receptionist it's
-> trivial; against $0.05/min DIY it's "we run the whole stack so you don't."
+> **LOCKED:** the **Voice Agent** is the **productized entry rung** — **from $499/mo per location,
+> all-in managed**, plus a one-time **~$2.5k setup/forge fee** for the custom build (range
+> $499–$1,500/mo). Against a $48k/yr receptionist it's trivial; against $0.05/min DIY it's "we run
+> the whole stack so you don't." (Maeve is the product; "Voice Agent" is the pricing line label.)
 
 ### GW‑01 — Custom software / proprietary platforms — *the flagship*
 
@@ -203,9 +203,10 @@ control the comparison).
 - **Large/enterprise platform (ERP, AI platform):** **$250,000+** (8–10 devs at $30k–$50k/mo, 12+ mo).
 - **Maintenance:** budget **15–25%/yr** of build cost.
 
-> **Read:** anchor proprietary-platform builds in the **$75k–$200k** band, MVP/entry at **from
-> ~$25,000.** This is where premium positioning + "decades of first-hand knowledge" justifies the
-> top of the range vs. an offshore shop at $40–80/hr.
+> **LOCKED:** **$10,000–$35,000**, **$5,000 minimum deposit** to start. Deliberately below the
+> market's $75k–$200k platform band — positioned as accessible custom builds, with the $5k deposit
+> filtering for committed buyers. The market data above is the "build-it-elsewhere" comparison to
+> anchor against.
 
 ### GW‑03 — Workflows / automations
 
@@ -215,7 +216,8 @@ control the comparison).
   **$8,000–$25,000** (median **$2,800–$7,000/mo**).
 - **Consultant hourly:** US $80–$150/hr; boutique agency $125–$250/hr.
 
-> **Read:** "Workflows from **$5,000** to build" + a **care retainer from ~$1,500/mo.**
+> **LOCKED:** **$1,500–$5,000** (project or retainer). Sits at the accessible end of the market's
+> $5k–$15k build / $1k–$3.5k retainer bands — an easy second transaction after Voice/Web.
 
 ### GW‑04 — Cinematic web
 
@@ -224,20 +226,26 @@ control the comparison).
 - **Premium / large agency:** **$50,000–$300,000+.** Hourly: small $100–200/hr, large premium
   **$200–400/hr.**
 
-> **Read:** we're an Awwwards-tier, WebGL/3D cinematic shop — anchor **from ~$15,000**, typical
-> **$20k–$50k**, flagship builds higher. The live site itself is the proof of this price.
+> **LOCKED:** **$1,299–$8,999.** Positioned as the accessible front door (well below the market's
+> $15k–$50k+ premium-cinematic band) to win volume + first transactions — while the GAELWORX site
+> itself proves we deliver far above the price. Charm endpoints ($1,299/$8,999) suit this
+> high-volume front-door role.
 
-### Suggested GAELWORX anchor card (clean, rounded, premium — exact numbers = your call)
+### GAELWORX anchor card — LOCKED (decided 2026‑06‑29)
 
-| Line | Entry anchor | Typical range | Model |
+| Line | Entry anchor | Range | Model |
 |---|---|---|---|
-| **Maeve (Voice)** | from **$499/mo** + ~$2.5k setup | $499–$1,500/mo per location | productized — the entry rung |
-| **Automations** | from **$5,000** build | $5k–$25k build · $1.5k–$10k/mo care | project + retainer |
-| **Software** | from **$25,000** | $75k–$200k proprietary platforms | scoped, value-based |
-| **Cinematic Web** | from **$15,000** | $20k–$50k+ | scoped |
+| **Voice Agent** | from **$499/mo** + ~$2.5k setup | $499–$1,500/mo per location | productized — the entry rung |
+| **Automations** | from **$1,500** | **$1,500–$5,000** | project / retainer |
+| **Web Design** | from **$1,299** | **$1,299–$8,999** | scoped |
+| **Software** | from **$10,000** · **$5,000 min deposit** to start | **$10,000–$35,000** | scoped, deposit-gated |
 
-(Round numbers, no charm pricing, presented outcome-first with the in-house/DIY comparison
-beside each — per Part 1. "From" anchors keep bespoke scope a conversation.)
+Positioning note: the ladder is deliberately tiered by commitment — **Web ($1,299) and the
+Voice Agent ($499/mo) are the accessible front doors** that win the first transaction and build
+trust; **Software ($10k–$35k, $5k deposit) is the flagship.** Web uses charm-style endpoints
+($1,299 / $8,999) to read accessible/high-volume, while Software/Voice stay clean and premium —
+a coherent split, not a contradiction. Present every number outcome-first with the DIY / "do
+nothing" comparison beside it (Part 1).
 
 ---
 
