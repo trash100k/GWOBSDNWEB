@@ -158,14 +158,17 @@ flood every feed, designers are pivoting to **grit, grain, and physical imperfec
 4. **Make it real:** lead capture at multiple touchpoints feeding a CRM/store, nurtured over a
    ~6-month window (not a single "contact us").
 
-### Open decisions (yours to make before the rebuild)
+### Decisions
 
-- **A. Transparency stance** — published price list / **anchored ranges + tiers** (recommended) /
-  fully gated "contact us."
-- **B. Productized entry offer** — do we sell a fixed-scope discovery sprint / pilot to transact
-  trust early? What is it, and roughly what price?
-- **C. Lead-tracking stack** — where do leads land? (form → email, or a real CRM/DB). Connectors
-  available this session: **Supabase, Attio, Gmail/AgentMail, n8n, Lovable.**
+- **A. Transparency stance — LOCKED: anchored ranges + tiers.** (Decided 2026‑06‑29.) Publish
+  "starts at / typical range" anchors + a productized entry rung + an estimator → custom quote;
+  keep the final bespoke number a conversation. Sequence the page outcome/proof/process **before**
+  the number.
+- **B. Productized entry offer** *(open)* — define the fixed-scope, fixed-price first rung (e.g. a
+  paid "Forge Audit" discovery sprint, or a voice-agent pilot) so a buyer can transact trust early.
+  Need: name, scope, price.
+- **C. Lead-tracking stack** *(open)* — where do leads land and how are they nurtured over the
+  ~6-month window? Connectors available: **Supabase, Attio, Gmail/AgentMail, n8n, Lovable.**
 
 ---
 
