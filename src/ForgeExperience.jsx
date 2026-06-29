@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { Leva } from 'leva'
 import * as THREE from 'three'
 import { forge } from './store.js'
+import { routeByPath } from './routes.js'
 import { useQuality } from './hooks.js'
 import ForgeCanvas from './scene/ForgeCanvas.jsx'
 import Loader from './ui/Loader.jsx'
@@ -32,8 +33,21 @@ export default function ForgeExperience() {
   }, [quality])
 
   // route → shared store: the obsidian forge re-tempers + re-frames per page.
+  // also sync the document head on client-side nav (crawlers get the prerendered
+  // per-route head; this keeps the tab title/description correct after nav).
   useEffect(() => {
     forge.route = pathname
+    const r = routeByPath(pathname)
+    if (r) {
+      document.title = r.title
+      let m = document.querySelector('meta[name="description"]')
+      if (!m) {
+        m = document.createElement('meta')
+        m.setAttribute('name', 'description')
+        document.head.appendChild(m)
+      }
+      m.setAttribute('content', r.desc)
+    }
   }, [pathname])
 
   // Scroll + pointer → shared store (read by the scene each frame).

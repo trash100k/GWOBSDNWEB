@@ -8,8 +8,8 @@
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
 ## STATE
-- **LAST DONE:** 0.3 — per-route scene system (`src/scene/scenes.js`): one renderer, each route re-tempers the obsidian veins (scale/glow/irid) + re-frames the camera (orbit/dolly), damped on navigation; `forge.route` set from the layout. Home preset == original tuning (identical). Poster fallback via CanvasBoundary. Verified: `/web` visibly more iridescent than `/`, 0 errors @ both viewports.
-- **NEXT UP:** Phase 0 · 0.4 (per-route SEO head + JSON-LD + robots.txt + sitemap.xml + OG)
+- **LAST DONE:** 0.4 — per-route SEO head in the prerender: canonical + OG + Twitter + JSON-LD (Organization, WebSite, Service+Offer w/ price, OfferCatalog on /pricing); `robots.txt` welcoming GPTBot/PerplexityBot/ClaudeBot/Google-Extended + Sitemap; `sitemap.xml` (9 urls); branded `public/og.png`; client-side title/description sync on SPA nav. Verified in dist HTML + 0 errors. **Foundation (Phase 0) COMPLETE.**
+- **NEXT UP:** Phase 1 · 1.1 (Home — ensure prerendered content + scene; then service pages). Consider a prod deploy of the foundation milestone (owner OK).
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 
@@ -49,7 +49,7 @@
 - [x] **0.1** Add routing (`react-router-dom`) + page shell; carve current home into a `/` route. Keep the obsidian canvas mounted app-shell-level. _(routes.js + Outlet layout + stub pages; home identical, 0 errors @ both viewports)_
 - [x] **0.2** Prerender pipeline → static HTML per route. _(Pure-Node `scripts/prerender.mjs` — no browser, Vercel-safe — prefills `#root` with brand/route-data content + prices + internal links. Verified real text + all prices in `dist/<route>/index.html`; live app + 0 errors. Canonical/OG/JSON-LD/sitemap/robots deferred to 0.4.)_
 - [x] **0.3** Shared 3D system — one renderer; per-route presets (`scenes.js`) re-temper veins + re-frame camera, damped on nav (`forge.route`); poster fallback via CanvasBoundary. _(Pragmatic single-renderer "wonderland per page" — performant, home identical. Future: bespoke per-route elements as needed.)_
-- [ ] **0.4** SEO infra: per-route `<head>` (helmet-style or SSG head) + base JSON-LD (Organization) + `robots.txt` (allow GPTBot/PerplexityBot/ClaudeBot/Google-Extended) + `sitemap.xml` + per-route OG image generation.
+- [x] **0.4** SEO infra: per-route canonical + OG + Twitter + JSON-LD (Organization/WebSite/Service/Offer/OfferCatalog) + `robots.txt` (welcomes AI engines) + `sitemap.xml` + branded `public/og.png` + client head sync. _(All in the prerender; verified in dist.)_
 - [ ] **0.5** Perf harness: measure LCP/JS budget in the QA script; fail the gate if over budget.
 
 ## PHASE 1 — PAGES  *(each = one or more iterations; meet the DoD)*

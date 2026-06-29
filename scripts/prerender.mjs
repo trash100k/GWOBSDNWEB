@@ -25,6 +25,78 @@ const DIST = join(__dirname, '..', 'dist')
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+// Production base URL — canonical/OG/sitemap. Update here when a custom domain
+// (gaelworx.io / .ai / a connected gaelworx.com) is attached in Vercel.
+const SITE = 'https://gwobsdnweb.vercel.app'
+const urlFor = (p) => SITE + (p === '/' ? '' : p)
+const priceNum = (p) => (String(p).match(/[\d,]+/)?.[0] || '').replace(/,/g, '')
+
+const ORG = {
+  '@type': 'Organization',
+  '@id': SITE + '/#org',
+  name: 'GAELWORX',
+  url: SITE,
+  description:
+    'AI implementation forge — custom software, lifelike voice agents, workflow automation, and cinematic web design.',
+  slogan: 'Automatic Execution. Clan Protected.',
+  areaServed: 'US',
+}
+
+// JSON-LD per route — Organization + WebSite everywhere; Service+Offer on service
+// pages; an OfferCatalog on /pricing. This is the structured data AEO/GEO cite.
+function ldjson(route) {
+  const graph = [
+    ORG,
+    { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE, name: 'GAELWORX', publisher: { '@id': SITE + '/#org' } },
+  ]
+  const tag = { '/software': 'Software', '/voice': 'Voice', '/automations': 'Automations', '/web': 'Web' }[route.path]
+  if (tag) {
+    const b = branchByTag(tag)
+    graph.push({
+      '@type': 'Service',
+      name: b.line,
+      serviceType: b.tag,
+      description: b.body,
+      provider: { '@id': SITE + '/#org' },
+      areaServed: 'US',
+      offers: { '@type': 'Offer', price: priceNum(b.price), priceCurrency: 'USD', description: b.price + (b.note ? ` · ${b.note}` : '') },
+    })
+  }
+  if (route.path === '/pricing') {
+    graph.push({
+      '@type': 'OfferCatalog',
+      name: 'GAELWORX Pricing',
+      itemListElement: COPY.arsenal.branches.map((b) => ({
+        '@type': 'Offer',
+        name: b.tag,
+        price: priceNum(b.price),
+        priceCurrency: 'USD',
+        description: b.price,
+      })),
+    })
+  }
+  return `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })}</script>`
+}
+
+function seoHead(route) {
+  const url = urlFor(route.path)
+  const og = `${SITE}/og.png`
+  return (
+    `<link rel="canonical" href="${url}" />` +
+    `<meta property="og:type" content="website" />` +
+    `<meta property="og:site_name" content="GAELWORX" />` +
+    `<meta property="og:title" content="${esc(route.title)}" />` +
+    `<meta property="og:description" content="${esc(route.desc)}" />` +
+    `<meta property="og:url" content="${url}" />` +
+    `<meta property="og:image" content="${og}" />` +
+    `<meta name="twitter:card" content="summary_large_image" />` +
+    `<meta name="twitter:title" content="${esc(route.title)}" />` +
+    `<meta name="twitter:description" content="${esc(route.desc)}" />` +
+    `<meta name="twitter:image" content="${og}" />` +
+    ldjson(route)
+  )
+}
+
 // site-wide crawlable nav (internal linking) + footer
 const nav = () =>
   `<nav aria-label="Primary">${ROUTES.map((r) => `<a href="${r.path}">${esc(r.label)}</a>`).join(' · ')}</nav>`
@@ -90,7 +162,7 @@ function pageHTML(template, route) {
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`)
     .replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(route.desc)}" />`)
-    .replace('</head>', `${CRITICAL}</head>`)
+    .replace('</head>', `${CRITICAL}${seoHead(route)}</head>`)
     .replace('<div id="root"></div>', `<div id="root">${block}</div>`)
 }
 
@@ -102,4 +174,20 @@ for (const route of ROUTES) {
   writeFileSync(out, pageHTML(template, route))
   n++
 }
-console.log(`prerendered ${n} routes → dist/<route>/index.html`)
+
+// robots.txt — open to all, explicitly welcoming the AI answer engines (GEO).
+const aiBots = ['GPTBot', 'OAI-SearchBot', 'PerplexityBot', 'ClaudeBot', 'Claude-Web', 'Google-Extended', 'CCBot', 'Applebot-Extended']
+writeFileSync(
+  join(DIST, 'robots.txt'),
+  `User-agent: *\nAllow: /\n\n${aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join('\n\n')}\n\nSitemap: ${SITE}/sitemap.xml\n`,
+)
+
+// sitemap.xml
+writeFileSync(
+  join(DIST, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    ROUTES.map((r) => `  <url><loc>${urlFor(r.path)}</loc><changefreq>weekly</changefreq></url>`).join('\n') +
+    `\n</urlset>\n`,
+)
+
+console.log(`prerendered ${n} routes + robots.txt + sitemap.xml → dist/`)
