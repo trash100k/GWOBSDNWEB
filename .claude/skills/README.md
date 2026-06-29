@@ -22,6 +22,9 @@ it stops being re-derived every session.
 | **`scroll-carousel`** | The 3D services wheel reads weird / illegible at top & bottom / won't settle. Discrete anchor dwells (face-on), crisp-front + faded peeks, the edge-on trap, spacing knobs, the QA-sampling gotcha. | `Content.jsx` carousel block, `.car-item` styles |
 | **`git-hygiene`** | Committing/pushing, a stop-hook nag, cleaning history, or any force-push. Verified commits, no empty trigger-commits, branch/main discipline, gated history rewrites need specific OK. | proxy remote, stop-hook, `mcp__github__list_commits` |
 | **`parallel-agents`** | Fanning out subagents (a sprint / "subagents on all"). Disjoint file ownership, no builds/git in agents, cold-start prompts, central integration. Only when the user asks. | `Agent` tool, the two fan-outs this session |
+| **`shader-fx`** | Writing/patching a GLSL material effect — veins, glow, displacement, transmission. The `onBeforeCompile` chunk-injection, shared `gw_` noise, store-coupled dt-damped uniforms, brand-color inlining, GLSL-compiles verify. | `shaders.js`, `ObsidianSlab.jsx`, `palette.js` |
+| **`post-fx`** | Scene looks flat/washed/too dark, glow wrong, or tuning the composer. The "only HDR blooms" rule, warm crushed-black grade, ACES pipeline, quality gating. | `Effects.jsx`, `ForgeCanvas.jsx`, `palette.js` |
+| **`fx-resources`** | You need a 3D asset, HDRI, texture, model, shader to reuse/learn, or inspiration. Curated repos + sites (pmndrs, Poly Haven, Shadertoy, lygia, Codrops…) with licenses + the GAELWORX caveats. | links library + `forge-scene` caveats |
 
 ## Conventions
 - **Source of truth:** `CLAUDE.md` (brand) + `docs/research/*` (strategy/pacing/perf). Skills point
