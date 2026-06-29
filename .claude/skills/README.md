@@ -17,6 +17,11 @@ it stops being re-derived every session.
 | **`kinetic-type`** | Adding an animated/ignited heading or wordmark — which component (ForgeText/Ignite/BrandText) + the forge-glow + etch reveal. The *mechanics* (the *rule* is `brand-check`). | `ForgeText.jsx`, `Ignite.jsx`, `BrandText.jsx`, `styles.js` |
 | **`aeo-geo`** | Making a page extractable/citable by AI answer engines — FAQPage + entity/NAP + per-page schema + `llms.txt`, verified in `dist/`. | `prerender.mjs`, `routes.js`, `brand.js` |
 | **`lead-capture`** | Turning the dead CTAs into a real conversion path — form → store → confirm → analytics. Kills the two dead `strike()` CTAs in the home journey. | `Contact.jsx`, `Content.jsx` CTAs, `BUILD_PLAN.md` Phase 2 |
+| **`deploy-doctor`** | Production isn't updating / "is it live?" / deploy stuck. The diagnostic tree: where the commit is, stale-vs-paused, old-vs-new build, the previews-build-but-main-drops signature, sandbox limits, owner-side unblock + the preview-URL workaround. | Vercel MCP, `mcp__github__list_commits`, today's deploy saga |
+| **`radial-svg`** | Building/fixing a mandala, seal, ring, or knotwork — one reads "scattered / doesn't form rings." Real `<circle>` skeleton + N-fold rotated motifs (not running text), band-height rule, coherent rotation, real interlace. | `Mandala.jsx`, `mandala-construction-and-animation.md` |
+| **`scroll-carousel`** | The 3D services wheel reads weird / illegible at top & bottom / won't settle. Discrete anchor dwells (face-on), crisp-front + faded peeks, the edge-on trap, spacing knobs, the QA-sampling gotcha. | `Content.jsx` carousel block, `.car-item` styles |
+| **`git-hygiene`** | Committing/pushing, a stop-hook nag, cleaning history, or any force-push. Verified commits, no empty trigger-commits, branch/main discipline, gated history rewrites need specific OK. | proxy remote, stop-hook, `mcp__github__list_commits` |
+| **`parallel-agents`** | Fanning out subagents (a sprint / "subagents on all"). Disjoint file ownership, no builds/git in agents, cold-start prompts, central integration. Only when the user asks. | `Agent` tool, the two fan-outs this session |
 
 ## Conventions
 - **Source of truth:** `CLAUDE.md` (brand) + `docs/research/*` (strategy/pacing/perf). Skills point
