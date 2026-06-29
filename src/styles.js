@@ -416,35 +416,35 @@ html.lenis,html.lenis body{height:auto;}
 .fin-line--sol{color:#fff;
   text-shadow:0 0 14px rgba(0,0,0,0.9),0 0 30px rgba(232,93,4,0.45),0 0 60px rgba(193,41,46,0.3);}
 
-/* the Celtic word-mandala — the eye of the whirlpool. A big SVG of layered,
-   counter-rotating word rings + braided knotwork seated in a black-shadow well
-   (src/ui/Mandala.jsx). The finale scroll-jack owns the whole layer's spin +
-   scale; these rings add their own slow interlace on top. */
-.fin-mandala{width:min(112vw,92vh); height:min(112vw,92vh);}
+/* the eye of the finale whirlpool — a clean GEOMETRIC mandala (src/ui/Mandala.jsx):
+   concentric keyline circles (the skeleton that always reads as rings) + N-fold
+   symmetric motif bands (petals/ticks/dots/spokes), in two slow counter-rotating
+   groups. The finale scroll-jack owns the whole layer's spin + scale. Ink + ember
+   rim + a forge-glow core; the fire-opal veins bleed through the gaps. */
+.fin-mandala{width:min(108vw,88vh); height:min(108vw,88vh);}
 .mandala-svg{width:100%; height:100%; display:block; overflow:visible;
-  filter:drop-shadow(0 0 22px rgba(232,93,4,0.22));}
-/* black-ink calligraphy — 900 Cinzel, stretched + packed (negative tracking);
-   a thin ember rim + the hard #mInk shadow read it as carved tattoo lettering,
-   with the fire-opal veins bleeding through the gaps. */
-.mandala-ring-text{font-family:var(--gw-display); font-weight:900; fill:#0a0708;
-  text-transform:uppercase; paint-order:stroke fill; stroke:#E85D04; stroke-width:1.1;}
-/* knot rope — ember glow strand behind, black ink strand on top → fire at the edges */
-.braid-glow{fill:none; stroke:#E85D04; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; opacity:0.85;}
-.braid-ink{fill:none; stroke:#0a0708; stroke-width:4; stroke-linecap:round; stroke-linejoin:round;}
-/* engraved rim ticks — short ember marks for density around the outer band */
-.mandala-tick{stroke:#E85D04; stroke-width:2.4; opacity:0.5; stroke-linecap:round;}
-/* central boss — fills the eye: concentric ink rings + a forge-glow core */
-.boss-ring{fill:none; stroke:#0a0708; stroke-width:5; paint-order:stroke;
-  filter:drop-shadow(0 0 6px rgba(232,93,4,0.5));}
-.boss-core{fill:#E85D04; filter:drop-shadow(0 0 14px rgba(232,93,4,0.9));}
-/* each ring + knot band counter-rotates around the mandala centre (viewBox 0,0) */
-.mw,.mk{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
-.mw--a{animation:spinR 132s linear infinite;} .mw--b{animation:spinL 104s linear infinite;}
-.mw--c{animation:spinR 88s linear infinite;}  .mw--d{animation:spinL 116s linear infinite;}
-.mw--e{animation:spinR 72s linear infinite;}  .mw--f{animation:spinL 64s linear infinite;}
-.mw--g{animation:spinR 58s linear infinite;}  .mw--h{animation:spinL 48s linear infinite;}
-.mk--k1{animation:spinL 150s linear infinite;} .mk--k2{animation:spinR 120s linear infinite;}
-.mk--k3{animation:spinL 96s linear infinite;}  .mk--k4{animation:spinR 70s linear infinite;}
+  filter:drop-shadow(0 0 26px rgba(232,93,4,0.24));}
+/* concentric keyline circles — the stable skeleton (alternating ink / ember) */
+.m-ring{fill:none; stroke:#0a0708; stroke-width:3; paint-order:stroke;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.55));}
+.m-ring--ember{stroke:#E85D04; stroke-width:1.6; opacity:0.85; filter:none;}
+/* outer incantation rim — 900 Cinzel, subtle (the geometry carries the read) */
+.m-word{font-family:var(--gw-display); font-weight:900; font-size:26px; fill:#0a0708;
+  text-transform:uppercase; letter-spacing:0.5px; paint-order:stroke fill;
+  stroke:#E85D04; stroke-width:0.9; opacity:0.9;}
+.m-tick{stroke:#E85D04; stroke-width:2.6; opacity:0.6; stroke-linecap:round;}
+/* petals — black ink body, ember rim, soft carved shadow */
+.m-petal{fill:#0a0708; stroke:#E85D04; stroke-width:1.4; paint-order:stroke fill;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,0.45));}
+.m-petal--in{fill:#120a0a; stroke:#C1292E;}
+.m-dot{fill:#0a0708; stroke:#E85D04; stroke-width:1.4;}
+.m-spoke{stroke:#0a0708; stroke-width:4; stroke-linecap:round;}
+.m-core{fill:#E85D04; filter:drop-shadow(0 0 16px rgba(232,93,4,0.95));}
+/* two slow counter-rotating motif groups (N-fold symmetry stays symmetric under
+   rotation); the concentric circles + boss stay still as the stable skeleton */
+.m-spin{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
+.m-spin--out{animation:spinR 120s linear infinite;}
+.m-spin--in{animation:spinL 88s linear infinite;}
 @keyframes spinR{to{transform:rotate(360deg);}}
 @keyframes spinL{to{transform:rotate(-360deg);}}
 
@@ -504,6 +504,6 @@ html.lenis,html.lenis body{height:auto;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
   .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
   .trust-num{animation:none;}
-  .mw,.mk{animation:none;}
+  .m-spin{animation:none;}
 }
 `
