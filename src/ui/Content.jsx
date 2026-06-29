@@ -14,6 +14,11 @@ const rnd = (a, b) => a + Math.random() * (b - a)
 const clamp = (x, a, b) => Math.min(Math.max(x, a), b)
 const easeOut = (x) => 1 - Math.pow(1 - x, 3)
 const easeIn = (x) => x * x * x
+const smooth = (t) => t * t * (3 - 2 * t)
+// trapezoid envelope: 0 → ramp up over [a,b] → 1 over [b,c] → ramp down over [c,d] → 0.
+// used to strictly sequence the finale layers so no two ever pile up at full opacity.
+const env = (x, a, b, c, d) =>
+  x <= a || x >= d ? 0 : x < b ? smooth((x - a) / (b - a)) : x > c ? 1 - smooth((x - c) / (d - c)) : 1
 
 // Ten frames, weighted scroll allocation. Arsenal carousel + the Finale act both
 // get long pins. Order: hero · draw · clan · arsenal · 5 trust rungs · finale.
@@ -203,69 +208,71 @@ export default function Content() {
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
 
-      // ── Finale act: problems → mandala whirlpool → solutions → forges → GAELWORX → CTA
+      // ── Finale act — STRICTLY SEQUENCED so no two layers ever pile up:
+      //   problems → drain → mandala whirlpool (+ seed at the eye) → solutions
+      //   rise → four forges → converge to GAELWORX → CTA. Each layer's opacity is
+      //   a trapezoid envelope; the next only starts as the previous finishes.
       const fp = clamp((p - CENTERS[FINALE]) / (1 - CENTERS[FINALE] + 1e-6), 0, 1)
-      const reveal = clamp(fp / 0.12, 0, 1)
-      const drain = clamp((fp - 0.18) / 0.18, 0, 1)
-      const vortex = clamp((fp - 0.36) / 0.12, 0, 1)
-      const rise = clamp((fp - 0.48) / 0.18, 0, 1)
-      const forgeIn = clamp((fp - 0.66) / 0.16, 0, 1)
-      const converge = clamp((fp - 0.82) / 0.12, 0, 1)
-      const ctaIn = clamp((fp - 0.94) / 0.06, 0, 1)
+      const oProblems = env(fp, 0.0, 0.04, 0.13, 0.22)
+      const oMandala = env(fp, 0.21, 0.30, 0.40, 0.50)
+      const oSeed = env(fp, 0.40, 0.45, 0.50, 0.56)
+      const oSolutions = env(fp, 0.55, 0.62, 0.69, 0.76)
+      const oForges = env(fp, 0.75, 0.82, 0.86, 0.92)
+      const oMark = env(fp, 0.88, 0.95, 1.2, 1.3)
+      const oCta = env(fp, 0.94, 0.99, 1.2, 1.3)
       const spin = fp * 680
 
       if (problemsRef.current) {
-        const e = easeIn(drain)
-        problemsRef.current.style.opacity = (reveal * (1 - drain)).toFixed(3)
+        // drains DOWN + spirals + shrinks into the whirlpool's eye as it fades
+        const out = clamp((fp - 0.13) / 0.09, 0, 1)
+        const e = easeIn(out)
+        problemsRef.current.style.opacity = oProblems.toFixed(3)
         problemsRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${(e * 200 * R).toFixed(1)}deg) translateY(${(e * 24 * R).toFixed(1)}vh) scale(${(1 - e * 0.82 * R).toFixed(3)})`
-        problemsRef.current.style.filter = !reduced && drain > 0.01 ? `blur(${(drain * 14).toFixed(1)}px)` : 'none'
+          `translate(-50%,-50%) rotate(${(e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
+        problemsRef.current.style.filter = !reduced && out > 0.01 ? `blur(${(out * 12).toFixed(1)}px)` : 'none'
       }
       if (mandalaRef.current) {
-        const appear = clamp((fp - 0.16) / 0.12, 0, 1)
-        const gone = clamp((fp - 0.50) / 0.16, 0, 1)
-        mandalaRef.current.style.opacity = (appear * (1 - gone)).toFixed(3)
-        const sc = (0.35 + appear * 0.65) * (1 + gone * 0.7)
+        const inP = clamp((fp - 0.21) / 0.09, 0, 1)
+        const outP = clamp((fp - 0.40) / 0.1, 0, 1)
+        mandalaRef.current.style.opacity = oMandala.toFixed(3)
+        const sc = (0.55 + easeOut(inP) * 0.45) * (1 + outP * 0.8)
         mandalaRef.current.style.transform = `translate(-50%,-50%) rotate(${(spin * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
       }
-      if (seedRef.current) {
-        seedRef.current.style.opacity = (vortex * (1 - clamp((fp - 0.46) / 0.05, 0, 1))).toFixed(3)
-      }
+      if (seedRef.current) seedRef.current.style.opacity = oSeed.toFixed(3)
       if (solutionsRef.current) {
-        const e = 1 - easeOut(rise)
-        solutionsRef.current.style.opacity = (rise * (1 - forgeIn)).toFixed(3)
+        // rises UP out of the eye, un-spiralling into place
+        const inP = clamp((fp - 0.55) / 0.07, 0, 1)
+        const e = 1 - easeOut(inP)
+        solutionsRef.current.style.opacity = oSolutions.toFixed(3)
         solutionsRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${(-e * 200 * R).toFixed(1)}deg) translateY(${(e * 24 * R).toFixed(1)}vh) scale(${(1 - e * 0.82 * R).toFixed(3)})`
-        solutionsRef.current.style.filter = !reduced && e > 0.01 ? `blur(${(e * 14).toFixed(1)}px)` : 'none'
+          `translate(-50%,-50%) rotate(${(-e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
+        solutionsRef.current.style.filter = !reduced && e > 0.01 ? `blur(${(e * 12).toFixed(1)}px)` : 'none'
       }
       if (forgesRef.current) {
-        const o = forgeIn * (1 - clamp((fp - 0.86) / 0.08, 0, 1))
-        forgesRef.current.style.opacity = o.toFixed(3)
-        const sc = (0.4 + easeOut(forgeIn) * 0.6) * (1 - converge * 0.92)
+        const inP = clamp((fp - 0.75) / 0.07, 0, 1)
+        const conv = clamp((fp - 0.86) / 0.06, 0, 1) // converge inward to the mark
+        forgesRef.current.style.opacity = oForges.toFixed(3)
+        const sc = (0.5 + easeOut(inP) * 0.5) * (1 - conv * 0.9)
         forgesRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${((spin * 0.4 + forgeIn * 120) * R).toFixed(1)}deg) scale(${Math.max(0.05, sc).toFixed(3)})`
+          `translate(-50%,-50%) rotate(${((spin * 0.4 + inP * 120) * R).toFixed(1)}deg) scale(${Math.max(0.05, sc).toFixed(3)})`
       }
       if (markRef.current) {
-        markRef.current.style.opacity = converge.toFixed(3)
-        const sc = 0.3 + easeOut(converge) * 0.7
-        // sits above center once the CTA arrives, so the wordmark + sword stack
-        const lift = ctaIn * 7
+        const inP = clamp((fp - 0.88) / 0.07, 0, 1)
+        const lift = oCta * 7 // rises above centre once the CTA arrives, so they stack
+        markRef.current.style.opacity = oMark.toFixed(3)
+        const sc = 0.4 + easeOut(inP) * 0.6
         markRef.current.style.transform =
-          `translate(-50%,-50%) translateY(${(-lift).toFixed(1)}vh) rotate(${((1 - converge) * -80 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
+          `translate(-50%,-50%) translateY(${(-lift).toFixed(1)}vh) rotate(${((1 - inP) * -70 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
       }
       if (ctaRef.current) {
-        ctaRef.current.style.opacity = ctaIn.toFixed(3)
+        ctaRef.current.style.opacity = oCta.toFixed(3)
         ctaRef.current.style.transform =
-          `translate(-50%,-50%) translateY(11vh) translateY(${((1 - ctaIn) * 22).toFixed(1)}px)`
-        ctaRef.current.style.pointerEvents = ctaIn > 0.6 ? 'auto' : 'none'
+          `translate(-50%,-50%) translateY(11vh) translateY(${((1 - oCta) * 22).toFixed(1)}px)`
+        ctaRef.current.style.pointerEvents = oCta > 0.6 ? 'auto' : 'none'
       }
-      const fmarks = [0.18, 0.40, 0.66, 0.82, 0.95]
+      const fmarks = [0.1, 0.34, 0.62, 0.82, 0.96]
       for (const m of fmarks) { if (lastFp < m && fp >= m) forge.strikeAt = performance.now() / 1000 }
       lastFp = fp
-      if (drain > 0.04 && drain < 0.99) {
-        forge.emit.x = 0.5; forge.emit.y = 0.5
-        forge.emit.amt = Math.max(forge.emit.amt, drain * (1 - drain) * 3.2)
-      }
 
       raf = requestAnimationFrame(tick)
     }

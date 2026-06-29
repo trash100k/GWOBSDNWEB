@@ -323,7 +323,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
    counter-rotating word rings + braided knotwork seated in a black-shadow well
    (src/ui/Mandala.jsx). The finale scroll-jack owns the whole layer's spin +
    scale; these rings add their own slow interlace on top. */
-.fin-mandala{width:min(170vh,170vw); height:min(170vh,170vw);}
+.fin-mandala{width:min(112vw,92vh); height:min(112vw,92vh);}
 .mandala-svg{width:100%; height:100%; display:block; overflow:visible;
   filter:drop-shadow(0 0 22px rgba(232,93,4,0.22));}
 /* black-ink calligraphy — 900 Cinzel, stretched + packed (negative tracking);
