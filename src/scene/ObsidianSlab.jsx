@@ -126,8 +126,8 @@ export default function ObsidianSlab({ quality }) {
 
   const material = useMemo(() => {
     const m = new THREE.MeshPhysicalMaterial({
-      // raw emerald-in-rock dark green-black for the hero entry (the "before forging").
-      color: new THREE.Color('#021109'),
+      // raw deep-forest emerald-in-rock for the hero entry (the "before forging").
+      color: new THREE.Color('#03180e'),
       metalness: 0,
       roughness: 0.05,
       clearcoat: 1,
@@ -142,7 +142,7 @@ export default function ObsidianSlab({ quality }) {
       transmission: transmissive ? 0.12 : 0,
       thickness: transmissive ? 1.0 : 0,
       attenuationColor: PAL.emerald.clone(),
-      attenuationDistance: 2.0,
+      attenuationDistance: 1.1,
       transparent: transmissive,
     })
     m.defines = { USE_UV: '' }

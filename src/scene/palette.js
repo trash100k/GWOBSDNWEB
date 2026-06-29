@@ -13,14 +13,15 @@ import * as THREE from 'three'
  * HDR (>1) values are intentional so only the 10% blooms.
  */
 export const PAL = {
-  void: new THREE.Color('#02060a'), // 60 — dominant dark, a hair green-black
-  ink: new THREE.Color('#04100b'),
-  emeraldDeep: new THREE.Color('#013a22'), // 30 — deep, for the saturated core/shadow mass
-  emerald: new THREE.Color('#006837'), // Emerald Isle — body green
-  jade: new THREE.Color('#019529'), // Irish Green — brighter body / bright zones
-  emeraldBright: new THREE.Color('#1fd66b'), // bright jade highlight
+  // DEEP FOREST emerald — chosen in the viewer: moody, saturated, dark green.
+  void: new THREE.Color('#02080a'), // 60 — dominant dark, a hair green-black
+  ink: new THREE.Color('#04120c'),
+  emeraldDeep: new THREE.Color('#062a16'), // 30 — deep forest shadow / saturated core mass
+  emerald: new THREE.Color('#0a5c33'), // deep forest — body green (the locked color)
+  jade: new THREE.Color('#117a45'), // brighter forest — jardin / bright zones (not vivid)
+  emeraldBright: new THREE.Color('#1f9d57'), // forest highlight (facet flash)
   gold: new THREE.Color('#d9b25a'), // warm gold glints (kept for warmth)
-  pale: new THREE.Color(1.45, 1.5, 1.15), // near-white-gold core/glint (HDR — only this blooms)
+  pale: new THREE.Color(1.4, 1.5, 1.18), // near-white-gold core/glint (HDR — only this blooms)
 }
 
 // vec3 helper for inlining into GLSL
