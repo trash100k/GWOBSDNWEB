@@ -20,15 +20,18 @@ const smooth = (t) => t * t * (3 - 2 * t)
 const env = (x, a, b, c, d) =>
   x <= a || x >= d ? 0 : x < b ? smooth((x - a) / (b - a)) : x > c ? 1 - smooth((x - c) / (d - c)) : 1
 
-// Weighted scroll allocation. Arsenal carousel + the Finale act both get long
-// pins. Order: hero · draw · clan · arsenal · rates · 5 trust rungs · finale.
+// Weighted scroll allocation = how much SCROLL each act costs (weight × 100vh).
+// Tightened ~40% (was 16.5 → ~9.9 screens) so the journey isn't draggy: short
+// frames cost well under a screen; only the arsenal carousel + finale (which have
+// internal phases) get real room. Order: hero · draw · clan · arsenal · rates ·
+// 5 trust rungs · finale.
 const TRUST = COPY.trust.rungs
 const FRAMES = 5 + TRUST.length + 1 // hero,draw,clan,arsenal,rates + trust + finale
 const ARSENAL = 3
 const RATES = 4 // the pricing-ladder beat
 const TRUST_BASE = 5 // first trust-rung frame index
 const FINALE = FRAMES - 1
-const WEIGHTS = [1, 0.8, 1, 2.6, 1.7, ...TRUST.map(() => 1), 4.4]
+const WEIGHTS = [0.6, 0.4, 0.65, 1.6, 0.95, ...TRUST.map(() => 0.6), 2.7]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
 const CENTERS = []
 const HALF = []
@@ -41,8 +44,8 @@ const HALF = []
   }
 })()
 
-const HOLD = 0.55
-const FADE = 1.6
+const HOLD = 0.5
+const FADE = 1.4
 const BRANCHES = COPY.arsenal.branches
 const BR = BRANCHES.length
 const STEP = 44
