@@ -234,8 +234,8 @@ html.lenis,html.lenis body{height:auto;}
 
 /* arsenal — vertical 3D carousel (rolodex). Scroll rotates the wheel up/down;
    the front branch is sharp + lit, the rest tilt away and blur (ethereal). */
-.carousel{position:relative; width:100%; height:clamp(300px,48vh,430px);
-  margin-top:clamp(14px,2.4vh,28px); perspective:1150px; perspective-origin:50% 46%;}
+.carousel{position:relative; width:100%; height:clamp(348px,56vh,476px);
+  margin-top:clamp(22px,3.2vh,40px); perspective:1280px; perspective-origin:50% 50%;}
 .wheel{position:absolute; inset:0; margin:0; padding:0; list-style:none;
   transform-style:preserve-3d; will-change:transform;}
 .car-item{position:absolute; top:50%; left:0; right:0; margin:0 auto; max-width:680px;
@@ -486,7 +486,7 @@ html.lenis,html.lenis body{height:auto;}
   .frame{padding:11vh 18px;}
   .fbody,.fbody--wide{max-width:none; width:100%;}
   .hero-sub{max-width:none;}
-  .carousel{height:clamp(330px,60vh,440px); perspective:900px;}
+  .carousel{height:clamp(366px,62vh,486px); perspective:1040px;}
   .branch-body{max-width:none;}
   .branch-foot{max-width:none;}
   /* rates ledger stacks on phones — tag + price on a row, anchor underneath */

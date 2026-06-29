@@ -50,8 +50,8 @@ const HOLD = 0.66
 const FADE = 1.04
 const BRANCHES = COPY.arsenal.branches
 const BR = BRANCHES.length
-const STEP = 44
-const RADIUS = 200
+const STEP = 46
+const RADIUS = 232
 const SPAN = 0.5
 
 const FORGES = COPY.finale.forges
@@ -180,9 +180,17 @@ export default function Content() {
         el.classList.toggle('is-active', opacity > 0.6)
       }
 
-      // Arsenal carousel — scroll rotates the vertical wheel through the branches.
+      // Arsenal carousel — scroll turns the vertical wheel through the services,
+      // ANCHORING each one front-and-centre for the bulk of its segment (a clear
+      // dwell where it sits crisp + face-on), then snapping quickly to the next, so
+      // every service reads cleanly instead of forever mid-rotation.
       const dA = (p - CENTERS[ARSENAL]) / HALF[ARSENAL]
-      const branchF = clamp((dA + SPAN) / (2 * SPAN), 0, 1) * (BR - 1)
+      const raw = clamp((dA + SPAN) / (2 * SPAN), 0, 1) * (BR - 1)
+      const fl = Math.floor(raw)
+      const fr = raw - fl
+      // dwell while fr is near 0/1; cross the gap only across the middle band
+      const snapped = fr < 0.34 ? 0 : fr > 0.66 ? 1 : smooth((fr - 0.34) / 0.32)
+      const branchF = Math.min(fl + snapped, BR - 1)
       const active = arsenalOpacity > 0.4
       for (let j = 0; j < BR; j++) {
         const el = carRefs.current[j]
@@ -190,9 +198,12 @@ export default function Content() {
         const off = j - branchF
         const aoff = Math.abs(off)
         const ang = reduced ? 0 : -off * STEP
-        el.style.transform = `translateY(-50%) rotateX(${ang.toFixed(2)}deg) translateZ(${RADIUS}px)`
-        el.style.opacity = clamp(1.12 - aoff * 0.62, 0, 1).toFixed(3)
-        const blur = reduced ? 0 : Math.min(aoff * 4.4, 11)
+        // front sits full-size + face-on; neighbours recede (smaller, tilted, faint)
+        const sc = reduced ? 1 : Math.max(0.7, 1 - aoff * 0.16)
+        el.style.transform = `translateY(-50%) rotateX(${ang.toFixed(2)}deg) translateZ(${RADIUS}px) scale(${sc.toFixed(3)})`
+        el.style.opacity = clamp(1.16 - aoff * 0.92, 0, 1).toFixed(3)
+        // crisp front; only a light blur on the peeks (legibility over soft-focus)
+        const blur = reduced ? 0 : aoff < 0.45 ? 0 : Math.min((aoff - 0.45) * 4, 6)
         el.style.filter = blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none'
         el.style.zIndex = String(100 - Math.round(aoff * 10))
         const front = aoff < 0.5
