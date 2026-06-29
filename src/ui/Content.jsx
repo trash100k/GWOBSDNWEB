@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { COPY } from '../brand.js'
 import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
@@ -13,6 +14,7 @@ function strike() {
 const rnd = (a, b) => a + Math.random() * (b - a)
 const clamp = (x, a, b) => Math.min(Math.max(x, a), b)
 const easeOut = (x) => 1 - Math.pow(1 - x, 3)
+const easeOutQuart = (x) => 1 - Math.pow(1 - x, 4)
 const easeIn = (x) => x * x * x
 const smooth = (t) => t * t * (3 - 2 * t)
 // trapezoid envelope: 0 → ramp up over [a,b] → 1 over [b,c] → ramp down over [c,d] → 0.
@@ -44,8 +46,8 @@ const HALF = []
   }
 })()
 
-const HOLD = 0.5
-const FADE = 1.4
+const HOLD = 0.66
+const FADE = 1.04
 const BRANCHES = COPY.arsenal.branches
 const BR = BRANCHES.length
 const STEP = 44
@@ -55,6 +57,7 @@ const SPAN = 0.5
 const FORGES = COPY.finale.forges
 
 export default function Content() {
+  const navigate = useNavigate()
   const frameRefs = useRef([])
   const carRefs = useRef([])
   const wheelRef = useRef(null)
@@ -87,14 +90,14 @@ export default function Content() {
           return {
             ex: side * 74 * mag, ey: 30,
             rot: side * (15 + k * 3),
-            blur: 26, scale: 0.82,
+            blur: 10, scale: 0.82,
             ox: -side * 26 * mag, oy: -34,
-            orot: -side * (9 + k * 2), oblur: 18,
+            orot: -side * (9 + k * 2), oblur: 9,
           }
         }
         // the rates beat rises straight up, square and deliberate (it's a ledger)
         if (i === RATES) {
-          return { ex: 0, ey: 24, rot: 0, blur: 20, scale: 0.92, ox: 0, oy: -20, orot: 0, oblur: 13 }
+          return { ex: 0, ey: 24, rot: 0, blur: 10, scale: 0.92, ox: 0, oy: -20, orot: 0, oblur: 8 }
         }
         const ang = Math.random() * Math.PI * 2
         const dist = rnd(52, 96)
@@ -103,12 +106,12 @@ export default function Content() {
           ex: Math.cos(ang) * dist,
           ey: Math.sin(ang) * dist * 0.85,
           rot: rnd(-10, 10),
-          blur: rnd(18, 32),
+          blur: rnd(6, 12),
           scale: rnd(0.82, 0.92),
           ox: Math.cos(exAng) * rnd(22, 44),
           oy: Math.sin(exAng) * rnd(18, 36) - 10,
           orot: rnd(-6, 6),
-          oblur: rnd(10, 20),
+          oblur: rnd(6, 12),
         }
       }),
     []
@@ -117,13 +120,13 @@ export default function Content() {
   const scrollToBranch = (j) => {
     const max = document.documentElement.scrollHeight - window.innerHeight
     const d = -SPAN + (j / (BR - 1)) * 2 * SPAN
-    window.scrollTo({ top: max > 0 ? (CENTERS[ARSENAL] + d * HALF[ARSENAL]) * max : 0, behavior: 'smooth' })
+    const top = max > 0 ? (CENTERS[ARSENAL] + d * HALF[ARSENAL]) * max : 0
+    forge.lenis ? forge.lenis.scrollTo(top, { duration: 0.9 }) : window.scrollTo({ top, behavior: 'smooth' })
   }
-  const scrollToEnd = () => {
-    const max = document.documentElement.scrollHeight - window.innerHeight
-    window.scrollTo({ top: max, behavior: 'smooth' })
+  const scrollToTop = () => {
+    const top = 0
+    forge.lenis ? forge.lenis.scrollTo(top, { duration: 0.9 }) : window.scrollTo({ top, behavior: 'smooth' })
   }
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   useEffect(() => {
     let raf
@@ -137,8 +140,8 @@ export default function Content() {
       const max = document.documentElement.scrollHeight - window.innerHeight
       const p = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0
       if (!reduced) {
-        px += (forge.pointer.x - px) * 0.06
-        py += (forge.pointer.y - py) * 0.06
+        px += (forge.pointer.x - px) * 0.11
+        py += (forge.pointer.y - py) * 0.11
         root.style.setProperty('--px', px.toFixed(4))
         root.style.setProperty('--py', (-py).toFixed(4))
         root.style.setProperty('--mx', (forge.pointer.x * 50 + 50).toFixed(1) + '%')
@@ -162,7 +165,7 @@ export default function Content() {
         if (!reduced && ad > HOLD) {
           const f0 = Math.min((ad - HOLD) / (FADE - HOLD), 1)
           if (d < 0) {
-            const f = easeOut(f0)
+            const f = easeOutQuart(f0)
             tx = v.ex * f; ty = v.ey * f; rot = v.rot * f; blur = v.blur * f; sc = 1 - (1 - v.scale) * f
           } else {
             const f = easeIn(f0)
@@ -304,7 +307,7 @@ export default function Content() {
             <span className="eyebrow">{COPY.hero.eyebrow}</span>
             <ForgeText as="h1" className="headline etched flame" text={COPY.hero.headline} delay={1200} ignite />
             <p className="hero-sub">{COPY.hero.sub}</p>
-            <button className="cta magnetic" onClick={() => { strike(); scrollToEnd() }}>
+            <button className="cta magnetic" onClick={() => { strike(); navigate('/contact') }}>
               <span>{COPY.hero.cta}</span>
             </button>
           </div>
@@ -415,7 +418,7 @@ export default function Content() {
 
             <div className="fin-cta" ref={ctaRef}>
               <span className="fin-closer">{COPY.finale.closer}</span>
-              <button className="cta cta--solid magnetic" onClick={strike}><span>{COPY.finale.cta}</span></button>
+              <button className="cta cta--solid magnetic" onClick={() => { strike(); navigate('/contact') }}><span>{COPY.finale.cta}</span></button>
               <span className="avail">{COPY.finale.avail}</span>
             </div>
           </div>

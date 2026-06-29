@@ -18,7 +18,6 @@ export const STYLES = `
 }
 *{box-sizing:border-box;}
 html,body,#root{margin:0; padding:0;}
-html{scroll-behavior:smooth;}
 body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans);
   -webkit-font-smoothing:antialiased; overflow-x:hidden;}
 /* Lenis momentum scroll (darkroomengineering/lenis) — required base styles. When

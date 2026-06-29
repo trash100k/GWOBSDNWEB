@@ -75,7 +75,7 @@ export default function ForgeExperience() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true })
+    const lenis = new Lenis({ lerp: 0.14, smoothWheel: true })
     forge.lenis = lenis
     let raf
     const loop = (t) => {
