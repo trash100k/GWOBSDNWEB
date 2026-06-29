@@ -42,8 +42,20 @@ while `main` produces **zero** production deployments. Five `main` pushes create
 - **You cannot force a deploy from this sandbox:** no `VERCEL_TOKEN`, network 403s `api.vercel.com`,
   and the Vercel MCP is **read-only** (no redeploy/unpause/trigger tool; `deploy_to_vercel` only
   returns CLI text). Say so plainly instead of pretending.
-- **Owner-side unblock:** `vercel --prod` from the repo, OR Settings → Git → **disconnect/reconnect**
-  (resets a stalled webhook), OR dashboard **Redeploy** the latest `main`.
+- **Owner-side unblock (best first):**
+  1. **Promote an already-built preview to production — no rebuild, no limit.** A branch preview with
+     the work is usually already READY; dashboard → Deployments → that preview → **⋯ → Promote to
+     Production**, or `vercel promote <preview-url>`. Sidesteps both the webhook AND the rate limit.
+  2. `vercel deploy --force --prod` from the repo (fresh prod build — but counts against the cap).
+  3. Settings → Git → **disconnect/reconnect** (resets a stalled webhook).
+
+## It's usually the Hobby limits (the real root cause)
+This is a **Hobby** project: **100 deployments / day** and **1 concurrent build**. A burst (autonomous
+loop, parallel agents, per-commit pushes) blows past both → Vercel serializes + **coalesces** each
+branch to its latest commit (skips intermediates) and starves/drops the interleaved `main` builds; near
+100/day it stops creating deployments at all. Previews trickle; production dies. **Fix = `promote` a
+preview (above) + cut deploy volume** (batch commits, push `main` only at milestones). Full writeup:
+`docs/research/vercel-hobby-deploy-limits.md`. Upgrade to Pro (12 concurrent) if the cadence continues.
 
 ## Let the owner SEE it while prod is stuck (the unlock)
 **Branch previews still build.** The branch alias
