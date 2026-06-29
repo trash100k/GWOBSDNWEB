@@ -8,8 +8,8 @@
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
 ## STATE
-- **LAST DONE:** 0.1 — react-router-dom shell; home carved to `/`; routes.js (paths + SEO meta); on-brand stub pages; canvas/nav persist app-shell. Build green, 0 console errors @ 393×852 + 1440×900.
-- **NEXT UP:** Phase 0 · 0.2 (build-time prerender → real HTML per route)
+- **LAST DONE:** 0.2 — pure-Node prerender (`scripts/prerender.mjs`, wired into `build`): emits `dist/<route>/index.html` with a data-driven content block (H1 + copy + prices + internal links, ~900 chars/route) in `#root`, per-route title/description, dark critical CSS. Verified: all 4 prices in `/pricing` HTML, content in every route with no JS; React boots over it, 0 console errors @ both viewports. Vercel-compatible (no browser at build).
+- **NEXT UP:** Phase 0 · 0.3 (shared 3D system: one renderer, route-swapped lazy scenes + poster fallback)
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 
@@ -47,7 +47,7 @@
 
 ## PHASE 0 — FOUNDATION  *(must finish before any page)*
 - [x] **0.1** Add routing (`react-router-dom`) + page shell; carve current home into a `/` route. Keep the obsidian canvas mounted app-shell-level. _(routes.js + Outlet layout + stub pages; home identical, 0 errors @ both viewports)_
-- [ ] **0.2** Prerender pipeline → static HTML per route (evaluate `vite-react-ssg` or a Playwright build-time snapshot; the renderer is already in the env). Verify `dist/<route>/index.html` contains real text.
+- [x] **0.2** Prerender pipeline → static HTML per route. _(Pure-Node `scripts/prerender.mjs` — no browser, Vercel-safe — prefills `#root` with brand/route-data content + prices + internal links. Verified real text + all prices in `dist/<route>/index.html`; live app + 0 errors. Canonical/OG/JSON-LD/sitemap/robots deferred to 0.4.)_
 - [ ] **0.3** Shared 3D system: one renderer/canvas, a `<SceneSwitch>` that lazy-loads the active route's scene after first paint and disposes the previous; static poster fallback.
 - [ ] **0.4** SEO infra: per-route `<head>` (helmet-style or SSG head) + base JSON-LD (Organization) + `robots.txt` (allow GPTBot/PerplexityBot/ClaudeBot/Google-Extended) + `sitemap.xml` + per-route OG image generation.
 - [ ] **0.5** Perf harness: measure LCP/JS budget in the QA script; fail the gate if over budget.

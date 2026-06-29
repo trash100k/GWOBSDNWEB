@@ -6,7 +6,7 @@
   "description": "GAELWORX — a slab of living obsidian, lit from within by a forge that never went out.",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
