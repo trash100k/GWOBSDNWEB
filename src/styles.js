@@ -244,6 +244,40 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .car-item.is-front .branch-id{color:var(--gw-ember);}
 .car-item.is-front .branch-line{color:#fff; text-shadow:0 0 28px rgba(232,93,4,0.55), 0 2px 10px rgba(0,0,0,0.6);}
 
+/* branch price — the number lands AFTER outcome + proof, with the anchor (what it
+   costs elsewhere) struck above it so the "from" price reads as efficient. */
+.branch-foot{display:flex; flex-direction:column; gap:5px; margin-top:14px;
+  border-top:1px solid rgba(141,153,174,0.2); padding-top:12px; max-width:36ch;}
+.branch-anchor{font-size:clamp(11px,1.3vw,13px); letter-spacing:0.01em; line-height:1.3;
+  color:rgba(141,153,174,0.7); text-decoration:line-through; text-decoration-color:rgba(193,41,46,0.55);}
+.branch-price{font-family:var(--gw-headline); font-weight:800; letter-spacing:0.01em;
+  font-size:clamp(1.05rem,2.1vw,1.4rem); color:var(--gw-bone);}
+.branch-price em{font-style:normal; font-weight:600; font-size:0.66em; letter-spacing:0.04em;
+  text-transform:uppercase; color:var(--gw-steel);}
+.car-item.is-front .branch-price{color:var(--gw-ember); text-shadow:0 0 24px rgba(232,93,4,0.4);}
+
+/* ── the rates beat — the whole ladder as a forged ledger. Premium register,
+   accessible numbers; the "forge runs lean" lede reconciles the two. ────────── */
+.frame--rates{align-items:center; justify-content:center; text-align:center;}
+.frame--rates .fbody{margin:0 auto; max-width:880px; text-align:center;}
+.frame--rates .head{font-size:clamp(1.7rem,4.8vw,3rem);}
+.rates-lede{margin:0 auto clamp(20px,3vh,34px); max-width:54ch; color:var(--gw-steel); text-align:center;}
+.rate-ledger{list-style:none; margin:0 auto; padding:0; width:100%; max-width:760px;
+  border-top:1px solid rgba(141,153,174,0.22);}
+.rate-row{display:grid; grid-template-columns:minmax(92px,0.7fr) 1.5fr auto; align-items:center;
+  gap:clamp(10px,2.4vw,30px); padding:clamp(11px,1.7vh,17px) clamp(4px,1vw,12px);
+  border-bottom:1px solid rgba(141,153,174,0.16); text-align:left;}
+.rate-tag{font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
+  letter-spacing:0.02em; font-size:clamp(0.95rem,2vw,1.3rem); color:var(--gw-bone);}
+.rate-anchor{font-size:clamp(11px,1.4vw,14px); line-height:1.3; color:rgba(141,153,174,0.72);
+  text-decoration:line-through; text-decoration-color:rgba(193,41,46,0.5);}
+.rate-price{font-family:var(--gw-headline); font-weight:800; white-space:nowrap; text-align:right;
+  font-size:clamp(1.02rem,2.3vw,1.5rem); color:var(--gw-ember); text-shadow:0 0 22px rgba(232,93,4,0.35);}
+.rate-price em{display:block; font-style:normal; font-weight:600; font-size:0.6em; letter-spacing:0.04em;
+  text-transform:uppercase; color:var(--gw-steel); text-shadow:none; margin-top:2px;}
+.rate-foot{display:block; margin-top:clamp(18px,2.4vh,28px); font-size:11px; letter-spacing:0.32em;
+  font-weight:700; text-transform:uppercase; color:var(--gw-steel);}
+
 .avail{display:block; margin-top:clamp(20px,2.4vw,28px); font-size:10.5px; letter-spacing:0.32em;
   font-weight:700; text-transform:uppercase; color:var(--gw-steel);}
 
@@ -334,13 +368,20 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 /* knot rope — ember glow strand behind, black ink strand on top → fire at the edges */
 .braid-glow{fill:none; stroke:#E85D04; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; opacity:0.85;}
 .braid-ink{fill:none; stroke:#0a0708; stroke-width:4; stroke-linecap:round; stroke-linejoin:round;}
+/* engraved rim ticks — short ember marks for density around the outer band */
+.mandala-tick{stroke:#E85D04; stroke-width:2.4; opacity:0.5; stroke-linecap:round;}
+/* central boss — fills the eye: concentric ink rings + a forge-glow core */
+.boss-ring{fill:none; stroke:#0a0708; stroke-width:5; paint-order:stroke;
+  filter:drop-shadow(0 0 6px rgba(232,93,4,0.5));}
+.boss-core{fill:#E85D04; filter:drop-shadow(0 0 14px rgba(232,93,4,0.9));}
 /* each ring + knot band counter-rotates around the mandala centre (viewBox 0,0) */
 .mw,.mk{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
 .mw--a{animation:spinR 132s linear infinite;} .mw--b{animation:spinL 104s linear infinite;}
 .mw--c{animation:spinR 88s linear infinite;}  .mw--d{animation:spinL 116s linear infinite;}
 .mw--e{animation:spinR 72s linear infinite;}  .mw--f{animation:spinL 64s linear infinite;}
+.mw--g{animation:spinR 58s linear infinite;}  .mw--h{animation:spinL 48s linear infinite;}
 .mk--k1{animation:spinL 150s linear infinite;} .mk--k2{animation:spinR 120s linear infinite;}
-.mk--k3{animation:spinL 96s linear infinite;}
+.mk--k3{animation:spinL 96s linear infinite;}  .mk--k4{animation:spinR 70s linear infinite;}
 @keyframes spinR{to{transform:rotate(360deg);}}
 @keyframes spinL{to{transform:rotate(-360deg);}}
 
@@ -382,8 +423,13 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   .frame{padding:11vh 18px;}
   .fbody,.fbody--wide{max-width:none; width:100%;}
   .hero-sub{max-width:none;}
-  .carousel{height:clamp(290px,52vh,400px); perspective:900px;}
+  .carousel{height:clamp(330px,60vh,440px); perspective:900px;}
   .branch-body{max-width:none;}
+  .branch-foot{max-width:none;}
+  /* rates ledger stacks on phones — tag + price on a row, anchor underneath */
+  .rate-row{grid-template-columns:1fr auto; gap:4px 14px; row-gap:4px;}
+  .rate-anchor{grid-column:1 / -1; order:3;}
+  .rate-price{text-align:right;}
   /* stronger ambient vignette on phones so copy holds over the brightest veins */
   .stage::before{background:radial-gradient(98% 72% at 50% 48%, rgba(4,5,8,0.74), rgba(4,5,8,0.3) 56%, transparent 88%);}
 }

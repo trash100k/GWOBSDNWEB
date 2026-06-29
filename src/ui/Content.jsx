@@ -20,14 +20,15 @@ const smooth = (t) => t * t * (3 - 2 * t)
 const env = (x, a, b, c, d) =>
   x <= a || x >= d ? 0 : x < b ? smooth((x - a) / (b - a)) : x > c ? 1 - smooth((x - c) / (d - c)) : 1
 
-// Ten frames, weighted scroll allocation. Arsenal carousel + the Finale act both
-// get long pins. Order: hero · draw · clan · arsenal · 5 trust rungs · finale.
+// Weighted scroll allocation. Arsenal carousel + the Finale act both get long
+// pins. Order: hero · draw · clan · arsenal · rates · 5 trust rungs · finale.
 const TRUST = COPY.trust.rungs
-const FRAMES = 4 + TRUST.length + 1 // hero,draw,clan,arsenal + trust + finale
+const FRAMES = 5 + TRUST.length + 1 // hero,draw,clan,arsenal,rates + trust + finale
 const ARSENAL = 3
-const TRUST_BASE = 4 // first trust-rung frame index (after hero,draw,clan,arsenal)
+const RATES = 4 // the pricing-ladder beat
+const TRUST_BASE = 5 // first trust-rung frame index
 const FINALE = FRAMES - 1
-const WEIGHTS = [1, 0.8, 1, 2.6, ...TRUST.map(() => 1), 4.4]
+const WEIGHTS = [1, 0.8, 1, 2.6, 1.7, ...TRUST.map(() => 1), 4.4]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
 const CENTERS = []
 const HALF = []
@@ -87,6 +88,10 @@ export default function Content() {
             ox: -side * 26 * mag, oy: -34,
             orot: -side * (9 + k * 2), oblur: 18,
           }
+        }
+        // the rates beat rises straight up, square and deliberate (it's a ledger)
+        if (i === RATES) {
+          return { ex: 0, ey: 24, rot: 0, blur: 20, scale: 0.92, ox: 0, oy: -20, orot: 0, oblur: 13 }
         }
         const ang = Math.random() * Math.PI * 2
         const dist = rnd(52, 96)
@@ -212,7 +217,11 @@ export default function Content() {
       //   problems → drain → mandala whirlpool (+ seed at the eye) → solutions
       //   rise → four forges → converge to GAELWORX → CTA. Each layer's opacity is
       //   a trapezoid envelope; the next only starts as the previous finishes.
-      const fp = clamp((p - CENTERS[FINALE]) / (1 - CENTERS[FINALE] + 1e-6), 0, 1)
+      // start the sequence as the finale frame SETTLES in (not at its centre), so
+      // the problems arrive the moment the act begins — no empty dead-zone scroll
+      // between the trust ladder and the first line.
+      const FIN_START = CENTERS[FINALE] - HALF[FINALE] * 0.8
+      const fp = clamp((p - FIN_START) / (1 - FIN_START + 1e-6), 0, 1)
       const oProblems = env(fp, 0.0, 0.04, 0.13, 0.22)
       const oMandala = env(fp, 0.21, 0.30, 0.40, 0.50)
       const oSeed = env(fp, 0.40, 0.45, 0.50, 0.56)
@@ -325,6 +334,10 @@ export default function Content() {
                     <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
                     <span className="branch-line"><BrandText text={b.line} /></span>
                     <span className="branch-body"><BrandText text={b.body} /></span>
+                    <span className="branch-foot">
+                      <span className="branch-anchor">{b.anchor}</span>
+                      <span className="branch-price">{b.price}{b.note && <em> · {b.note}</em>}</span>
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -332,7 +345,28 @@ export default function Content() {
           </div>
         </div>
 
-        {/* 04–08 — the trust ladder: a 5-step escalating whirlwind. A giant
+        {/* 04 — the rates beat: the whole ladder at once. Premium craft, accessible
+            prices — reconciled by "the forge runs lean". Each row anchors the price
+            against what it costs elsewhere (never a naked number). */}
+        <div className="frame frame--rates" ref={setRef(RATES)}>
+          <div className="fbody fbody--wide">
+            <span className="kicker">{COPY.rates.kicker}</span>
+            <ForgeText as="h2" className="head flame" text={COPY.rates.head} />
+            <p className="intro rates-lede"><BrandText text={COPY.rates.lede} /></p>
+            <ul className="rate-ledger">
+              {BRANCHES.map((b) => (
+                <li key={b.id} className="rate-row">
+                  <span className="rate-tag"><BrandText text={b.tag} /></span>
+                  <span className="rate-anchor">{b.anchor}</span>
+                  <span className="rate-price">{b.price}{b.note && <em> · {b.note}</em>}</span>
+                </li>
+              ))}
+            </ul>
+            <span className="rate-foot">{COPY.rates.foot}</span>
+          </div>
+        </div>
+
+        {/* 05–09 — the trust ladder: a 5-step escalating whirlwind. A giant
             ghosted numeral turns behind centered copy (priming the finale's
             spin); each rung whips in alternating sides, harder than the last. */}
         {TRUST.map((r, k) => (
@@ -346,7 +380,7 @@ export default function Content() {
           </div>
         ))}
 
-        {/* 09 — the finale act */}
+        {/* 10 — the finale act */}
         <div className="frame frame--finale" ref={setRef(FINALE)}>
           <div className="finale">
             <div className="fin-layer fin-problems" ref={problemsRef}>

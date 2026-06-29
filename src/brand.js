@@ -47,6 +47,8 @@ export const COPY = {
     body: 'GAELWORX is an engineering forge, not an agency. We ship our own platforms — YardWorx, RepairWorx, SalesWorx, AgentWorx — and build the same caliber of systems for you. We move like a clan: small, fast, fully accountable. You talk to the people who build it.',
   },
 
+  // Each branch is wired to sell: outcome (line) → first-hand proof (body) →
+  // anchor (what it costs elsewhere) → the "from" price. Never a naked number.
   arsenal: {
     kicker: '02 · The Arsenal',
     head: 'Four branches. One forge.',
@@ -56,27 +58,46 @@ export const COPY = {
         id: 'GW–01',
         tag: 'Software',
         line: 'Custom software. Built to run it all.',
-        body: 'Internal tools and proprietary platforms — custom-built, documented, open-sourced to you. The same forge that built YardWorx, built for how you actually run.',
+        body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. The same forge that built YardWorx, built for how you actually run.',
+        anchor: 'Agencies bill $75k and months of discovery.',
+        price: 'From $10,000',
+        note: '$5k deposit to start',
       },
       {
         id: 'GW–02',
         tag: 'Voice',
         line: 'Lifelike voice agents that never clock out.',
-        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — in a voice no caller clocks as AI. Your script, around the clock. No missed call, no lost revenue.',
+        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — in a voice no caller clocks as AI. The same agent that runs our own front desk.',
+        anchor: 'An in-house receptionist runs $48,000 a year.',
+        price: 'From $499/mo',
+        note: '+ one-time setup',
       },
       {
         id: 'GW–03',
         tag: 'Automations',
         line: 'Workflows that kill the headaches.',
-        body: 'Workflows and automations that quote, follow up, invoice, and pull reviews on their own — and hand you your data to own and leverage like no one else can.',
+        body: 'Quoting, follow-up, invoicing, reviews — running on their own, handing you your data to own and leverage like no one else can. The same automations that run our shops.',
+        anchor: 'By hand, it costs you those hours every week.',
+        price: 'From $1,500',
       },
       {
         id: 'GW–04',
         tag: 'Web',
         line: 'Cinematic web that books the job.',
-        body: 'Studio-grade, cinematic lead-gen sites that turn visitors into booked work and route every lead straight to your phone.',
+        body: 'Studio-grade, cinematic lead-gen sites that turn visitors into booked work and route every lead straight to your phone. Built to the standard of the page you’re on.',
+        anchor: 'Premium studios charge $50k+ for this.',
+        price: 'From $1,299',
       },
     ],
+  },
+
+  // The rates beat — the whole ladder at once, with the reconciliation line that
+  // lets premium craft sit beside accessible prices: the forge is efficient.
+  rates: {
+    kicker: 'The Forge Runs Lean',
+    head: 'Premium work. Honest prices.',
+    lede: 'Automatic Execution means we’ve systematized what others bill by the hour. You’re not paying less for less — you’re paying less because the forge is efficient.',
+    foot: 'Fixed scope. Fixed price. Continental US · 7 Days.',
   },
 
   point: {
