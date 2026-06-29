@@ -7,12 +7,22 @@
 >
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
-## STATE
-- **LAST DONE:** SMOOTH/MOTION PASS — **Lenis** momentum scroll app-wide (reduced-motion-guarded; window.scrollY stays the smoothed source so scene/jack need no rewrite; route changes reset via `forge.lenis.scrollTo`); site-wide **Forge Reveal** (blur→sharp + rise) on every `<Section>` via IntersectionObserver (Safari-safe, JS-only so no-JS/crawler content stays visible); **bounded blur** (kinetic 10→7px, finale drain 12→8px) per the perf research. Build green, 0 console errors @ both viewports. (All 8 specialist pages already integrated.)
-- **ALSO DONE (perf/UX sprint):** Nav rewired to the real routes (was scroll-only → pages were URL-only); **code-split** the three/r3f/gsap/lenis/leva vendor chunks (app chunk 1.43MB→202KB / 56KB gz); **lazy + idle-deferred canvas** (`React.lazy` + requestIdleCallback → content paints before WebGL init; DOM-probed: canvas mounts, not stuck on fallback, Lenis active, 0 errors).
-- **NEXT UP:** (1) **deploy to prod on owner word** — big verified batch waiting (8 pages + smooth pass + perf); (2) Phase 2 lead endpoint + confirm intake email; (3) type-elevation (proximity-ignite / 3D wordmark); (4) footer w/ internal links; (5) perf budget asserts in the harness.
-- **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
-- **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
+## STATE  _(session compaction — 2026-06-29)_
+- **DONE this session (all on the branch, build-green, 0 console errors @ 393×852 + 1440×900):**
+  - **Pricing** wired into the home journey (outcome→proof→struck anchor→ember price + the RATES ledger); second story / mandala finished.
+  - **8 routed pages** + Lenis smooth scroll + code-split + lazy/idle canvas + per-route SEO/prerender (earlier).
+  - **Pacing pass 1** (`tune-pacing`): `HOLD 0.66 / FADE 1.04` (transit:rest **1.8→0.29**), entry blur 6–12px, `easeOutQuart` snap-in, programmatic scrolls via `forge.lenis.scrollTo`, pointer lerp 0.11, Lenis lerp 0.14; dropped base `html{scroll-behavior:smooth}`.
+  - **Both dead home CTAs wired** to `/contact` (hero + finale), keeping the `strike()` forge-flash.
+  - **AEO/GEO** (`aeo-geo`): `FAQPage` from `COPY.faq` (/software /voice /automations /web /pricing) in BOTH the no-JS `.seo` HTML and the route `@graph`; `ORG` gained email + sales `ContactPoint`; prerender emits **`dist/llms.txt`**. ⚠ Placeholders for owner: `forge@gaelworx.com`, phone, address, social `sameAs`.
+  - **Mandala** REBUILT geometric (real `<circle>` rings + N-fold `rotate()` motifs, not curved running text) AND **re-framed**: fades in centred + HOLDS, whole, in frame — no scroll scale/spin (`Content.jsx` finale + `.fin-mandala min(90vw,84vh)`). DOM-verified inFrame+centered both viewports.
+  - **Services carousel** anchored: discrete dwells (face-on `rotX 0, op 1`) + crisp front + faded peeks (~0.24); `RADIUS 232 / STEP 46`, taller carousel, centred perspective-origin. DOM-verified.
+  - **18 skills** in `.claude/skills/` (+ README index): brand-check, motion-feel, tune-pacing, forge-scene, qa-route, ship, add-route, kinetic-type, aeo-geo, lead-capture, **deploy-doctor, radial-svg, scroll-carousel, git-hygiene, parallel-agents, shader-fx, post-fx, fx-resources**.
+  - **Research:** `docs/research/` — pacing-motion-deep-dive, mandala-construction-and-animation, vercel-hobby-deploy-limits (+ earlier briefs).
+- **🚧 BLOCKER — production deploy stuck (Vercel HOBBY limits):** 100 deploys/day + **1 concurrent build** → this session's volume coalesced/dropped `main`/production builds while branch previews trickle. **Prod (`gwobsdnweb.vercel.app`) still serves the OLD `efc623c` build** (no `/llms.txt`, old bundle `index-BnJhKFIs.js`; 200 not 503 = stale, not paused). The sandbox **cannot** deploy (no token, network 403s `api.vercel.com`/`*.vercel.app`, Vercel MCP read-only — `deploy_to_vercel` only returns CLI text). **Owner-side fix:** Dashboard → Deployments → latest READY preview → ⋯ **Promote to Production** (no rebuild, no limit), or `vercel --prod`, or Settings → Git reconnect. See `deploy-doctor` + `docs/research/vercel-hobby-deploy-limits.md`.
+- **GIT:** branch **`claude/gaelworx-obsidian-hero-rrr9xo` = `2997733`** (latest, clean, verified — all of the above). `main = 1321e1a` (behind: has carousel+mandala-rebuild+pacing+AEO but NOT the mandala-framing fix or skills/research; **and not deployed anyway**). Sync `main` = branch once deploy is unblocked.
+- **REVIEW PREVIEW (owner, logged into Vercel):** `https://gwobsdnweb-git-claude-gaelworx-obsid-77d130-zach-1373s-projects.vercel.app` (branch alias auto-updates to the latest branch build).
+- **NEXT:** (1) **owner promotes** the preview → production so the public URL is current; (2) owner reads mandala/carousel/pacing on the **iPhone 15** → tune from that verdict; (3) confirm intake email + NAP (AEO placeholders); (4) Phase 2 lead endpoint (`lead-capture`); (5) footer w/ internal links; (6) perf-budget asserts in QA.
+- **PROD DEPLOYS:** owner OK only; on Hobby treat deploys as scarce — push `main`/promote at milestones, not per commit (`git-hygiene`, `deploy-doctor`).
 
 ## ARCHITECTURE (decided 2026-06-29)
 - **Routed + prerendered.** Real per-page URLs, each prerendered to static HTML so
