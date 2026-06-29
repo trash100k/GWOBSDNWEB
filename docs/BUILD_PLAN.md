@@ -8,8 +8,8 @@
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
 ## STATE
-- **LAST DONE:** 0.4 — per-route SEO head in the prerender: canonical + OG + Twitter + JSON-LD (Organization, WebSite, Service+Offer w/ price, OfferCatalog on /pricing); `robots.txt` welcoming GPTBot/PerplexityBot/ClaudeBot/Google-Extended + Sitemap; `sitemap.xml` (9 urls); branded `public/og.png`; client-side title/description sync on SPA nav. Verified in dist HTML + 0 errors. **Foundation (Phase 0) COMPLETE.**
-- **NEXT UP:** Phase 1 · 1.1 (Home — ensure prerendered content + scene; then service pages). Consider a prod deploy of the foundation milestone (owner OK).
+- **LAST DONE:** Phase 1 SCAFFOLD — shared placement system (`PageShell` + `Section` + `.pg-*` rhythm/measure/panel CSS) so spacing+placement are identical site-wide; all 8 routes now real page components (Software/Voice/Automations/Web/Work/Pricing/About/Contact) on the shell with brand content, routed in App.jsx (StubPage retired to catch-all). Reusable `scripts/shot.mjs` for self-QA. Build green + prerender OK. **Specialists now deepening each page in parallel (see docs/PAGE_SPEC.md).**
+- **NEXT UP:** integrate specialist page work → dual-viewport QA → fix placement seams → commit → deploy. Then home-pacing pass + Phase 2 (lead capture).
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 

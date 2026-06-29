@@ -297,6 +297,44 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
   font-size:clamp(12px,1.5vw,15px); text-transform:uppercase; color:var(--gw-steel);}
 .page .cta{margin-top:clamp(28px,3.4vw,44px);}
 
+/* ── SHARED PAGE PLACEMENT SYSTEM (PageShell + Section) ───────────────────
+   One rhythm, one measure, one hierarchy for every routed page so spacing +
+   placement are identical site-wide. Normal flow above the fixed canvas. */
+.pg{position:relative; z-index:2; pointer-events:auto; padding-bottom:6vh;}
+.pg-measure{width:min(92vw,1080px); margin-inline:auto;}
+.pg-center{text-align:center;}
+.pg-start{text-align:left;}
+.pg-hero{padding:calc(var(--safe-t) + 22vh) 0 clamp(56px,9vh,110px); text-align:center;}
+.pg-title{margin:14px 0 0; font-family:var(--gw-display); text-transform:uppercase; font-weight:900;
+  font-size:clamp(2.2rem,7vw,5rem); line-height:1.02; letter-spacing:0.02em;}
+.pg-lede{margin:clamp(18px,2.4vw,28px) auto 0; max-width:60ch;
+  font-size:clamp(1.1rem,1.7vw,1.4rem); line-height:1.55; color:var(--gw-steel);}
+.pg-section{padding:clamp(54px,9vh,120px) 0;}
+.pg-eyebrow{display:block; font-size:11px; letter-spacing:0.4em; font-weight:700; text-transform:uppercase;
+  color:var(--gw-ember); margin-bottom:16px;}
+.pg-h2{margin:0 0 clamp(20px,3vh,34px); font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
+  font-size:clamp(1.7rem,4.4vw,2.9rem); line-height:1.06;}
+.pg-section p{font-size:clamp(1.02rem,1.5vw,1.18rem); line-height:1.62; color:var(--gw-steel);}
+.pg-center p{max-width:62ch; margin-inline:auto;}
+.pg-start p{max-width:64ch;}
+.pg-start .pg-eyebrow,.pg-start .pg-h2{text-align:left;}
+/* brutalist panel — sharp corners, Ash border, 8px hard shadow (L1/L3 depth) */
+.pg-panel{border:1px solid rgba(141,153,174,0.25); background:rgba(15,17,22,0.5);
+  box-shadow:8px 8px 0 rgba(0,0,0,0.55);}
+.pg-section.pg-panel{padding:clamp(26px,4vw,52px); margin:clamp(40px,7vh,90px) auto;}
+.pg-cta{padding:clamp(70px,12vh,150px) 0 clamp(36px,6vh,80px); text-align:center;}
+.pg-cta-head{margin:0; font-family:var(--gw-display); text-transform:uppercase; font-weight:900;
+  font-size:clamp(2rem,6vw,3.6rem); letter-spacing:0.03em;}
+.pg-cta .cta{margin-top:clamp(22px,3vw,34px);}
+.pg-cta .avail{margin-top:18px;}
+/* simple two/three-up grid helper for "what you get" style sections */
+.pg-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(16px,2vw,28px);
+  margin-top:clamp(24px,4vh,44px); text-align:left;}
+.pg-grid .pg-panel{padding:clamp(20px,2.4vw,30px);}
+.pg-grid h3{margin:0 0 10px; font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
+  font-size:clamp(1.05rem,1.7vw,1.3rem);}
+@media (max-width:560px){.pg-hero{padding-top:calc(var(--safe-t) + 17vh);}}
+
 /* ── kinetic type ────────────────────────────────────────────────────── */
 .forge-text .word{display:inline-block; white-space:nowrap;}
 .forge-text .word>span{display:inline-block; white-space:pre; opacity:0; transform:translateY(0.5em);
