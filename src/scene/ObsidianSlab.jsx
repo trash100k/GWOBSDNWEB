@@ -6,6 +6,7 @@ import * as THREE from 'three'
 import { forge, range, damp } from '../store.js'
 import { GLSL_NOISE } from './shaders.js'
 import { PAL, v3 } from './palette.js'
+import { sceneFor } from './scenes.js'
 
 /**
  * Hero: a full-frame slab of polished black volcanic glass (obsidian) that
@@ -141,11 +142,13 @@ export default function ObsidianSlab({ quality }) {
 
   useFrame((state, dt) => {
     uniforms.uTime.value = forge.quality === 'static' ? 2 : state.clock.elapsedTime
-    const ramp = c.veinGlow + range(forge.scrollDamped, 0.0, 0.5) * 0.5
+    // per-route preset drives the veins; damped so navigation re-tempers smoothly.
+    const sc = sceneFor(forge.route)
+    const ramp = sc.veinGlow + range(forge.scrollDamped, 0.0, 0.5) * 0.5
     uniforms.uVeinGlow.value = damp(uniforms.uVeinGlow.value, forge.ready ? ramp : 0, 3, dt)
     uniforms.uTemp.value = forge.scrollDamped
-    uniforms.uIrid.value = c.iridescence
-    uniforms.uVeinScale.value = c.veinScale
+    uniforms.uIrid.value = damp(uniforms.uIrid.value, sc.irid, 2.4, dt)
+    uniforms.uVeinScale.value = damp(uniforms.uVeinScale.value, sc.veinScale, 2.4, dt)
     uniforms.uBump.value = c.bump
     uniforms.uPointer.value.lerp(pointerTarget.current, 1 - Math.pow(0.002, dt))
     uniforms.uPointerOn.value = damp(uniforms.uPointerOn.value, pointerOn.current, 6, dt)

@@ -1,5 +1,5 @@
 import { Component, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Leva } from 'leva'
 import * as THREE from 'three'
 import { forge } from './store.js'
@@ -25,10 +25,16 @@ class CanvasBoundary extends Component {
 
 export default function ForgeExperience() {
   const quality = useQuality()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     forge.quality = quality
   }, [quality])
+
+  // route → shared store: the obsidian forge re-tempers + re-frames per page.
+  useEffect(() => {
+    forge.route = pathname
+  }, [pathname])
 
   // Scroll + pointer → shared store (read by the scene each frame).
   useEffect(() => {

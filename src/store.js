@@ -23,6 +23,8 @@ export const forge = {
   quality: 'high',
   // Has the intro loader dismissed.
   ready: false,
+  // Current route path — drives the per-route scene preset (src/scene/scenes.js).
+  route: '/',
 }
 
 // The six acts of the forging, mapped onto scroll progress.
