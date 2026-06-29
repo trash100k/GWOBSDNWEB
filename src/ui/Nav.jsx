@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { forge, ACTS } from '../store.js'
-import { NAV, COPY } from '../brand.js'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { forge } from '../store.js'
+import { ROUTES } from '../routes.js'
+import { COPY } from '../brand.js'
 import Ignite from './Ignite.jsx'
 
-function scrollToProgress(p) {
-  const max = document.documentElement.scrollHeight - window.innerHeight
-  window.scrollTo({ top: p * max, behavior: 'smooth' })
-}
-
-/** Pure-cinematic chrome: mark + menu toggle + a thin progress spine with an ember tick. */
+/** Pure-cinematic chrome: mark + menu toggle + a thin progress spine with an ember
+ *  tick. The overlay menu navigates the real routes (multi-page). */
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const tickRef = useRef(null)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   // Drive the progress spine straight from the damped scroll (no re-renders).
   useEffect(() => {
@@ -24,18 +24,38 @@ export default function Nav() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
+  // Lock scroll behind the open menu (stop Lenis too so it doesn't fight the lock).
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => (document.body.style.overflow = '')
+    if (forge.lenis) open ? forge.lenis.stop() : forge.lenis.start()
+    return () => {
+      document.body.style.overflow = ''
+    }
   }, [open])
+
+  const go = (path) => {
+    setOpen(false)
+    if (path === pathname) {
+      // already here — just return to the top
+      if (forge.lenis) forge.lenis.scrollTo(0)
+      else window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      navigate(path)
+    }
+  }
 
   return (
     <>
-      <button className="nav-mark magnetic" onClick={() => scrollToProgress(0)}>
+      <button className="nav-mark magnetic" onClick={() => go('/')}>
         <Ignite text="GAELWORX" />
       </button>
 
-      <button className={`nav-toggle magnetic ${open ? 'open' : ''}`} onClick={() => setOpen((o) => !o)} aria-label="Menu">
+      <button
+        className={`nav-toggle magnetic ${open ? 'open' : ''}`}
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Menu"
+        aria-expanded={open}
+      >
         <i /><i /><i />
       </button>
 
@@ -44,21 +64,19 @@ export default function Nav() {
         <span ref={tickRef} className="nav-spine__fill" />
       </div>
 
-      {/* full-screen overlay menu */}
+      {/* full-screen overlay menu — the real routes */}
       <div className={`menu ${open ? 'open' : ''}`}>
         <nav className="menu-list">
-          {NAV.map(([n, label], i) => (
+          {ROUTES.map((r, i) => (
             <button
-              key={n}
-              className="menu-item magnetic"
+              key={r.path}
+              className={`menu-item magnetic ${r.path === pathname ? 'is-current' : ''}`}
               style={{ '--mi': i }}
-              onClick={() => {
-                setOpen(false)
-                scrollToProgress(ACTS[Math.min(i, ACTS.length - 1)].at)
-              }}
+              onClick={() => go(r.path)}
+              aria-current={r.path === pathname ? 'page' : undefined}
             >
-              <span className="menu-num">{n}</span>
-              <span className="menu-label">{label}</span>
+              <span className="menu-num">{String(i).padStart(2, '0')}</span>
+              <span className="menu-label">{r.label}</span>
             </button>
           ))}
         </nav>

@@ -124,6 +124,8 @@ html.lenis,html.lenis body{height:auto;}
   transition-delay:calc(var(--mi)*40ms);}
 .menu.open .menu-item{opacity:1; transform:none;}
 .menu-item:hover{color:var(--gw-ember);}
+.menu-item.is-current{color:var(--gw-ember);}
+.menu-item.is-current .menu-num{color:var(--gw-bone);}
 .menu-num{font-size:0.5em; color:var(--gw-ember); font-family:var(--gw-sans); letter-spacing:0.2em;}
 .menu-foot{margin-top:clamp(24px,4vw,48px); font-family:var(--gw-headline); color:var(--gw-steel);
   letter-spacing:0.06em; font-size:clamp(12px,1.5vw,16px); opacity:0.8; text-align:center; padding:0 24px;}
