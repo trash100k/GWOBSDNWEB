@@ -18,8 +18,7 @@ export default function CameraRig() {
     forge.pointerDamped.y = damp(forge.pointerDamped.y, forge.pointer.y, 5, dt)
 
     const par = forge.quality === 'static' ? 0 : 1
-    // frame the centered emerald gem: closer, with a subtle dolly-in as it's cut.
-    const z = 4.0 - forge.scrollDamped * 0.5
+    const z = 6.4 - forge.scrollDamped * 0.7
     tmp.set(forge.pointerDamped.x * 0.5 * par, forge.pointerDamped.y * 0.34 * par, z)
     camera.position.lerp(tmp, 1 - Math.pow(0.0001, dt))
     camera.lookAt(0, forge.pointerDamped.y * 0.12 * par, 0)
