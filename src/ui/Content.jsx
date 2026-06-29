@@ -259,10 +259,12 @@ export default function Content() {
       }
       if (mandalaRef.current) {
         const inP = clamp((fp - 0.21) / 0.09, 0, 1)
-        const outP = clamp((fp - 0.40) / 0.1, 0, 1)
         mandalaRef.current.style.opacity = oMandala.toFixed(3)
-        const sc = (0.55 + easeOut(inP) * 0.45) * (1 + outP * 0.8)
-        mandalaRef.current.style.transform = `translate(-50%,-50%) rotate(${(spin * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
+        // Bring the WHOLE mandala into frame, dead-centre, and HOLD it there — no
+        // scroll-driven scale blow-up, no rotation through angles. It just settles
+        // in and sits; the inner rings turn slowly on their own (CSS .m-spin).
+        const sc = 0.92 + easeOut(inP) * 0.08
+        mandalaRef.current.style.transform = `translate(-50%,-50%) scale(${sc.toFixed(3)})`
       }
       if (seedRef.current) seedRef.current.style.opacity = oSeed.toFixed(3)
       if (solutionsRef.current) {

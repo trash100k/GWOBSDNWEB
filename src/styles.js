@@ -419,9 +419,9 @@ html.lenis,html.lenis body{height:auto;}
 /* the eye of the finale whirlpool — a clean GEOMETRIC mandala (src/ui/Mandala.jsx):
    concentric keyline circles (the skeleton that always reads as rings) + N-fold
    symmetric motif bands (petals/ticks/dots/spokes), in two slow counter-rotating
-   groups. The finale scroll-jack owns the whole layer's spin + scale. Ink + ember
-   rim + a forge-glow core; the fire-opal veins bleed through the gaps. */
-.fin-mandala{width:min(108vw,88vh); height:min(108vw,88vh);}
+   groups. It fades in and HOLDS dead-centre, whole, in frame (no scroll-driven
+   spin/scale); only the inner groups turn. Ink + ember rim + a forge-glow core. */
+.fin-mandala{width:min(90vw,84vh); height:min(90vw,84vh);}
 .mandala-svg{width:100%; height:100%; display:block; overflow:visible;
   filter:drop-shadow(0 0 26px rgba(232,93,4,0.24));}
 /* concentric keyline circles — the stable skeleton (alternating ink / ember) */
