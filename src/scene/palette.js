@@ -13,13 +13,13 @@ import * as THREE from 'three'
  * HDR (>1) values are intentional so only the 10% blooms.
  */
 export const PAL = {
-  // DEEP FOREST emerald — chosen in the viewer: moody, saturated, dark green.
-  void: new THREE.Color('#02080a'), // 60 — dominant dark, a hair green-black
-  ink: new THREE.Color('#04120c'),
-  emeraldDeep: new THREE.Color('#062a16'), // 30 — deep forest shadow / saturated core mass
-  emerald: new THREE.Color('#0a5c33'), // deep forest — body green (the locked color)
-  jade: new THREE.Color('#117a45'), // brighter forest — jardin / bright zones (not vivid)
-  emeraldBright: new THREE.Color('#1f9d57'), // forest highlight (facet flash)
+  // DEEP FOREST emerald — lifted luminous so it reads boldly green on OLED (not near-black).
+  void: new THREE.Color('#03100a'), // 60 — dominant dark, a hair green-black
+  ink: new THREE.Color('#06190f'),
+  emeraldDeep: new THREE.Color('#0a3d20'), // 30 — deep forest shadow / saturated core mass
+  emerald: new THREE.Color('#0c6e3f'), // deep forest — luminous body green
+  jade: new THREE.Color('#16a35a'), // brighter forest — jardin / bright zones
+  emeraldBright: new THREE.Color('#28c772'), // vivid forest highlight (facet flash)
   gold: new THREE.Color('#d9b25a'), // warm gold glints (kept for warmth)
   pale: new THREE.Color(1.4, 1.5, 1.18), // near-white-gold core/glint (HDR — only this blooms)
 }

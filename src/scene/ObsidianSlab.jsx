@@ -1,11 +1,11 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { RoundedBox } from '@react-three/drei'
 import { useControls, folder } from 'leva'
 import * as THREE from 'three'
 import { forge, range, damp } from '../store.js'
 import { GLSL_NOISE } from './shaders.js'
 import { PAL, v3 } from './palette.js'
+import { makeEmeraldCut } from './gem.js'
 
 /**
  * Hero: a full-frame slab of deep chromium-green EMERALD. A saturated bluish-green
@@ -66,7 +66,7 @@ const NORMAL = /* glsl */ `
 `
 
 const COLOR = /* glsl */ `
-  float gwFres = pow(1.0 - clamp(dot(normalize(vNormal), normalize(vViewPosition)), 0.0, 1.0), 2.0);
+  float gwFres = pow(1.0 - clamp(dot(normalize(normal), normalize(vViewPosition)), 0.0, 1.0), 2.0);
   // EMERALD body: deep saturated green → brighter jade in the jardin inclusions.
   vec3 body = mix(${v3(PAL.emeraldDeep)}, ${v3(PAL.emerald)}, clamp(gwVein * 1.1, 0.0, 1.0));
   body = mix(body, ${v3(PAL.jade)}, clamp(gwVein * 1.3, 0.0, 1.0) * 0.7);
@@ -88,12 +88,18 @@ const COLOR = /* glsl */ `
   vec3 glow = (veinCol * gwVein * gwFlow * 1.0 + ${v3(PAL.pale)} * gwCore * 1.1) * (uVeinGlow + uSurge + nearCur);
   gl_FragColor.rgb += ${v3(PAL.jade)} * gwCur * 0.10;
   gl_FragColor.rgb += glow;
+  // WAY more green — a bold emerald wash + a luminous green fresnel rim so the gem
+  // reads unmistakably green (not near-black) even where transmission shows dark.
+  gl_FragColor.rgb += ${v3(PAL.emerald)} * 0.32;
+  gl_FragColor.rgb += ${v3(PAL.jade)} * gwFres * 0.55;
 `
 
 export default function ObsidianSlab({ quality }) {
   const transmissive = quality === 'high'
   const pointerTarget = useRef(new THREE.Vector2(0.5, 0.5))
   const pointerOn = useRef(0)
+  const gemRef = useRef()
+  const gemGeo = useMemo(() => makeEmeraldCut(), [])
 
   const c = useControls('EMERALD', {
     gem: folder({
@@ -120,6 +126,7 @@ export default function ObsidianSlab({ quality }) {
       uPointer: { value: new THREE.Vector2(0.5, 0.5) },
       uPointerOn: { value: 0 },
       uSurge: { value: 0 },
+      uCut: { value: 0 }, // 0 = rough uncut rock · 1 = clean beveled facets
     }),
     [],
   )
@@ -128,6 +135,10 @@ export default function ObsidianSlab({ quality }) {
     const m = new THREE.MeshPhysicalMaterial({
       // raw deep-forest emerald-in-rock for the hero entry (the "before forging").
       color: new THREE.Color('#03180e'),
+      // glow green from within so the gem reads boldly emerald, not near-black.
+      emissive: new THREE.Color('#0c6e3f'),
+      emissiveIntensity: 0.6,
+      flatShading: true, // real facets — the emerald-cut hall of mirrors
       metalness: 0,
       roughness: 0.05,
       clearcoat: 1,
@@ -148,6 +159,18 @@ export default function ObsidianSlab({ quality }) {
     m.defines = { USE_UV: '' }
     m.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniforms)
+      // rough → cut morph: displace each vertex along its normal by noise * (1-uCut).
+      // uCut = scroll progress, so the uncut rock bevels into clean facets as you descend.
+      shader.vertexShader = shader.vertexShader
+        .replace('#include <common>', `#include <common>\nuniform float uCut;\n${GLSL_NOISE}`)
+        .replace(
+          '#include <begin_vertex>',
+          `#include <begin_vertex>
+          float gwRough = gw_fbm(position.xy * 1.7 + 7.0) * 0.22
+                        + gw_fbm(position.yz * 1.9 + 3.0) * 0.22
+                        + gw_fbm(position.xz * 2.3 + 11.0) * 0.16;
+          transformed += normal * gwRough * (1.0 - clamp(uCut, 0.0, 1.0));`
+        )
       shader.fragmentShader = shader.fragmentShader
         .replace('#include <common>', `#include <common>\n${HEAD}`)
         .replace('#include <normal_fragment_maps>', `#include <normal_fragment_maps>\n${NORMAL}`)
@@ -180,19 +203,25 @@ export default function ObsidianSlab({ quality }) {
     // performance.now()/1000 — same base used here so the pulse lines up).
     const since = performance.now() / 1000 - forge.strikeAt
     uniforms.uSurge.value = since >= 0 && since < 1.6 ? Math.exp(-since * 3.0) * 0.85 : 0
+    // rough → cut morph across the whole journey (uncut rock → beveled masterpiece).
+    uniforms.uCut.value = damp(uniforms.uCut.value, forge.scrollDamped, 4, dt)
+    if (gemRef.current) {
+      const tt = forge.quality === 'static' ? 0 : state.clock.elapsedTime
+      gemRef.current.rotation.y = tt * 0.12 + forge.pointerDamped.x * 0.5
+      gemRef.current.rotation.x = -0.12 + forge.pointerDamped.y * 0.22
+      gemRef.current.position.y = -forge.scrollDamped * 0.25
+    }
     material.envMapIntensity = c.reflect
     material.roughness = c.roughness
     if (transmissive) material.transmission = c.transmission
   })
 
   return (
-    <RoundedBox
-      args={[11, 6.6, 0.6]}
-      radius={0.18}
-      smoothness={4}
-      position={[0, 0, 0]}
-      rotation={[-0.08, 0, 0]}
+    <mesh
+      ref={gemRef}
+      geometry={gemGeo}
       material={material}
+      scale={1.5}
       onPointerMove={onPointerMove}
       onPointerOut={onPointerOut}
     />
