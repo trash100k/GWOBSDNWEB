@@ -325,16 +325,20 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
    scale; these rings add their own slow interlace on top. */
 .fin-mandala{width:min(170vh,170vw); height:min(170vh,170vw);}
 .mandala-svg{width:100%; height:100%; display:block; overflow:visible;
-  filter:drop-shadow(0 0 26px rgba(232,93,4,0.28));}
-.mandala-ring-text{font-family:var(--gw-display); font-weight:900; fill:url(#mEmber);
-  text-transform:uppercase; paint-order:stroke fill; stroke:rgba(0,0,0,0.92); stroke-width:1.4;}
-.braid{fill:none; stroke:url(#mEmber); stroke-width:3; stroke-linecap:round; stroke-linejoin:round;}
-.braid--shadow{stroke:#000; stroke-width:9; opacity:0.85;}
+  filter:drop-shadow(0 0 22px rgba(232,93,4,0.22));}
+/* black-ink calligraphy — 900 Cinzel, stretched + packed (negative tracking);
+   a thin ember rim + the hard #mInk shadow read it as carved tattoo lettering,
+   with the fire-opal veins bleeding through the gaps. */
+.mandala-ring-text{font-family:var(--gw-display); font-weight:900; fill:#0a0708;
+  text-transform:uppercase; paint-order:stroke fill; stroke:#E85D04; stroke-width:1.1;}
+/* knot rope — ember glow strand behind, black ink strand on top → fire at the edges */
+.braid-glow{fill:none; stroke:#E85D04; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; opacity:0.85;}
+.braid-ink{fill:none; stroke:#0a0708; stroke-width:4; stroke-linecap:round; stroke-linejoin:round;}
 /* each ring + knot band counter-rotates around the mandala centre (viewBox 0,0) */
 .mw,.mk{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
 .mw--a{animation:spinR 132s linear infinite;} .mw--b{animation:spinL 104s linear infinite;}
 .mw--c{animation:spinR 88s linear infinite;}  .mw--d{animation:spinL 116s linear infinite;}
-.mw--e{animation:spinR 72s linear infinite;}
+.mw--e{animation:spinR 72s linear infinite;}  .mw--f{animation:spinL 64s linear infinite;}
 .mk--k1{animation:spinL 150s linear infinite;} .mk--k2{animation:spinR 120s linear infinite;}
 .mk--k3{animation:spinL 96s linear infinite;}
 @keyframes spinR{to{transform:rotate(360deg);}}

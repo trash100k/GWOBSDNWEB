@@ -1,13 +1,15 @@
 import { useMemo } from 'react'
 
 /**
- * The eye of the finale whirlpool — a dense, layered Celtic word-mandala.
+ * The eye of the finale whirlpool — a dense, layered Celtic calligraphy-mandala.
  *
- * Built like tattoo-script knotwork: many concentric rings of Cinzel words
- * curved onto SVG textPaths, interleaved with braided Celtic knot bands, all
- * seated in a deep black-shadow well so it reads inked + carved. Each ring
- * counter-rotates at its own rate (the whole mandala also spins via the finale
- * scroll-jack) for a living, cinematic interlace. Decorative — aria-hidden.
+ * Reference: a tattoo-shop calligraphy mandala (hand-lettered, black ink, radial).
+ * We hit that look without a script face — per the brand: Cinzel Decorative 900,
+ * letters stretched tall + packed with negative tracking so they fill the ring,
+ * inked BLACK with a hard shadow and a thin ember rim so the fire-opal veins bleed
+ * through the gaps. Concentric word-rings (curved on SVG textPaths) interleave with
+ * braided Celtic knot bands; each layer counter-rotates (the whole mandala also
+ * rides the finale scroll-jack) for a living interlace. Decorative — aria-hidden.
  */
 
 const PHRASES = [
@@ -16,6 +18,7 @@ const PHRASES = [
   'GAELWORX · ONE FORGE · GAELWORX · ',
   'YARDWORX · REPAIRWORX · SALESWORX · AGENTWORX · ',
   'WE BUILD WHAT WE KNOW · ',
+  'CLAN PROTECTED · AUTOMATIC EXECUTION · ',
 ]
 
 // a full circle path (clockwise from top) for textPaths + knot guides
@@ -37,22 +40,25 @@ function strand(r, amp, lobes, phase) {
 }
 
 export default function Mandala() {
-  // word rings: radius · font size · phrase · letter-spacing · spin class
+  // word rings: radius · font size (tall) · phrase · letter-spacing (negative,
+  // packed) · spin class. Sizes are big + tracking is tight so the 900-weight
+  // Cinzel fills each ring like inked calligraphy.
   const rings = useMemo(
     () => [
-      { r: 452, fs: 30, p: 0, ls: 9, spin: 'a' },
-      { r: 388, fs: 48, p: 1, ls: 6, spin: 'b' },
-      { r: 300, fs: 66, p: 2, ls: 4, spin: 'c' },
-      { r: 212, fs: 40, p: 3, ls: 6, spin: 'd' },
-      { r: 150, fs: 26, p: 4, ls: 9, spin: 'e' },
+      { r: 456, fs: 38, p: 0, ls: -1.5, spin: 'a' },
+      { r: 398, fs: 60, p: 1, ls: -3, spin: 'b' },
+      { r: 332, fs: 78, p: 2, ls: -3.5, spin: 'c' },
+      { r: 268, fs: 56, p: 3, ls: -2.5, spin: 'd' },
+      { r: 204, fs: 42, p: 5, ls: -2, spin: 'e' },
+      { r: 142, fs: 30, p: 4, ls: -1.5, spin: 'f' },
     ],
     [],
   )
   const knots = useMemo(
     () => [
-      { r: 420, amp: 13, lobes: 32, spin: 'k1' },
-      { r: 256, amp: 15, lobes: 24, spin: 'k2' },
-      { r: 104, amp: 10, lobes: 16, spin: 'k3' },
+      { r: 426, amp: 13, lobes: 34, spin: 'k1' },
+      { r: 300, amp: 16, lobes: 26, spin: 'k2' },
+      { r: 172, amp: 13, lobes: 20, spin: 'k3' },
     ],
     [],
   )
@@ -60,18 +66,16 @@ export default function Mandala() {
   return (
     <svg className="mandala-svg" viewBox="-500 -500 1000 1000" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
       <defs>
-        <linearGradient id="mEmber" gradientUnits="userSpaceOnUse" x1="0" y1="-480" x2="0" y2="480">
-          <stop offset="0" stopColor="#FFB15A" />
-          <stop offset="0.34" stopColor="#FF8A3C" />
-          <stop offset="0.62" stopColor="#E85D04" />
-          <stop offset="1" stopColor="#C1292E" />
-        </linearGradient>
         <radialGradient id="mWell">
-          <stop offset="0" stopColor="#000" stopOpacity="0.72" />
-          <stop offset="0.5" stopColor="#000" stopOpacity="0.5" />
-          <stop offset="0.86" stopColor="#000" stopOpacity="0.12" />
+          <stop offset="0" stopColor="#000" stopOpacity="0.74" />
+          <stop offset="0.5" stopColor="#000" stopOpacity="0.52" />
+          <stop offset="0.86" stopColor="#000" stopOpacity="0.14" />
           <stop offset="1" stopColor="#000" stopOpacity="0" />
         </radialGradient>
+        {/* hard ink shadow — crisp offset, no soft blur (carved tattoo relief) */}
+        <filter id="mInk" x="-12%" y="-12%" width="124%" height="124%" colorInterpolationFilters="sRGB">
+          <feDropShadow dx="3" dy="4" stdDeviation="0.3" floodColor="#000" floodOpacity="0.95" />
+        </filter>
         {rings.map((rg, i) => (
           <path key={i} id={`mp${i}`} d={circle(rg.r)} />
         ))}
@@ -80,25 +84,25 @@ export default function Mandala() {
       {/* deep black seat — the drain the problems pour into */}
       <circle className="mandala-well" cx="0" cy="0" r="500" fill="url(#mWell)" />
 
-      {/* braided Celtic knot bands */}
-      <g className="mandala-knots">
+      {/* braided Celtic knot bands — black rope, fire bleeding at the edges */}
+      <g className="mandala-knots" filter="url(#mInk)">
         {knots.map((k, i) => (
           <g key={i} className={`mk mk--${k.spin}`}>
-            <path className="braid braid--shadow" d={strand(k.r, k.amp, k.lobes, 0)} />
-            <path className="braid braid--shadow" d={strand(k.r, k.amp, k.lobes, Math.PI)} />
-            <path className="braid" d={strand(k.r, k.amp, k.lobes, 0)} />
-            <path className="braid" d={strand(k.r, k.amp, k.lobes, Math.PI)} />
+            <path className="braid-glow" d={strand(k.r, k.amp, k.lobes, 0)} />
+            <path className="braid-glow" d={strand(k.r, k.amp, k.lobes, Math.PI)} />
+            <path className="braid-ink" d={strand(k.r, k.amp, k.lobes, 0)} />
+            <path className="braid-ink" d={strand(k.r, k.amp, k.lobes, Math.PI)} />
           </g>
         ))}
       </g>
 
-      {/* concentric word rings */}
-      <g className="mandala-words">
+      {/* concentric calligraphy rings — black ink, ember rim, hard shadow */}
+      <g className="mandala-words" filter="url(#mInk)">
         {rings.map((rg, i) => (
           <g key={i} className={`mw mw--${rg.spin}`}>
             <text className="mandala-ring-text" fontSize={rg.fs} letterSpacing={rg.ls}>
               <textPath href={`#mp${i}`} startOffset="0">
-                {PHRASES[rg.p].repeat(16)}
+                {PHRASES[rg.p].repeat(18)}
               </textPath>
             </text>
           </g>
