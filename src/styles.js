@@ -286,6 +286,17 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .foot-tag{display:block; font-family:var(--gw-headline); font-weight:600; letter-spacing:0.06em;
   font-size:clamp(15px,1.8vw,20px); color:var(--gw-steel);}
 
+/* ── routed pages — normal document flow above the fixed canvas. Home keeps the
+   pinned .stage/.frame system; other routes render a scrollable .page. ──────── */
+.page{position:relative; z-index:2; min-height:100vh; display:flex; align-items:center;
+  justify-content:center; text-align:center; pointer-events:auto;
+  padding:calc(var(--safe-t) + 18vh) clamp(24px,7vw,120px) 16vh;}
+.page-inner{max-width:680px; margin:0 auto;}
+.page--stub .headline{margin-bottom:18px;}
+.page-note{margin:18px 0 0; font-family:var(--gw-headline); font-weight:600; letter-spacing:0.04em;
+  font-size:clamp(12px,1.5vw,15px); text-transform:uppercase; color:var(--gw-steel);}
+.page .cta{margin-top:clamp(28px,3.4vw,44px);}
+
 /* ── kinetic type ────────────────────────────────────────────────────── */
 .forge-text .word{display:inline-block; white-space:nowrap;}
 .forge-text .word>span{display:inline-block; white-space:pre; opacity:0; transform:translateY(0.5em);

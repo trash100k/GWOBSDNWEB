@@ -8,8 +8,8 @@
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
 ## STATE
-- **LAST DONE:** _(none yet — plan created)_
-- **NEXT UP:** Phase 0 · 0.1 (routing + prerender foundation)
+- **LAST DONE:** 0.1 — react-router-dom shell; home carved to `/`; routes.js (paths + SEO meta); on-brand stub pages; canvas/nav persist app-shell. Build green, 0 console errors @ 393×852 + 1440×900.
+- **NEXT UP:** Phase 0 · 0.2 (build-time prerender → real HTML per route)
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 
@@ -46,7 +46,7 @@
 ---
 
 ## PHASE 0 — FOUNDATION  *(must finish before any page)*
-- [ ] **0.1** Add routing (`react-router-dom`) + page shell; carve current home into a `/` route. Keep the obsidian canvas mounted app-shell-level.
+- [x] **0.1** Add routing (`react-router-dom`) + page shell; carve current home into a `/` route. Keep the obsidian canvas mounted app-shell-level. _(routes.js + Outlet layout + stub pages; home identical, 0 errors @ both viewports)_
 - [ ] **0.2** Prerender pipeline → static HTML per route (evaluate `vite-react-ssg` or a Playwright build-time snapshot; the renderer is already in the env). Verify `dist/<route>/index.html` contains real text.
 - [ ] **0.3** Shared 3D system: one renderer/canvas, a `<SceneSwitch>` that lazy-loads the active route's scene after first paint and disposes the previous; static poster fallback.
 - [ ] **0.4** SEO infra: per-route `<head>` (helmet-style or SSG head) + base JSON-LD (Organization) + `robots.txt` (allow GPTBot/PerplexityBot/ClaudeBot/Google-Extended) + `sitemap.xml` + per-route OG image generation.

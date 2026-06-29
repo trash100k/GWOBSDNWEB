@@ -1,4 +1,5 @@
 import { Component, useEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 import { Leva } from 'leva'
 import * as THREE from 'three'
 import { forge } from './store.js'
@@ -7,7 +8,6 @@ import ForgeCanvas from './scene/ForgeCanvas.jsx'
 import Loader from './ui/Loader.jsx'
 import Nav from './ui/Nav.jsx'
 import Cursor from './ui/Cursor.jsx'
-import Content from './ui/Content.jsx'
 import Atmosphere from './ui/Atmosphere.jsx'
 import { STYLES } from './styles.js'
 
@@ -64,7 +64,9 @@ export default function ForgeExperience() {
           <ForgeCanvas quality={quality} />
         </CanvasBoundary>
       </div>
-      <Content />
+      {/* the active route renders here; the canvas + atmosphere + nav persist
+          across routes (app shell). Each route brings its own content + scene. */}
+      <Outlet />
       <Atmosphere />
       <Nav />
       <Cursor />
