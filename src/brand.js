@@ -55,26 +55,26 @@ export const COPY = {
       {
         id: 'GW–01',
         tag: 'Software',
-        line: 'Platforms that run the operation.',
-        body: 'Custom operational platforms and internal tools that schedule, dispatch, and track the work. The same forge that built YardWorx, built for how you run.',
+        line: 'Custom software. Built to run it all.',
+        body: 'Internal tools and proprietary platforms — custom-built, documented, open-sourced to you. The same forge that built YardWorx, built for how you actually run.',
       },
       {
         id: 'GW–02',
         tag: 'Voice',
-        line: 'A front desk that never clocks out.',
-        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — your script, your voice, around the clock. No missed call, no lost revenue.',
+        line: 'Lifelike voice agents that never clock out.',
+        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — in a voice no caller clocks as AI. Your script, around the clock. No missed call, no lost revenue.',
       },
       {
         id: 'GW–03',
         tag: 'Automations',
-        line: 'Pipelines that do the busywork.',
-        body: 'Systems that quote, follow up, invoice, and pull reviews on their own. You build them once and they earn every day after.',
+        line: 'Workflows that kill the headaches.',
+        body: 'Workflows and automations that quote, follow up, invoice, and pull reviews on their own — and hand you your data to own and leverage like no one else can. Build it once; it earns every day after.',
       },
       {
         id: 'GW–04',
         tag: 'Web',
-        line: 'Sites that book jobs.',
-        body: 'Studio-grade lead-gen sites that turn visitors into booked work and route every lead straight to your phone.',
+        line: 'Cinematic web that books the job.',
+        body: 'Studio-grade, cinematic lead-gen sites that turn visitors into booked work and route every lead straight to your phone.',
       },
     ],
   },
@@ -85,6 +85,64 @@ export const COPY = {
     body: 'One call. No discovery-call theater. You name the bottleneck — we build the system that kills it.',
     cta: 'Start the Forge',
     avail: 'Available · Continental US · 7 Days',
+  },
+
+  // The trust ladder — a 5-rung scroll-jacked whirlwind on what makes GAELWORX
+  // different. Each rung is a pillar of credibility (proven ground → ROI →
+  // ownership → accountability → guarantee). Built to bank trust per frame.
+  trust: {
+    kicker: 'Why GAELWORX',
+    rungs: [
+      {
+        n: '01',
+        head: 'Built on enterprise ground.',
+        body: 'We build on the same battle-tested platforms that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven rails. Behavior you can predict.',
+      },
+      {
+        n: '02',
+        head: 'It ships. Then it earns.',
+        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, and hours handed back to you.',
+      },
+      {
+        n: '03',
+        head: 'You own every bolt.',
+        body: 'Custom-built, documented, open-sourced to you — the code, the keys, the data. You own it and leverage it like no one else can. No black boxes, no hostage logins, no system that dies when a trend does.',
+      },
+      {
+        n: '04',
+        head: 'One clan. Fully accountable.',
+        body: 'No offshore relay, no account manager reading a script. You talk to the people who design it, build it, and ship it — start to finish.',
+      },
+      {
+        n: '05',
+        head: 'We carry the risk.',
+        body: 'Fixed scope. Fixed price. Working on day one. We don’t get paid to experiment on your business — we get paid when it executes.',
+      },
+    ],
+  },
+
+  // The finale act — a scroll-jacked journey of its own: the visitor’s problems
+  // drain into a Cinzel mandala whirlpool, the solutions rise back out, simplify
+  // into the four forges, spin into GAELWORX, then the CTA. (PASS → Secure.)
+  finale: {
+    problems: [
+      'Missed calls. Lost jobs.',
+      'Buried in busywork.',
+      'Six apps. One mess.',
+      'A site that books nothing.',
+    ],
+    seed: 'AI everywhere. Execution nowhere.',
+    solutions: [
+      'Every call answered.',
+      'The busywork runs itself.',
+      'One system. Total command.',
+      'A site that books the truck.',
+    ],
+    forges: ['YardWorx', 'RepairWorx', 'SalesWorx', 'AgentWorx'],
+    mark: 'GAELWORX',
+    closer: 'We keep up so you don’t have to. We take care of the battlefield.',
+    avail: 'Available · Continental US · 7 Days',
+    cta: 'Start the Forge',
   },
 
   footer: {

@@ -272,8 +272,82 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
   0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
 
+/* ── the trust ladder — five rungs of "why GAELWORX". Same frame look as the
+   clan/arsenal copy; the scroll-jack whirls each one in. ─────────────────── */
+.frame--trust .kicker{color:var(--gw-ember);}
+
+/* ── FINALE ACT ──────────────────────────────────────────────────────────
+   A scroll-jacked closer of its own: the visitor's problems drain into a Cinzel
+   mandala whirlpool, the solutions rise back out, simplify into the four forges,
+   spin into GAELWORX, then the CTA. Content.jsx owns each layer's opacity +
+   transform per scroll phase; CSS sets the look + the radial geometry. Every
+   layer is pinned dead-center — JS transforms compose onto translate(-50%,-50%). */
+.frame--finale{padding:0; align-items:stretch; justify-content:stretch;}
+.finale{position:relative; width:100%; height:100%; pointer-events:none;
+  --Rring:clamp(124px,30vw,268px); --Rforge:clamp(96px,23vw,196px);}
+
+/* the four orbiting / stacked layers JS drives — pinned to center, JS owns transform */
+.fin-layer{position:absolute; top:50%; left:50%; opacity:0;
+  will-change:transform,opacity,filter; backface-visibility:hidden;}
+
+/* problems & solutions — vertical Cinzel stacks */
+.fin-problems,.fin-solutions{display:flex; flex-direction:column; align-items:center;
+  gap:clamp(10px,1.8vh,22px); width:min(92vw,860px); text-align:center;}
+.fin-line{font-family:var(--gw-display); font-weight:700; line-height:1.05;
+  text-transform:uppercase; letter-spacing:0.015em; font-size:clamp(1.35rem,4.6vw,2.9rem);}
+/* the weight the visitor carries — cold + ashen */
+.fin-problems .fin-line{color:rgba(180,190,205,0.82);
+  text-shadow:0 0 16px rgba(0,0,0,0.85),0 2px 10px rgba(0,0,0,0.7);}
+/* the forge's answer — warm + bright, rising back out */
+.fin-line--sol{color:#fff;
+  text-shadow:0 0 14px rgba(0,0,0,0.9),0 0 30px rgba(232,93,4,0.45),0 0 60px rgba(193,41,46,0.3);}
+
+/* the Cinzel mandala whirlpool — a radial ring of forge words spinning round the
+   drain. Decorative (aria-hidden). Zero-size center; each word orbits out. */
+.fin-mandala{width:0; height:0;}
+.mandala-word{position:absolute; top:0; left:0; white-space:nowrap;
+  font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
+  font-size:clamp(0.8rem,2.1vw,1.4rem); letter-spacing:0.12em; color:transparent;
+  background:linear-gradient(180deg,#E85D04,#C1292E 55%,#E34A27);
+  -webkit-background-clip:text; background-clip:text;
+  text-shadow:0 0 18px rgba(232,93,4,0.35); transform-origin:50% 50%;
+  transform:translate(-50%,-50%) rotate(calc(var(--i) * 360deg / var(--n))) translateY(calc(-1 * var(--Rring)));}
+
+/* the eye of the whirlpool — the line both journeys pivot on */
+.fin-seed{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0;
+  width:min(88vw,560px); text-align:center; font-family:var(--gw-display); font-weight:900;
+  text-transform:uppercase; font-size:clamp(1.1rem,3.4vw,2.1rem); line-height:1.12; letter-spacing:0.02em;
+  color:rgba(236,226,214,0.95); text-shadow:0 0 30px rgba(0,0,0,0.9),0 0 50px rgba(232,93,4,0.4);}
+
+/* the four forges — a tight ring that converges into the wordmark */
+.fin-forges{width:0; height:0;}
+.forge-word{position:absolute; top:0; left:0; white-space:nowrap;
+  font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
+  font-size:clamp(1rem,2.7vw,1.7rem); letter-spacing:0.05em; color:var(--gw-bone);
+  text-shadow:0 0 22px rgba(0,0,0,0.85),0 0 34px rgba(232,93,4,0.3); transform-origin:50% 50%;
+  transform:translate(-50%,-50%) rotate(calc(var(--i) * 360deg / var(--n)))
+    translateY(calc(-1 * var(--Rforge))) rotate(calc(-1 * var(--i) * 360deg / var(--n)));}
+
+/* GAELWORX — the mark the forges spin into */
+.fin-mark{position:absolute; top:50%; left:50%; opacity:0; text-align:center;
+  will-change:transform,opacity;}
+.mark-btn{background:none; border:0; cursor:pointer; padding:0; white-space:nowrap;
+  font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
+  font-size:clamp(2.4rem,9vw,6rem); line-height:1; letter-spacing:0.04em; color:var(--gw-bone);
+  text-shadow:0 0 40px rgba(232,93,4,0.4),0 2px 12px rgba(0,0,0,0.7);}
+
+/* the closer + the sword */
+.fin-cta{position:absolute; top:50%; left:50%; opacity:0; width:min(92vw,640px);
+  display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
+  will-change:transform,opacity;}
+.fin-closer{font-family:var(--gw-headline); font-weight:700; line-height:1.18;
+  font-size:clamp(1.1rem,2.6vw,1.7rem); color:var(--gw-bone); text-shadow:0 2px 18px rgba(0,0,0,0.8);}
+.fin-cta .avail{margin-top:12px;}
+
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:560px){
+  .finale{--Rring:clamp(94px,34vw,150px); --Rforge:clamp(72px,27vw,120px);}
+  .mark-btn{font-size:clamp(2.1rem,13vw,3.6rem);}
   .frame{padding:11vh 18px;}
   .fbody,.fbody--wide{max-width:none; width:100%;}
   .hero-sub{max-width:none;}
