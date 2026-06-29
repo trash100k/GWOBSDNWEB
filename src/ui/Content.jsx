@@ -238,7 +238,7 @@ export default function Content() {
         problemsRef.current.style.opacity = oProblems.toFixed(3)
         problemsRef.current.style.transform =
           `translate(-50%,-50%) rotate(${(e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
-        problemsRef.current.style.filter = !reduced && out > 0.01 ? `blur(${(out * 12).toFixed(1)}px)` : 'none'
+        problemsRef.current.style.filter = !reduced && out > 0.01 ? `blur(${(out * 8).toFixed(1)}px)` : 'none'
       }
       if (mandalaRef.current) {
         const inP = clamp((fp - 0.21) / 0.09, 0, 1)
@@ -255,7 +255,7 @@ export default function Content() {
         solutionsRef.current.style.opacity = oSolutions.toFixed(3)
         solutionsRef.current.style.transform =
           `translate(-50%,-50%) rotate(${(-e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
-        solutionsRef.current.style.filter = !reduced && e > 0.01 ? `blur(${(e * 12).toFixed(1)}px)` : 'none'
+        solutionsRef.current.style.filter = !reduced && e > 0.01 ? `blur(${(e * 8).toFixed(1)}px)` : 'none'
       }
       if (forgesRef.current) {
         const inP = clamp((fp - 0.75) / 0.07, 0, 1)

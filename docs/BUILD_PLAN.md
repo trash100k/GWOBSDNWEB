@@ -8,8 +8,8 @@
 > **Sources of truth:** `CLAUDE.md` (brand — binding), `docs/research/2026-pricing-journey-and-design.md` (strategy + locked pricing).
 
 ## STATE
-- **LAST DONE:** Phase 1 PAGES — all 8 specialist pages landed in parallel + integrated; full tree builds green, prerender emits 9 routes. Each page: rich on-brand content + bespoke namespaced SVG/CSS on the shared shell (Software forged spec-cards; Voice soundwave + graveyard + ROI; Automations busywork-tax + flow pipelines; Web flagship pillars + kinetic manifesto + 2 tiers; Work metric proof-cards + case-study slots; Pricing anchored ledger + reconciliation + 6-Q FAQ; About Celtic seal + lineage + pillars; Contact full lead form w/ validation + success state).
-- **NEXT UP:** (1) dual-viewport visual QA of every page → fix seams; (2) deploy to prod on owner word; (3) Phase 2 lead endpoint for the Contact form + confirm intake email (`forge@gaelworx.com` is a placeholder); (4) home-pacing pass; (5) Nav links to the new routes.
+- **LAST DONE:** SMOOTH/MOTION PASS — **Lenis** momentum scroll app-wide (reduced-motion-guarded; window.scrollY stays the smoothed source so scene/jack need no rewrite; route changes reset via `forge.lenis.scrollTo`); site-wide **Forge Reveal** (blur→sharp + rise) on every `<Section>` via IntersectionObserver (Safari-safe, JS-only so no-JS/crawler content stays visible); **bounded blur** (kinetic 10→7px, finale drain 12→8px) per the perf research. Build green, 0 console errors @ both viewports. (All 8 specialist pages already integrated.)
+- **NEXT UP:** (1) deploy to prod on owner word (pages + smooth pass); (2) dual-viewport visual QA; (3) Phase 2 lead endpoint + confirm intake email (`forge@gaelworx.com` placeholder); (4) Nav links to new routes; (5) type-elevation (proximity-ignite / 3D wordmark) + three-stack code-split.
 - **BRANCH:** `claude/gaelworx-obsidian-hero-rrr9xo`
 - **PROD DEPLOYS:** only on explicit owner OK, only at phase milestones.
 

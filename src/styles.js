@@ -21,6 +21,13 @@ html,body,#root{margin:0; padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans);
   -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+/* Lenis momentum scroll (darkroomengineering/lenis) — required base styles. When
+   active it disables native smooth-scroll so the two don't fight. */
+html.lenis,html.lenis body{height:auto;}
+.lenis.lenis-smooth{scroll-behavior:auto !important;}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain;}
+.lenis.lenis-stopped{overflow:hidden;}
+.lenis.lenis-smooth iframe{pointer-events:none;}
 ::selection{background:rgba(193,41,46,0.4); color:#fff;}
 
 /* A+E IGNITED — the forge fire. The first A and first E of brand proper-nouns
@@ -310,6 +317,12 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 .pg-lede{margin:clamp(18px,2.4vw,28px) auto 0; max-width:60ch;
   font-size:clamp(1.1rem,1.7vw,1.4rem); line-height:1.55; color:var(--gw-steel);}
 .pg-section{padding:clamp(54px,9vh,120px) 0;}
+/* Forge Reveal — sections wipe in blur→sharp + a slight rise (added by Section.jsx
+   only with JS + motion allowed; default state stays visible for no-JS/crawlers). */
+.pg-section.pg-reveal{opacity:0; transform:translateY(22px); filter:blur(6px);
+  will-change:opacity,transform,filter;
+  transition:opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);}
+.pg-section.pg-reveal.is-in{opacity:1; transform:none; filter:none;}
 .pg-eyebrow{display:block; font-size:11px; letter-spacing:0.4em; font-weight:700; text-transform:uppercase;
   color:var(--gw-ember); margin-bottom:16px;}
 .pg-h2{margin:0 0 clamp(20px,3vh,34px); font-family:var(--gw-headline); font-weight:800; color:var(--gw-bone);
@@ -338,7 +351,7 @@ body{background:var(--gw-void); color:var(--gw-bone); font-family:var(--gw-sans)
 /* ── kinetic type ────────────────────────────────────────────────────── */
 .forge-text .word{display:inline-block; white-space:nowrap;}
 .forge-text .word>span{display:inline-block; white-space:pre; opacity:0; transform:translateY(0.5em);
-  filter:blur(10px);
+  filter:blur(7px);
   transition:opacity .7s var(--ease),transform .7s var(--ease),filter .7s var(--ease);
   transition-delay:calc(var(--i)*16ms + var(--d,0ms));}
 .forge-text.shown .word>span{opacity:1; transform:none; filter:blur(0);}
