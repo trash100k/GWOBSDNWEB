@@ -68,7 +68,7 @@ export const COPY = {
         id: 'GW–03',
         tag: 'Automations',
         line: 'Workflows that kill the headaches.',
-        body: 'Workflows and automations that quote, follow up, invoice, and pull reviews on their own — and hand you your data to own and leverage like no one else can. Build it once; it earns every day after.',
+        body: 'Workflows and automations that quote, follow up, invoice, and pull reviews on their own — and hand you your data to own and leverage like no one else can.',
       },
       {
         id: 'GW–04',
@@ -100,18 +100,18 @@ export const COPY = {
       },
       {
         n: '02',
+        head: 'Curiosity, not reliance.',
+        body: 'We point AI at the redundant work — never to breed dependence. No black-box oracle, no confident nonsense, no machine pretending to be the human in the room. It does the rote, shows its reasoning, and hands judgment back where it belongs — yours. Built to make you sharper, not hooked.',
+      },
+      {
+        n: '03',
         head: 'It ships. Then it earns.',
         body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, and hours handed back to you.',
       },
       {
-        n: '03',
-        head: 'You own every bolt.',
-        body: 'Custom-built, documented, open-sourced to you — the code, the keys, the data. You own it and leverage it like no one else can. No black boxes, no hostage logins, no system that dies when a trend does.',
-      },
-      {
         n: '04',
-        head: 'One clan. Fully accountable.',
-        body: 'No offshore relay, no account manager reading a script. You talk to the people who design it, build it, and ship it — start to finish.',
+        head: 'Live in days, not quarters.',
+        body: 'No year-long rollout, no committee, no disruption to the jobs already on the board. You name the bottleneck; we scope it, build it, and put it live in days — then sharpen it in the real world, not a slide deck.',
       },
       {
         n: '05',
