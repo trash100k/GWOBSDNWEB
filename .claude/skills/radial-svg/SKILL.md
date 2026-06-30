@@ -44,7 +44,21 @@ crossing-order masks.
 Ink body + ember rim (`paint-order:stroke fill`) + forge-glow core; let the obsidian veins bleed
 through the gaps. Palette tokens only.
 
-## Verify
-`qa-route` (0 console errors — SVG/filters compile) + a **DOM probe** of the structure (count
-`.m-ring` circles, motif counts, assert no stale text classes like `.mandala-ring-text`) + owner reads
-it on the iPhone 15 (it should resolve as a banded symmetric wheel that turns as one).
+## Verify — the geometric QA loop (don't eyeball; MEASURE)
+"Rings all over the place / not lined up / not in frame" are **measurable**, so prove them with a
+harness, not a screenshot — `scripts/mandala-qa.mjs` (`npm run qa:mandala`), green and required:
+- **Deterministic mode:** emulate `prefers-reduced-motion` → Lenis is off (it's only built in
+  full-motion), so `window.scrollTo` drives `scrollY` directly. The mandala's placement/scale/opacity
+  don't depend on the reduced flag, and circles are rotation-invariant, so killing `.m-spin` perturbs
+  nothing measured. Scan the scroll track for the `.fin-mandala` opacity peak, then measure there.
+- **Geometry in user units via `getBBox()`** (ignores CSS transforms/filters → clean): every `.m-ring`
+  centre on the origin (CONCENTRIC, the "all over the place" check), each radius on its designed mark,
+  strictly nested. **Caveat:** `getBBox()` ignores an element's OWN `transform="rotate()"` attribute, so
+  it's right for the centred skeleton circles but NOT for placed motifs — for those use `getCTM()` or
+  `getBoundingClientRect()`.
+- **Layout in CSS px via `getBoundingClientRect()`:** whole box inside the viewport (IN-FRAME), centre
+  == viewport centre (CENTERED). Both viewports (393×852 + 1440×900). Exits non-zero on any failure.
+
+Then `qa-route` (0 console errors — SVG/filters compile) + owner reads it on the iPhone 15 (it should
+resolve as a banded symmetric wheel that turns as one). The harness guards structure; the eye judges
+the aesthetic.
