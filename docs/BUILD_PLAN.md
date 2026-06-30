@@ -49,6 +49,23 @@
   Verified: shader compiles + canvas renders 0 errors (forced-hardware probe, since SwiftShader→poster);
   finale QA green. **Owner to judge facets/edges/sparkle on the iPhone 15 + tune via the JEWEL panel.**
 
+## EMERALD ISLE GEM (hero pivot, 2026-06-30) — APPROVED PLAN, ACTIVE
+Owner: the slab "has no green" on the real device, and the brand story ("it takes many forges to make
+an Emerald Isle") should be LITERAL — the hero is a **rough, uncut emerald** at the top that **bevels
+itself into a faceted cut masterpiece** across the WHOLE scroll (each section = another forge pass).
+Deep Forest is the LOCKED color but must read **boldly green**. Plan: `abstract-discovering-steele`.
+Reuses `src/scene/gem.js` (octagonal step-cut, `sides:8`, clean crown). New `src/scene/EmeraldGem.jsx`
+**replaces** `FacetedJewel`/`ObsidianSlab` as the hero (both orphaned, kept for revert).
+**Hard constraint:** iPhone 15 (primary judge) = tier `low` → **transmission OFF**. So GREEN comes from
+**emissive + green material color + green fill light** (works on every tier); transmission + dispersion
+are a `high`-tier garnish only (and stay off on weak GPUs → Chromebook-safe).
+- [x] **G.1** Palette: lifted Deep Forest greener — `forest`/`emerald`/`emeraldLit`/`jade`/`emeraldHot` (HDR core) added to `palette.js`; warm tokens kept (ObsidianSlab/Embers still ref them).
+- [x] **G.2** `EmeraldGem.jsx` — reuses `buildGem({sides:8, subdiv:2})`; flat-shaded emerald `MeshPhysicalMaterial` (deep-forest color + emerald emissive glowing green from within + iridescence; `high`-tier transmission/dispersion/green-attenuation garnish). Fragment: green core glow + jardin + emerald-opal Fresnel flash.
+- [x] **G.3** Rough→cut MORPH: `onBeforeCompile` vertex stage displaces verts along `normalize(position)` by `fbm*(1-uCut)` (reuses `GLSL_NOISE`); `uCut = forge.scrollDamped` (0 rough hero → 1 cut finale). Facets midpoint-SUBDIVIDED (`subdiv:2`, coplanar → still one clean facet at cut=1, but enough verts for real lumps when rough). Jade facet EDGES fade IN as `cut→1` (sharpen as it cuts; hides displaced-edge mismatch).
+- [x] **G.4** `ForgeCanvas` wiring — renders `<EmeraldGem>`; cool key + green fill + gold rim lights + a green env lightformer; ambient lifted (`0.05→0.08`, green tint) so the body never reads pure black. `ObsidianSlab`/`FacetedJewel` orphaned (kept for revert).
+- [x] **G.5** Build GREEN + Playwright functional check @ 393×852 forced to BOTH tiers (new `?q=high|low|static` override in `hooks.js`, since the sandbox GPU always probes SwiftShader→static): **0 console errors high+low**, canvas alive, GLSL compiles (caught + fixed a `gw_fbm(vec3)` arg bug). Bold green + visible rough→cut morph confirmed in shots; finale QA green. **NEXT: owner judges greenness + morph on the iPhone 15 OLED → tune via the `?debug` GEM panel (rough amount/scale, emissive, transmission, edgeGlow).**
+  - ⚠ **Observed (not yet a unit):** the FINALE CTA ("Start the Forge") still renders SOLID ORANGE — clashes with the green hero + the earlier "no orange" call. Flagged to owner; awaiting the replacement they want (forge-red / jade / gold-outline like the hero CTA).
+
 ## CHROMEBOOK / WEBGL ROBUSTNESS (fixed 2026-06-30)
 - **Symptom:** the 3D background worked on the iPhone but rendered BLACK on a Chromebook.
 - **Root cause:** the iPhone gets tier **`low`** (mobile UA) which has **transmission OFF**; the

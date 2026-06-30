@@ -11,6 +11,14 @@ import { useEffect, useRef, useState } from 'react'
  */
 export function detectQuality() {
   if (typeof window === 'undefined') return 'high'
+  // explicit override for QA / debugging on machines whose GPU probe mis-tiers
+  // (e.g. a CI sandbox always reports SwiftShader → static): ?q=high|low|static
+  try {
+    const forced = new URLSearchParams(window.location.search).get('q')
+    if (forced === 'high' || forced === 'low' || forced === 'static') return forced
+  } catch {
+    /* no-op */
+  }
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'static'
   // probe the actual GPU — software renderers paint the heavy obsidian black
   try {

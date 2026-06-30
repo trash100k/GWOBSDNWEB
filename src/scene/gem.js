@@ -16,6 +16,8 @@ export function buildGem({
   crownH = 0.42, // table height above the girdle
   pavH = 1.18, // culet depth below the girdle
   crownTwist = 0.5, // offset the crown ring by half a facet → brilliant-style zig-zag crown
+  subdiv = 0, // midpoint-subdivide each facet N× — coplanar (so it still reads as ONE clean
+  // facet) but gives enough vertices for a noise displacement to lump it into rough rock.
 } = {}) {
   const ringAt = (r, y, twist = 0) =>
     Array.from({ length: sides }, (_, i) => {
@@ -40,6 +42,25 @@ export function buildGem({
     tri(top[i], top[j], gir[j])
     // PAVILION — girdle edge down to the culet
     tri(gir[i], gir[j], culet)
+  }
+
+  // midpoint subdivision — split every triangle into 4 coplanar children (so the
+  // facet still looks like ONE plane until a vertex displacement lumps it). Shared
+  // edges/corners get identical midpoints, so the mesh stays watertight when morphed.
+  const mid = (a, b) => a.clone().add(b).multiplyScalar(0.5)
+  for (let s = 0; s < subdiv; s++) {
+    const out = []
+    for (let t = 0; t < tris.length; t += 3) {
+      const a = tris[t]
+      const b = tris[t + 1]
+      const c = tris[t + 2]
+      const ab2 = mid(a, b)
+      const bc2 = mid(b, c)
+      const ca2 = mid(c, a)
+      out.push(a, ab2, ca2, ab2, b, bc2, ca2, bc2, c, ab2, bc2, ca2)
+    }
+    tris.length = 0
+    tris.push(...out)
   }
 
   // ensure every face winds OUTWARD (so computeVertexNormals lights them right)
