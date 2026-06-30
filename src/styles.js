@@ -345,49 +345,40 @@ html.lenis,html.lenis body{height:auto;}
 
 /* ── headlines forged from the fire — display type filled with the live, flowing
    fire-opal gradient (the type IS the forge fire). Per-letter for kinetic heads. */
-.flame,.flame .word>span{
-  background:linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
-  background-size:100% 250%;
-  -webkit-background-clip:text; background-clip:text;
-  color:transparent; -webkit-text-fill-color:transparent;
-  animation:lavaFlow 5s infinite alternate ease-in-out;}
-/* dark halo only (no orange glow) so the fire FILL pops over the dark obsidian */
-.flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85), 0 2px 8px rgba(0,0,0,0.7);}
-
-/* ── LIQUID OBSIDIAN — display heads cut from the SAME jewel as the slab, so the
-   type and the glass read as one material:
-   • the fire-opal flows THROUGH the glyphs, and a specular GLIMMER rakes across them
-     — ONE diagonal background sweep moves the tall fire layer in Y (flow) and the
-     wide glint layer in X (rake), with a faint cool opal edge on the glint;
-   • the whole head brightens + blooms with the LIVE forge --heat (scroll energy +
-     strikes, set per frame in Content.jsx) — type and slab on one clock;
-   • on reveal each glyph SURFACES up through the glass: a blurred molten smear that
-     sharpens + cools into solid jewel.
-   Display/brand heads only — body copy stays grotesk + crisp. */
-.jewel,.jewel .word>span{
+/* ── OBSIDIAN FIRE-OPAL DAMASCUS — display heads cut from the same stone as the
+   slab. NOT forge-orange: a dark watered DAMASCUS-STEEL base (legible cool steel
+   with darker folded bands, flowing in Y like folded metal) under vivid FULL-
+   SPECTRUM fire-OPAL play-of-color flashes + a bright specular GLINT rake. Contrast
+   and the moving EFFECT lead, not the colour. Shared by EVERY display head (.flame);
+   the hero + finale mark (.jewel) add the live --heat surge + the surface-from-glass
+   reveal. Body copy stays grotesk + crisp. */
+.flame,.flame .word>span,.jewel,.jewel .word>span{
   background:
-    linear-gradient(74deg, transparent 36%, rgba(255,250,240,0.7) 45%, #ffffff 50%,
-      rgba(255,250,240,0.7) 55%, transparent 64%),
-    linear-gradient(96deg, transparent 36%, rgba(86,232,255,0.85) 47%, rgba(186,128,255,0.85) 53%,
-      transparent 64%),
-    linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
-  background-size:320% 100%, 250% 100%, 100% 260%;
+    linear-gradient(74deg, transparent 38%, rgba(255,255,255,0.6) 46%, #ffffff 50%,
+      rgba(255,255,255,0.6) 54%, transparent 62%),
+    linear-gradient(96deg, transparent 26%, rgba(40,236,210,0.78) 38%, rgba(86,150,255,0.8) 48%,
+      rgba(206,92,255,0.8) 58%, rgba(255,201,96,0.62) 68%, transparent 80%),
+    linear-gradient(168deg, #ccd5e3 0%, #586474 12%, #b3bdcd 24%, #444e5e 38%, #9aa5b7 50%,
+      #b0455a 60%, #3a4250 71%, #c2ccdb 85%, #5e6878 100%);
+  background-size:320% 100%, 260% 100%, 100% 320%;
   background-position:-60% 0%, 140% 0%, 0% 0%;
   -webkit-background-clip:text; background-clip:text;
   color:transparent; -webkit-text-fill-color:transparent;
   animation:jewelSweep 5s ease-in-out infinite;}
-/* warm glint rakes L→R, cool OPAL streak (play-of-color) counter-rakes R→L, the
-   fire flows in Y — the two streaks crossing throw the iridescent jewel flash. */
+/* glint rakes L→R, the OPAL play-of-color counter-rakes R→L, the Damascus base flows
+   in Y — the streaks crossing the watered steel throw the black-opal colour flash. */
 @keyframes jewelSweep{
   0%,100%{background-position:-60% 0%, 140% 0%, 0% 0%;}
   50%{background-position:160% 0%, -40% 0%, 0% 100%;}}
-/* the head brightens with the forge --heat (a FILL brighten, not an orange glow —
-   no ambient halo); only dark halos for legibility over the dark glass. */
-.jewel{filter:brightness(calc(1 + var(--heat,0)*0.55)) saturate(calc(1 + var(--heat,0)*0.3));
+/* dark halo only (no orange glow) so the watered fill reads over the dark obsidian */
+.flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85), 0 2px 8px rgba(0,0,0,0.7);}
+/* hero + finale heads brighten with the live forge --heat (a FILL brighten, not a
+   glow); dark halos only. */
+.jewel{filter:brightness(calc(1 + var(--heat,0)*0.5)) saturate(calc(1 + var(--heat,0)*0.4));
   text-shadow:0 0 10px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85), 0 2px 8px rgba(0,0,0,0.7);}
-/* SURFACE FROM THE GLASS — heavier emerge-from-obsidian than the base reveal */
-.jewel .word>span{transform:translateY(0.42em) scale(1.05); filter:blur(16px) brightness(1.7);}
-.jewel.shown .word>span{transform:none; filter:blur(0) brightness(1);}
+/* SURFACE FROM THE GLASS on reveal — shared by every head (emerge from the obsidian) */
+.flame .word>span,.jewel .word>span{transform:translateY(0.42em) scale(1.05); filter:blur(16px) brightness(1.6);}
+.flame.shown .word>span,.jewel.shown .word>span{transform:none; filter:blur(0) brightness(1);}
 
 /* ── the trust ladder — a 5-step ESCALATING whirlwind on "why GAELWORX".
    Centered copy over a giant ghosted Cinzel numeral that slowly turns (priming
@@ -477,7 +468,7 @@ html.lenis,html.lenis body{height:auto;}
   .forge-text .word>span{transition:none; opacity:1; transform:none; filter:none;}
   .loader-mark{animation:none;} .loader-bar i{animation:none; width:100%;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
-  .flame,.jewel,.jewel .word>span,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
+  .flame,.flame .word>span,.jewel,.jewel .word>span,.grain{animation:none;} .fbody{transform:none;}
   .trust-num{animation:none;}
 }
 `
