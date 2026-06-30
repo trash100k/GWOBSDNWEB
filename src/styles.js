@@ -252,12 +252,11 @@ html.lenis,html.lenis body{height:auto;}
 .car-item.is-front .branch-id{color:var(--gw-ember);}
 .car-item.is-front .branch-line{color:#fff; text-shadow:0 0 28px rgba(232,93,4,0.55), 0 2px 10px rgba(0,0,0,0.6);}
 
-/* branch price — the number lands AFTER outcome + proof, with the anchor (what it
-   costs elsewhere) struck above it so the "from" price reads as efficient. */
+/* branch price — TEASE only: the "from" entry anchor, to pre-qualify + signal
+   accessibility while exploring. The full anchored reveal (elsewhere-comparison +
+   deposit) is held for the late rates ledger so the number lands last, after proof. */
 .branch-foot{display:flex; flex-direction:column; gap:5px; margin-top:14px;
   border-top:1px solid rgba(141,153,174,0.2); padding-top:12px; max-width:36ch;}
-.branch-anchor{font-size:clamp(11px,1.3vw,13px); letter-spacing:0.01em; line-height:1.3;
-  color:rgba(141,153,174,0.7); text-decoration:line-through; text-decoration-color:rgba(193,41,46,0.55);}
 .branch-price{font-family:var(--gw-headline); font-weight:800; letter-spacing:0.01em;
   font-size:clamp(1.05rem,2.1vw,1.4rem); color:var(--gw-bone);}
 .branch-price em{font-style:normal; font-weight:600; font-size:0.66em; letter-spacing:0.04em;
@@ -391,83 +390,28 @@ html.lenis,html.lenis body{height:auto;}
   to{transform:translate(-50%,-50%) rotate(360deg);}}
 
 /* ── FINALE ACT ──────────────────────────────────────────────────────────
-   A scroll-jacked closer of its own: the visitor's problems drain into a Cinzel
-   mandala whirlpool, the solutions rise back out, simplify into the four forges,
-   spin into GAELWORX, then the CTA. Content.jsx owns each layer's opacity +
-   transform per scroll phase; CSS sets the look + the radial geometry. Every
-   layer is pinned dead-center — JS transforms compose onto translate(-50%,-50%). */
+   A scroll-jacked closer of its own: the visitor's problems drain away into the
+   forge, then the GAELWORX wordmark + the CTA rise to centre and HOLD on the
+   living obsidian (no mandala). Content.jsx owns each layer's opacity + transform
+   per scroll phase. Every layer is pinned dead-center — JS transforms compose
+   onto translate(-50%,-50%). */
 .frame--finale{padding:0; align-items:stretch; justify-content:stretch;}
-.finale{position:relative; width:100%; height:100%; pointer-events:none;
-  --Rring:clamp(124px,30vw,268px); --Rforge:clamp(96px,23vw,196px);}
+.finale{position:relative; width:100%; height:100%; pointer-events:none;}
 
 /* the four orbiting / stacked layers JS drives — pinned to center, JS owns transform */
 .fin-layer{position:absolute; top:50%; left:50%; opacity:0;
   will-change:transform,opacity,filter; backface-visibility:hidden;}
 
-/* problems & solutions — vertical Cinzel stacks */
-.fin-problems,.fin-solutions{display:flex; flex-direction:column; align-items:center;
+/* problems — a vertical Cinzel stack that drains into the forge */
+.fin-problems{display:flex; flex-direction:column; align-items:center;
   gap:clamp(10px,1.8vh,22px); width:min(92vw,860px); text-align:center;}
 .fin-line{font-family:var(--gw-display); font-weight:700; line-height:1.05;
   text-transform:uppercase; letter-spacing:0.015em; font-size:clamp(1.35rem,4.6vw,2.9rem);}
 /* the weight the visitor carries — cold + ashen */
 .fin-problems .fin-line{color:rgba(180,190,205,0.82);
   text-shadow:0 0 16px rgba(0,0,0,0.85),0 2px 10px rgba(0,0,0,0.7);}
-/* the forge's answer — warm + bright, rising back out */
-.fin-line--sol{color:#fff;
-  text-shadow:0 0 14px rgba(0,0,0,0.9),0 0 30px rgba(232,93,4,0.45),0 0 60px rgba(193,41,46,0.3);}
 
-/* the eye of the finale whirlpool — a clean GEOMETRIC mandala (src/ui/Mandala.jsx):
-   concentric keyline circles (the skeleton that always reads as rings) + N-fold
-   symmetric motif bands (petals/ticks/dots/spokes), in two slow counter-rotating
-   groups. It fades in and HOLDS dead-centre, whole, in frame (no scroll-driven
-   spin/scale); only the inner groups turn. Ink + ember rim + a forge-glow core. */
-.fin-mandala{width:min(90vw,84vh); height:min(90vw,84vh);}
-.mandala-svg{width:100%; height:100%; display:block; overflow:visible;
-  filter:drop-shadow(0 0 26px rgba(232,93,4,0.24));}
-/* concentric keyline circles — the stable skeleton (alternating ink / ember) */
-.m-ring{fill:none; stroke:#0a0708; stroke-width:3; paint-order:stroke;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.55));}
-.m-ring--ember{stroke:#E85D04; stroke-width:1.6; opacity:0.85; filter:none;}
-/* outer incantation rim — 900 Cinzel, subtle (the geometry carries the read) */
-.m-word{font-family:var(--gw-display); font-weight:900; font-size:26px; fill:#0a0708;
-  text-transform:uppercase; letter-spacing:0.5px; paint-order:stroke fill;
-  stroke:#E85D04; stroke-width:0.9; opacity:0.9;}
-.m-tick{stroke:#E85D04; stroke-width:2.6; opacity:0.6; stroke-linecap:round;}
-/* petals — black ink body, ember rim, soft carved shadow */
-.m-petal{fill:#0a0708; stroke:#E85D04; stroke-width:1.4; paint-order:stroke fill;
-  filter:drop-shadow(0 2px 2px rgba(0,0,0,0.45));}
-.m-petal--in{fill:#120a0a; stroke:#C1292E;}
-.m-dot{fill:#0a0708; stroke:#E85D04; stroke-width:1.4;}
-.m-spoke{stroke:#0a0708; stroke-width:4; stroke-linecap:round;}
-.m-core{fill:#E85D04; filter:drop-shadow(0 0 16px rgba(232,93,4,0.95));}
-/* two slow counter-rotating motif groups (N-fold symmetry stays symmetric under
-   rotation); the concentric circles + boss stay still as the stable skeleton.
-   PIVOT on the group's OWN bbox centre (fill-box) — the motifs are authored radially
-   symmetric around the viewBox origin, so their bbox centre IS the true centre.
-   (view-box + 50%/50% resolved to the viewBox CORNER in Chrome and flung the
-   whole band into the bottom-right corner — the "split mandala" bug.) */
-.m-spin{transform-box:fill-box; transform-origin:center; will-change:transform;}
-.m-spin--out{animation:spinR 120s linear infinite;}
-.m-spin--in{animation:spinL 88s linear infinite;}
-@keyframes spinR{to{transform:rotate(360deg);}}
-@keyframes spinL{to{transform:rotate(-360deg);}}
-
-/* the eye of the whirlpool — the line both journeys pivot on */
-.fin-seed{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0;
-  width:min(88vw,560px); text-align:center; font-family:var(--gw-display); font-weight:900;
-  text-transform:uppercase; font-size:clamp(1.1rem,3.4vw,2.1rem); line-height:1.12; letter-spacing:0.02em;
-  color:rgba(236,226,214,0.95); text-shadow:0 0 30px rgba(0,0,0,0.9),0 0 50px rgba(232,93,4,0.4);}
-
-/* the four forges — a tight ring that converges into the wordmark */
-.fin-forges{width:0; height:0;}
-.forge-word{position:absolute; top:0; left:0; white-space:nowrap;
-  font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
-  font-size:clamp(1rem,2.7vw,1.7rem); letter-spacing:0.05em; color:var(--gw-bone);
-  text-shadow:0 0 22px rgba(0,0,0,0.85),0 0 34px rgba(232,93,4,0.3); transform-origin:50% 50%;
-  transform:translate(-50%,-50%) rotate(calc(var(--i) * 360deg / var(--n)))
-    translateY(calc(-1 * var(--Rforge))) rotate(calc(-1 * var(--i) * 360deg / var(--n)));}
-
-/* GAELWORX — the mark the forges spin into */
+/* GAELWORX — the wordmark the journey resolves on */
 .fin-mark{position:absolute; top:50%; left:50%; opacity:0; text-align:center;
   will-change:transform,opacity;}
 .mark-btn{background:none; border:0; cursor:pointer; padding:0; white-space:nowrap;
@@ -475,17 +419,14 @@ html.lenis,html.lenis body{height:auto;}
   font-size:clamp(2.4rem,9vw,6rem); line-height:1; letter-spacing:0.04em; color:var(--gw-bone);
   text-shadow:0 0 40px rgba(232,93,4,0.4),0 2px 12px rgba(0,0,0,0.7);}
 
-/* the closer + the sword */
+/* the sword */
 .fin-cta{position:absolute; top:50%; left:50%; opacity:0; width:min(92vw,640px);
   display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
   will-change:transform,opacity;}
-.fin-closer{font-family:var(--gw-headline); font-weight:700; line-height:1.18;
-  font-size:clamp(1.1rem,2.6vw,1.7rem); color:var(--gw-bone); text-shadow:0 2px 18px rgba(0,0,0,0.8);}
 .fin-cta .avail{margin-top:12px;}
 
-/* FINAL RESTING STATE — GAELWORX + the sword seated in the mandala's dark eye and
-   held to the end. Compact, with a heavy dark halo so they read over the forge-glow
-   core. The mandala's own centre well (mWell) is the scrim behind them. */
+/* FINAL RESTING STATE — GAELWORX + the sword rise to centre and hold on the living
+   obsidian. Compact, with a heavy dark halo so they read over the forge-glow veins. */
 .mark-btn--seal{font-size:clamp(1.9rem,6.4vw,3.6rem); letter-spacing:0.06em;
   text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),0 0 60px rgba(232,93,4,0.45);}
 .fin-cta--seal{gap:14px; width:min(92vw,520px);}
@@ -494,7 +435,6 @@ html.lenis,html.lenis body{height:auto;}
 
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:560px){
-  .finale{--Rring:clamp(94px,34vw,150px); --Rforge:clamp(72px,27vw,120px);}
   .mark-btn{font-size:clamp(2.1rem,13vw,3.6rem);}
   .frame{padding:11vh 18px;}
   .fbody,.fbody--wide{max-width:none; width:100%;}
@@ -517,6 +457,5 @@ html.lenis,html.lenis body{height:auto;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
   .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
   .trust-num{animation:none;}
-  .m-spin{animation:none;}
 }
 `

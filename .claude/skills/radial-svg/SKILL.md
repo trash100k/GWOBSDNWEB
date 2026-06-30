@@ -54,7 +54,9 @@ through the gaps. Palette tokens only.
 
 ## Verify — the geometric QA loop (don't eyeball; MEASURE)
 "Rings all over the place / not lined up / not in frame" are **measurable**, so prove them with a
-harness, not a screenshot — `scripts/mandala-qa.mjs` (`npm run qa:mandala`), green and required:
+harness, not a screenshot. (The GAELWORX mandala was later removed, so `scripts/mandala-qa.mjs` is
+gone — but the harness PATTERN below is the template to recreate for the next radial build, and the
+pivot bug it caught is the reason this skill exists.) It ran green and asserted:
 - **Deterministic mode:** emulate `prefers-reduced-motion` → Lenis is off (it's only built in
   full-motion), so `window.scrollTo` drives `scrollY` directly. The mandala's placement/scale/opacity
   don't depend on the reduced flag, and circles are rotation-invariant, so killing `.m-spin` perturbs

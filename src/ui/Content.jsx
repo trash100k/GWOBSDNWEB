@@ -5,7 +5,6 @@ import { forge } from '../store.js'
 import ForgeText from './ForgeText.jsx'
 import BrandText from './BrandText.jsx'
 import Ignite from './Ignite.jsx'
-import Mandala from './Mandala.jsx'
 
 function strike() {
   forge.strikeAt = performance.now() / 1000
@@ -63,9 +62,8 @@ export default function Content() {
   const frameRefs = useRef([])
   const carRefs = useRef([])
   const wheelRef = useRef(null)
-  // finale layer refs (trimmed: problems → mandala → mark + cta seated at its eye)
+  // finale layer refs (problems drain → GAELWORX mark + CTA rise on the obsidian)
   const problemsRef = useRef(null)
-  const mandalaRef = useRef(null)
   const markRef = useRef(null)
   const ctaRef = useRef(null)
 
@@ -229,56 +227,44 @@ export default function Content() {
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
 
-      // ── Finale act — the journey SETTLES ONTO THE MANDALA and stops there.
-      //   problems drain into the eye → the mandala (the GAELWORX forge-seal) forms
-      //   and HOLDS as the final resting image → GAELWORX + the CTA seat at its eye
-      //   and hold to the very end. The old solutions / four-forges / spin-to-mark
-      //   tail is folded away — the mandala IS the end state. Opacities that end on
-      //   the hold use c,d > 1 so the trapezoid never ramps back down.
+      // ── Finale act — the journey resolves on the LIVING OBSIDIAN: the problems
+      //   drain away, then the GAELWORX wordmark + the CTA rise to centre and HOLD
+      //   to the very end (the forge background carries it — no mandala). Opacities
+      //   that end on the hold use c,d > 1 so the trapezoid never ramps back down.
       // start the sequence as the finale frame SETTLES in (not at its centre), so
       // the problems arrive the moment the act begins — no empty dead-zone scroll.
       const FIN_START = CENTERS[FINALE] - HALF[FINALE] * 0.8
       const fp = clamp((p - FIN_START) / (1 - FIN_START + 1e-6), 0, 1)
-      const oProblems = env(fp, 0.0, 0.05, 0.20, 0.32)
-      const oMandala = env(fp, 0.22, 0.40, 1.2, 1.3) // forms, then HOLDS to the end
-      const oMark = env(fp, 0.50, 0.66, 1.2, 1.3) // GAELWORX seats at the eye + holds
-      const oCta = env(fp, 0.62, 0.78, 1.2, 1.3) // CTA rises under it + holds
+      const oProblems = env(fp, 0.0, 0.06, 0.26, 0.42)
+      const oMark = env(fp, 0.40, 0.58, 1.2, 1.3) // GAELWORX rises to centre + holds
+      const oCta = env(fp, 0.54, 0.72, 1.2, 1.3) // CTA rises under it + holds
 
       if (problemsRef.current) {
-        // drains DOWN + spirals + shrinks into the whirlpool's eye as it fades
-        const out = clamp((fp - 0.13) / 0.09, 0, 1)
+        // drains DOWN + spirals + shrinks away as it fades into the forge
+        const out = clamp((fp - 0.16) / 0.12, 0, 1)
         const e = easeIn(out)
         problemsRef.current.style.opacity = oProblems.toFixed(3)
         problemsRef.current.style.transform =
           `translate(-50%,-50%) rotate(${(e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
         problemsRef.current.style.filter = !reduced && out > 0.01 ? `blur(${(out * 8).toFixed(1)}px)` : 'none'
       }
-      if (mandalaRef.current) {
-        const inP = clamp((fp - 0.21) / 0.09, 0, 1)
-        mandalaRef.current.style.opacity = oMandala.toFixed(3)
-        // Bring the WHOLE mandala into frame, dead-centre, and HOLD it there — no
-        // scroll-driven scale blow-up, no rotation through angles. It just settles
-        // in and sits; the inner rings turn slowly on their own (CSS .m-spin).
-        const sc = 0.92 + easeOut(inP) * 0.08
-        mandalaRef.current.style.transform = `translate(-50%,-50%) scale(${sc.toFixed(3)})`
-      }
       if (markRef.current) {
-        // GAELWORX settles into the upper eye of the held mandala and STAYS.
-        const inP = clamp((fp - 0.50) / 0.10, 0, 1)
+        // GAELWORX rises to dead-centre (a touch high) and STAYS.
+        const inP = clamp((fp - 0.40) / 0.12, 0, 1)
         markRef.current.style.opacity = oMark.toFixed(3)
         const sc = 0.62 + easeOut(inP) * 0.38
         markRef.current.style.transform =
-          `translate(-50%,-50%) translateY(-6vh) rotate(${((1 - inP) * -40 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
+          `translate(-50%,-50%) translateY(${(-5 - (1 - easeOut(inP)) * 5).toFixed(1)}vh) rotate(${((1 - inP) * -40 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
       }
       if (ctaRef.current) {
-        // the sword rises just under the wordmark, in the mandala's dark eye, and HOLDS.
-        const inP = clamp((fp - 0.62) / 0.10, 0, 1)
+        // the sword rises just under the wordmark and HOLDS.
+        const inP = clamp((fp - 0.54) / 0.12, 0, 1)
         ctaRef.current.style.opacity = oCta.toFixed(3)
         ctaRef.current.style.transform =
-          `translate(-50%,-50%) translateY(9vh) translateY(${((1 - easeOut(inP)) * 24).toFixed(1)}px)`
+          `translate(-50%,-50%) translateY(8vh) translateY(${((1 - easeOut(inP)) * 24).toFixed(1)}px)`
         ctaRef.current.style.pointerEvents = oCta > 0.6 ? 'auto' : 'none'
       }
-      const fmarks = [0.1, 0.32, 0.58, 0.80]
+      const fmarks = [0.1, 0.4, 0.62]
       for (const m of fmarks) { if (lastFp < m && fp >= m) forge.strikeAt = performance.now() / 1000 }
       lastFp = fp
 
@@ -333,9 +319,12 @@ export default function Content() {
                     <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
                     <span className="branch-line"><BrandText text={b.line} /></span>
                     <span className="branch-body"><BrandText text={b.body} /></span>
+                    {/* TEASE only — the "from" entry anchor pre-qualifies + signals
+                        accessibility. The full anchored reveal (elsewhere-comparison +
+                        deposit) is held for the late rates ledger, so the number lands
+                        last, after proof (sales research: sequence the price late). */}
                     <span className="branch-foot">
-                      <span className="branch-anchor">{b.anchor}</span>
-                      <span className="branch-price">{b.price}{b.note && <em> · {b.note}</em>}</span>
+                      <span className="branch-price">{b.price}</span>
                     </span>
                   </li>
                 ))}
@@ -390,14 +379,8 @@ export default function Content() {
               ))}
             </div>
 
-            {/* the mandala IS the destination — the GAELWORX forge-seal. It forms as
-                the problems drain into it, then HOLDS as the final resting image while
-                the wordmark + CTA seat at its eye. (solutions / four-forges tail folded
-                away — see the rAF finale block.) */}
-            <div className="fin-layer fin-mandala" ref={mandalaRef} aria-hidden="true">
-              <Mandala />
-            </div>
-
+            {/* the journey resolves on the living obsidian: the problems drain away,
+                then the GAELWORX wordmark + CTA rise to centre and HOLD (no mandala). */}
             <div className="fin-mark fin-mark--seal" ref={markRef}>
               <button className="mark-btn mark-btn--seal magnetic" onClick={scrollToTop}><Ignite text={COPY.finale.mark} /></button>
             </div>

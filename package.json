@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview",
-    "qa:mandala": "node scripts/mandala-qa.mjs"
+    "qa:finale": "node scripts/finale-qa.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.2.10",

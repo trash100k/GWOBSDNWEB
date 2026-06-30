@@ -169,6 +169,22 @@ flood every feed, designers are pivoting to **grit, grain, and physical imperfec
   $1,500–$5,000**; **Software $10,000–$35,000 with a $5,000 minimum deposit** to start.
 - **C. Lead-tracking stack** *(open)* — where do leads land and how are they nurtured over the
   ~6-month window? Connectors available: **Supabase, Attio, Gmail/AgentMail, n8n, Lovable.**
+- **D. Price placement on the home journey — LOCKED (2026‑06‑30): tease early, full reveal late.**
+  The home scroll-jack hit the price twice (full anchored ledger on the services carousel mid-journey
+  AND the late rates beat), which spends the number before value/proof is built. Resolution, grounded
+  in the placement evidence:
+  - Price is a **high-stakes, late-funnel** lever — "changes that move 2–3% on a landing page move
+    8–15% on a pricing page" ([mida.so](https://www.mida.so/blog/ab-testing-pricing-pages)); spend it
+    where intent peaks, not during exploration.
+  - **Transparency still required** — showing cost (vs hiding it) cuts abandonment ~19%
+    ([involve.me](https://www.involve.me/blog/ab-testing-landing-pages)); so the price stays ON the
+    site, just not front-loaded.
+  - Yarmosh **Sequencing** (Part 1B) + Gartner solution-exploration → the **carousel's job is
+    exploration, not pricing**.
+  Net: **carousel = TEASE** (the "from $X" entry anchor only — pre-qualifies + signals
+  accessibility); the **full anchored reveal** (the elsewhere-comparison + deposit) is **held for the
+  late rates ledger** (penultimate beat), so the number lands last, after proof. Full removal
+  over-corrects (loses pre-qualification); full price early fights sequencing — the tease threads both.
 
 ---
 
