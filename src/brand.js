@@ -34,17 +34,18 @@ export const COPY = {
 
   hero: {
     eyebrow: 'Four Branches · One Forge',
+    pre: 'Your business doesn’t need artificial intelligence. It needs—',
     headline: 'Automatic Execution',
     sub: 'One system that books the jobs, answers every call, and kills the busywork — running while you sleep. You command it. It never needs managing.',
     cta: 'Start the Forge',
   },
 
-  draw: 'From black, the light.',
+  draw: 'Most agencies bill for motion. We bill for execution. The difference is whether it ships.',
 
   clan: {
     kicker: '01 · The Clan',
-    head: 'One forge. Four branches.',
-    body: 'GAELWORX is an engineering forge, not an agency. We run our own platforms on this exact system — YardWorx, RepairWorx, SalesWorx, AgentWorx — and build the same caliber for you. The enemy is the black box: AI that demos and never ships, agencies that bill for motion. We move like a clan: small, fast, accountable. You talk to the people who write the code.',
+    head: 'For operators who refuse to lose to the status quo.',
+    body: 'GAELWORX runs this exact system on our own shops — YardWorx, RepairWorx, SalesWorx, AgentWorx. We built it for us. It worked. Now it’s yours. We point Claude, Gemini, and enterprise-grade AI at the work eating your week — the same rails that move bank transactions and logistics fleets, aimed at your operation. Not your average agency: we don’t bill for motion, we bill for execution. You talk to the people who write the code.',
   },
 
   // Each branch is wired to sell: outcome (line) → first-hand proof (body) →
@@ -56,26 +57,26 @@ export const COPY = {
     branches: [
       {
         id: 'GW–01',
+        tag: 'Voice',
+        line: 'Every missed call is a job booked by someone else.',
+        body: 'Maeve works the phones for you — answers every inbound call and runs your outbound list: qualifies the lead, books the job, chases the no-show, in a voice no caller clocks as AI. She runs our own front desk. Put her on yours and the phone stops going to voicemail.',
+        anchor: 'An in-house receptionist costs $48,000 a year and still clocks out at five. Maeve doesn’t clock out.',
+        price: 'From $499/mo',
+        note: '+ one-time setup',
+      },
+      {
+        id: 'GW–02',
         tag: 'Software',
-        line: 'Custom software. Built to run it all — and owned outright.',
+        line: 'You don’t own your stack. Someone else’s roadmap runs your business.',
         body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. You own the code, not a license: no lock-in, no black box. The same system that runs YardWorx, built for how you actually work.',
         anchor: 'Agencies bill $75k and burn months on discovery.',
         price: 'From $10,000',
         note: '$5k deposit to start',
       },
       {
-        id: 'GW–02',
-        tag: 'Voice',
-        line: 'Every missed call is a job booked by someone else.',
-        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-show — while you’re on the job, in a voice no caller clocks as AI. She runs our own front desk. Put her on yours and the phone stops going to voicemail.',
-        anchor: 'An in-house receptionist costs $48,000 a year and still clocks out at five. Maeve doesn’t clock out.',
-        price: 'From $499/mo',
-        note: '+ one-time setup',
-      },
-      {
         id: 'GW–03',
         tag: 'Automations',
-        line: 'Workflows that kill the headaches.',
+        line: 'You’re doing by hand what should run itself.',
         body: 'Quoting, follow-up, invoicing, reviews — running on their own, and handing your data back to you to own. No black box. No hostage tool. The same automations that run our own shops.',
         anchor: 'By hand, it costs you those hours every week.',
         price: 'From $1,500',
@@ -83,7 +84,7 @@ export const COPY = {
       {
         id: 'GW–04',
         tag: 'Web',
-        line: 'Cinematic web that books the truck.',
+        line: 'Your site looks good. It books nothing.',
         body: 'A cinematic site that routes every lead straight to your phone and books the truck — not one that just looks good. Built to the standard of the page you’re reading.',
         anchor: 'Premium studios charge $50k+ for this.',
         price: 'From $1,299',
@@ -193,7 +194,7 @@ export const COPY = {
       {
         n: '02',
         head: 'Built on enterprise ground.',
-        body: 'We build on the same battle-tested rails that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven ground, predictable behavior, nothing held together with hope.',
+        body: 'We run Claude, Gemini, and the same battle-tested rails that move bank transactions and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven ground, predictable behavior, nothing held together with hope.',
       },
       {
         n: '03',
@@ -203,7 +204,7 @@ export const COPY = {
       {
         n: '04',
         head: 'It ships. Then it earns.',
-        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, hours handed back. Every week you wait, the manual way keeps taking all three.',
+        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, hours handed back. Picture next Monday: the queue triaged itself overnight, the phone never hit voicemail, and you ran the day instead of the day running you.',
       },
       {
         n: '05',
@@ -232,7 +233,8 @@ export const COPY = {
     ],
     forges: ['YardWorx', 'RepairWorx', 'SalesWorx', 'AgentWorx'],
     mark: 'GAELWORX',
-    closer: 'We keep up so you don’t have to. You command the machine — we hold the line.',
+    closer: 'Point the sword. We take care of the rest.',
+    scarcity: 'We take 2 builds a quarter. That’s not a line — it’s how we hold the standard.',
     avail: 'Available · Continental US · 7 Days',
     cta: 'Start the Forge',
   },

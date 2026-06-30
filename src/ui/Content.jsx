@@ -28,15 +28,14 @@ const env = (x, a, b, c, d) =>
 // rungs · rates · finale — the PRICE lands LATE, after outcome + proof, right
 // before the close (sales research: sequence the number last; never a naked one).
 const TRUST = COPY.trust.rungs
-const FRAMES = 5 + TRUST.length + 1 // hero,draw,clan,arsenal + trust + rates + finale
+const FRAMES = 4 + TRUST.length + 1 // hero,draw,clan,arsenal + trust + finale (rates beat retired)
 const ARSENAL = 3
 const TRUST_BASE = 4 // trust rungs occupy 4 … 4+TRUST.length-1
-const RATES = FRAMES - 2 // the pricing ladder — penultimate, right before the finale
 const FINALE = FRAMES - 1
 // finale trimmed to a single destination (problems drain → mandala forms → it
 // HOLDS as the final resting image with GAELWORX + the CTA seated at its eye), so
 // it needs less internal scroll than the old multi-act sequence (was 2.7).
-const WEIGHTS = [0.6, 0.4, 0.65, 1.6, ...TRUST.map(() => 0.6), 0.95, 1.95]
+const WEIGHTS = [0.6, 0.4, 0.65, 1.6, ...TRUST.map(() => 0.6), 1.95]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
 const CENTERS = []
 const HALF = []
@@ -90,10 +89,6 @@ export default function Content() {
             ox: -side * 26 * mag, oy: -34,
             orot: -side * (9 + k * 2), oblur: 9,
           }
-        }
-        // the rates beat rises straight up, square and deliberate (it's a ledger)
-        if (i === RATES) {
-          return { ex: 0, ey: 24, rot: 0, blur: 10, scale: 0.92, ox: 0, oy: -20, orot: 0, oblur: 8 }
         }
         const ang = Math.random() * Math.PI * 2
         const dist = rnd(52, 96)
@@ -284,6 +279,7 @@ export default function Content() {
         <div className="frame frame--hero" ref={setRef(0)}>
           <div className="fbody">
             <span className="eyebrow">{COPY.hero.eyebrow}</span>
+            <p className="hero-pre">{COPY.hero.pre}</p>
             <ForgeText as="h1" className="headline jewel" text={COPY.hero.headline} delay={1200} ignite />
             <p className="hero-sub">{COPY.hero.sub}</p>
             <button className="cta magnetic" onClick={() => { strike(); navigate('/contact') }}>
@@ -319,13 +315,6 @@ export default function Content() {
                     <span className="branch-id">{b.id} · <BrandText text={b.tag} /></span>
                     <span className="branch-line"><BrandText text={b.line} /></span>
                     <span className="branch-body"><BrandText text={b.body} /></span>
-                    {/* TEASE only — the "from" entry anchor pre-qualifies + signals
-                        accessibility. The full anchored reveal (elsewhere-comparison +
-                        deposit) is held for the late rates ledger, so the number lands
-                        last, after proof (sales research: sequence the price late). */}
-                    <span className="branch-foot">
-                      <span className="branch-price">{b.price}</span>
-                    </span>
                   </li>
                 ))}
               </ul>
@@ -348,29 +337,7 @@ export default function Content() {
           </div>
         ))}
 
-        {/* 09 — the rates beat, LATE by design: the whole anchored ladder at once,
-            after outcome + proof, right before the close. Premium craft, accessible
-            prices — reconciled by "the forge runs lean". Each row anchors the price
-            against what it costs elsewhere (never a naked number). */}
-        <div className="frame frame--rates" ref={setRef(RATES)}>
-          <div className="fbody fbody--wide">
-            <span className="kicker">{COPY.rates.kicker}</span>
-            <ForgeText as="h2" className="head flame" text={COPY.rates.head} />
-            <p className="intro rates-lede"><BrandText text={COPY.rates.lede} /></p>
-            <ul className="rate-ledger">
-              {BRANCHES.map((b) => (
-                <li key={b.id} className="rate-row">
-                  <span className="rate-tag"><BrandText text={b.tag} /></span>
-                  <span className="rate-anchor">{b.anchor}</span>
-                  <span className="rate-price">{b.price}{b.note && <em> · {b.note}</em>}</span>
-                </li>
-              ))}
-            </ul>
-            <span className="rate-foot">{COPY.rates.foot}</span>
-          </div>
-        </div>
-
-        {/* 10 — the finale act */}
+        {/* 09 — the finale act (rates beat retired; price lives on /pricing) */}
         <div className="frame frame--finale" ref={setRef(FINALE)}>
           <div className="finale">
             {/* a clean close on the living obsidian: the GAELWORX wordmark + CTA fade
@@ -380,8 +347,14 @@ export default function Content() {
             </div>
 
             <div className="fin-cta fin-cta--seal" ref={ctaRef}>
+              <p className="fin-closer flame">{COPY.finale.closer}</p>
               <button className="cta cta--solid magnetic" onClick={() => { strike(); navigate('/contact') }}><span>{COPY.finale.cta}</span></button>
               <span className="avail">{COPY.finale.avail}</span>
+              <span className="fin-scarcity">{COPY.finale.scarcity}</span>
+              <div className="fin-secondary">
+                <button className="link-cta" onClick={() => navigate('/about')}>See how it works →</button>
+                <button className="link-cta" onClick={() => navigate('/pricing')}>Full pricing →</button>
+              </div>
             </div>
           </div>
         </div>
