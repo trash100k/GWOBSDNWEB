@@ -162,24 +162,31 @@ export default function Content() {
         const opacity = ad <= HOLD ? 1 : Math.max(0, 1 - (ad - HOLD) / (FADE - HOLD))
         if (i === ARSENAL) arsenalOpacity = opacity
         if (opacity > frontOp) { frontOp = opacity; frontI = i }
-        if (d > 0 && opacity > 0.12 && opacity < 0.9) emitAmt = Math.max(emitAmt, opacity * (1 - opacity) * 4)
+        // shed more embers as a frame submerges (heads melt INTO the forge)
+        if (d > 0 && opacity > 0.12 && opacity < 0.9) emitAmt = Math.max(emitAmt, opacity * (1 - opacity) * 5.5)
         const v = vecs[i]
-        let tx = 0, ty = 0, rot = 0, blur = 0, sc = 1
+        let tx = 0, ty = 0, rot = 0, blur = 0, sc = 1, exitWarm = 0
         if (!reduced && ad > HOLD) {
           const f0 = Math.min((ad - HOLD) / (FADE - HOLD), 1)
           if (d < 0) {
             const f = easeOutQuart(f0)
             tx = v.ex * f; ty = v.ey * f; rot = v.rot * f; blur = v.blur * f; sc = 1 - (1 - v.scale) * f
           } else {
+            // SUBMERGE — the head sinks BACK into the molten glass on exit: recedes
+            // deeper, blurs harder, and HEATS (brightness) as it dissolves into the
+            // embers it's shedding. The counterpart to the surface-from-glass reveal.
             const f = easeIn(f0)
-            tx = v.ox * f; ty = v.oy * f; rot = v.orot * f; blur = v.oblur * f; sc = 1 - 0.03 * f
+            tx = v.ox * f; ty = v.oy * f; rot = v.orot * f; blur = (v.oblur + 5) * f; sc = 1 - 0.13 * f
+            exitWarm = f
           }
         }
         el.style.opacity = opacity.toFixed(3)
         el.style.transform = reduced
           ? 'none'
           : `translate3d(${tx.toFixed(2)}vw, ${ty.toFixed(2)}vh, 0) rotate(${rot.toFixed(2)}deg) scale(${sc.toFixed(3)})`
-        el.style.filter = !reduced && blur > 0.3 ? `blur(${blur.toFixed(1)}px)` : 'none'
+        el.style.filter = reduced || (blur <= 0.3 && exitWarm < 0.01)
+          ? 'none'
+          : `blur(${blur.toFixed(1)}px) brightness(${(1 + exitWarm * 0.55).toFixed(2)})`
         el.classList.toggle('is-active', opacity > 0.6)
       }
 

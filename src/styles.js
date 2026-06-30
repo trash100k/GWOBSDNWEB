@@ -382,16 +382,20 @@ html.lenis,html.lenis body{height:auto;}
 .jewel,.jewel .word>span{
   background:
     linear-gradient(74deg, transparent 41%, rgba(255,243,222,0.5) 47%, rgba(255,255,255,0.95) 50%,
-      rgba(206,247,236,0.5) 53%, transparent 59%),
+      rgba(255,243,222,0.5) 53%, transparent 59%),
+    linear-gradient(96deg, transparent 40%, rgba(90,225,255,0.55) 48%, rgba(178,120,255,0.55) 52%,
+      transparent 60%),
     linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
-  background-size:300% 100%, 100% 260%;
-  background-position:-50% 0%, 0% 0%;
+  background-size:300% 100%, 240% 100%, 100% 260%;
+  background-position:-50% 0%, 130% 0%, 0% 0%;
   -webkit-background-clip:text; background-clip:text;
   color:transparent; -webkit-text-fill-color:transparent;
   animation:jewelSweep 7.5s ease-in-out infinite;}
+/* warm glint rakes L→R, cool OPAL streak (play-of-color) counter-rakes R→L, the
+   fire flows in Y — the two streaks crossing throw the iridescent jewel flash. */
 @keyframes jewelSweep{
-  0%,100%{background-position:-50% 0%, 0% 0%;}
-  50%{background-position:150% 0%, 0% 100%;}}
+  0%,100%{background-position:-50% 0%, 130% 0%, 0% 0%;}
+  50%{background-position:150% 0%, -30% 0%, 0% 100%;}}
 /* the head surges WITH the forge — brighter + bigger ember bloom on scroll/strike */
 .jewel{filter:brightness(calc(1 + var(--heat,0)*0.5)) saturate(calc(1 + var(--heat,0)*0.32));
   text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
