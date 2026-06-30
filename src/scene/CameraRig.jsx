@@ -6,6 +6,7 @@ import { sceneFor } from './scenes.js'
 const tmp = new THREE.Vector3()
 // damped camera framing so a route change orbits the forge to face the new page
 const cam = { z: 6.4, ang: 0 }
+let prevScroll = 0
 
 /**
  * The slab is the hero, so the camera barely moves: a gentle cursor parallax + a
@@ -16,6 +17,12 @@ export default function CameraRig() {
   const { camera } = useThree()
 
   useFrame((state, dt) => {
+    // scroll ENERGY (page-fraction / sec): raw delta so a flick reads instantly,
+    // clamped against frame hitches, then smoothed + decayed so it dies when you
+    // stop. Drives the living-veins flare in the obsidian.
+    const inst = dt > 0 ? Math.min(Math.abs(forge.scroll - prevScroll) / dt, 2.0) : 0
+    prevScroll = forge.scroll
+    forge.scrollVel = damp(forge.scrollVel, inst, 8, dt)
     forge.scrollDamped = damp(forge.scrollDamped, forge.scroll, 6, dt)
     forge.pointerDamped.x = damp(forge.pointerDamped.x, forge.pointer.x, 5, dt)
     forge.pointerDamped.y = damp(forge.pointerDamped.y, forge.pointer.y, 5, dt)

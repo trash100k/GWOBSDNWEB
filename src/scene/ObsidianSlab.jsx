@@ -83,6 +83,8 @@ export default function ObsidianSlab({ quality }) {
       veinGlow: { value: 0.6, min: 0, max: 2, step: 0.02 },
       veinScale: { value: 1.8, min: 0.6, max: 4, step: 0.05 },
       iridescence: { value: 1.35, min: 0, max: 2, step: 0.02 },
+      scrollFlare: { value: 0.7, min: 0, max: 1.6, step: 0.05, label: 'scroll flare' },
+      idleBreath: { value: 0.12, min: 0, max: 0.4, step: 0.01, label: 'idle breath' },
     }),
   })
 
@@ -144,9 +146,19 @@ export default function ObsidianSlab({ quality }) {
     uniforms.uTime.value = forge.quality === 'static' ? 2 : state.clock.elapsedTime
     // per-route preset drives the veins; damped so navigation re-tempers smoothly.
     const sc = sceneFor(forge.route)
-    const ramp = sc.veinGlow + range(forge.scrollDamped, 0.0, 0.5) * 0.5
+    // LIVING VEINS — scroll ENERGY flares the forge, and a slow idle breath keeps
+    // it alive when nothing's moving (so the obsidian never reads as a dead still).
+    const vel = Math.min(forge.scrollVel * 1.4, 1) // 0..1 scroll energy
+    const breath = forge.quality === 'static'
+      ? 0
+      : (0.5 + 0.5 * Math.sin(state.clock.elapsedTime * 0.7)) * (1 - Math.min(vel * 2.5, 1))
+    const ramp =
+      sc.veinGlow +
+      range(forge.scrollDamped, 0.0, 0.5) * 0.5 +
+      vel * c.scrollFlare + // surge while scrolling
+      breath * c.idleBreath // gentle pulse while idle
     uniforms.uVeinGlow.value = damp(uniforms.uVeinGlow.value, forge.ready ? ramp : 0, 3, dt)
-    uniforms.uTemp.value = forge.scrollDamped
+    uniforms.uTemp.value = Math.min(forge.scrollDamped + vel * 0.25, 1) // scroll runs it hotter
     uniforms.uIrid.value = damp(uniforms.uIrid.value, sc.irid, 2.4, dt)
     uniforms.uVeinScale.value = damp(uniforms.uVeinScale.value, sc.veinScale, 2.4, dt)
     uniforms.uBump.value = c.bump

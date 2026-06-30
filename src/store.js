@@ -8,6 +8,9 @@ export const forge = {
   // Scroll progress 0..1 across the whole journey (target + damped current).
   scroll: 0,
   scrollDamped: 0,
+  // Smoothed scroll SPEED (page-fraction / sec) — drives the "living veins" flare:
+  // scroll hard and the forge surges; stop and it settles. Computed in CameraRig.
+  scrollVel: 0,
   // Pointer in NDC (-1..1) and a damped copy for parallax / "point the sword".
   pointer: new THREE.Vector2(0, 0),
   pointerDamped: new THREE.Vector2(0, 0),
