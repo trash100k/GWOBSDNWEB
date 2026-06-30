@@ -97,7 +97,7 @@ export default function Work() {
     <PageShell
       kicker="The Proof"
       title="We Build What We Sell"
-      lede="We didn’t read the case study — we built the company in it. YardWorx, RepairWorx, SalesWorx, and AgentWorx are ours: shipped, in production, running real work every day. That’s the proof. Not a logo wall we rented — four platforms we forged and still run. This is the caliber we build for you."
+      lede="YardWorx, RepairWorx, SalesWorx, and AgentWorx are ours — shipped, in production, running real work every day. Not a logo wall we rented: four platforms we built and still run ourselves. That’s the proof, and that’s the caliber we build for you."
     >
       <style>{WORK_CSS}</style>
 
@@ -108,7 +108,7 @@ export default function Work() {
         align="center"
       >
         <p className="pg-work-intro">
-          <BrandText text="Most studios show you someone else’s results and ask you to trust the screenshot. We hand you ours. YardWorx, RepairWorx, SalesWorx, and AgentWorx run live, in the trades we came up in — built, owned, and operated by GAELWORX. Same forge. Same fire. Same caliber we build for you." />
+          <BrandText text="Most studios show you someone else’s results and ask you to trust the screenshot. We hand you ours. YardWorx, RepairWorx, SalesWorx, and AgentWorx run live, in the trades we came up in — built, owned, and operated by GAELWORX. The same caliber we build for you." />
         </p>
 
         <div className="pg-work-platforms">

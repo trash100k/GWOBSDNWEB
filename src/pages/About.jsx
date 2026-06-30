@@ -61,10 +61,10 @@ export default function About() {
               <BrandText text="No account managers. No layers between you and the work. GAELWORX moves like a clan — small enough to move fast, accountable for every line we ship. The hand that writes the code is the hand you shake." />
             </p>
             <p>
-              You talk to the people who build it. The same hands that forged
-              <BrandText text=" YardWorx, RepairWorx, SalesWorx, and AgentWorx" /> sit
-              across from you and answer for the system that runs your business. We eat
-              our own forge before we sell you a bite of it.
+              You talk to the people who build it. The same team that built
+              <BrandText text=" YardWorx, RepairWorx, SalesWorx, and AgentWorx" /> sits
+              across from you and answers for the system that runs your business. We run
+              our own platforms before we sell you one.
             </p>
           </div>
           <figure className="pg-about-seal">
@@ -125,7 +125,7 @@ export default function About() {
           </div>
         </div>
         <p className="pg-about-enemy-turn">
-          <BrandText text="We do not sell the theater. We burn it down and build the system that should have been there — owned by you, documented to you, running the work on day one. The fire is for the fakes. The forge is for you." />
+          <BrandText text="We do not sell the theater. We burn it down and build the system you should have had all along — owned by you, documented to you, running the work on day one. The fire is for the fakes. The forge is for you." />
         </p>
       </Section>
 

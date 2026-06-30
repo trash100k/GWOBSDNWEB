@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, AdaptiveDpr, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import CameraRig from './CameraRig.jsx'
-import FacetedJewel from './FacetedJewel.jsx'
+import ObsidianSlab from './ObsidianSlab.jsx'
 import Effects from './Effects.jsx'
 
 export default function ForgeCanvas({ quality }) {
@@ -41,8 +41,8 @@ export default function ForgeCanvas({ quality }) {
         </Environment>
       </Suspense>
 
-      {/* The jewel is NOT gated by the environment — it always renders. */}
-      <FacetedJewel quality={quality} />
+      {/* The faceted obsidian wall is NOT gated by the environment — always renders. */}
+      <ObsidianSlab quality={quality} />
 
       {quality !== 'static' && <Effects quality={quality} />}
       <AdaptiveDpr pixelated />

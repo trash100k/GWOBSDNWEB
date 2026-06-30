@@ -209,7 +209,7 @@ export default function Pricing() {
       <section className="pg-cta pg-measure">
         <h2 className="pg-cta-head flame">Name the Number</h2>
         <p className="pg-lede">
-          <BrandText text="Tell us the bottleneck. We put an honest price on ending it — fixed scope, fixed price, working on day one. We carry the risk; you pay when it executes." />
+          <BrandText text="Tell us the bottleneck. We put an honest price on ending it — fixed scope, fixed price, before you owe a thing. We carry the risk; you pay when it executes." />
         </p>
         <Link className="cta cta--solid" to="/contact">
           <span>Start the Forge</span>

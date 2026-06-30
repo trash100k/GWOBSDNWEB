@@ -133,9 +133,9 @@ export default function Web() {
       <Section eyebrow="The problem" title="Most contractor sites book nothing." align="start">
         <p>
           They’re digital business cards — a logo, a phone number, a stock handshake. Slow to load,
-          invisible to Google, identical to every competitor. Here’s the leak: the visitor lands,
-          waits, gives up, and calls the next shop who picks up. A site that just sits there isn’t
-          marketing. It’s a brochure that quietly hands your jobs to someone else.
+          invisible to Google, identical to every competitor. The visitor lands, waits, gives up,
+          and calls the next shop. A site that just sits there isn’t marketing — it’s a brochure
+          that quietly hands your jobs to someone else.
         </p>
         <div className="pg-web-versus">
           <div className="pg-web-card pg-web-card--dead">
@@ -192,7 +192,7 @@ export default function Web() {
           text="We forge the web like iron."
         />
         <p className="pg-web-std-lede">
-          <BrandText text="Anyone can ship a template. GAELWORX ships craft — Automatic Execution, in the browser. Real motion. Sharp brutalist build. Built to the standard of the page you’re on, and aimed at the only number that matters: the truck booked." />
+          <BrandText text="Anyone can ship a template. GAELWORX ships craft — Automatic Execution, in the browser. Real motion, a sharp brutalist build, aimed at the only number that matters: the truck booked." />
         </p>
         <Standard />
       </Section>

@@ -35,7 +35,7 @@ export const COPY = {
   hero: {
     eyebrow: 'Four Branches · One Forge',
     headline: 'Automatic Execution',
-    sub: 'The system that runs your business while you sleep — booking the jobs, killing the busywork, answering every call. Built to execute, not to babysit.',
+    sub: 'One system that books the jobs, answers every call, and kills the busywork — running while you sleep. You command it. It never needs managing.',
     cta: 'Start the Forge',
   },
 
@@ -44,7 +44,7 @@ export const COPY = {
   clan: {
     kicker: '01 · The Clan',
     head: 'One forge. Four branches.',
-    body: 'GAELWORX is an engineering forge, not an agency. We run our own platforms on this exact system — YardWorx, RepairWorx, SalesWorx, AgentWorx — and forge the same caliber for you. The enemy is the black box: AI theater that demos and never ships, agencies that bill for motion. We move like a clan — small, fast, on the hook. You talk to the people who build it.',
+    body: 'GAELWORX is an engineering forge, not an agency. We run our own platforms on this exact system — YardWorx, RepairWorx, SalesWorx, AgentWorx — and build the same caliber for you. The enemy is the black box: AI that demos and never ships, agencies that bill for motion. We move like a clan: small, fast, accountable. You talk to the people who write the code.',
   },
 
   // Each branch is wired to sell: outcome (line) → first-hand proof (body) →
@@ -52,13 +52,13 @@ export const COPY = {
   arsenal: {
     kicker: '02 · The Arsenal',
     head: 'Four branches. One forge.',
-    intro: 'Name the thing eating your week. We forge the system that ends it.',
+    intro: 'Name the thing eating your week. We build the system that ends it.',
     branches: [
       {
         id: 'GW–01',
         tag: 'Software',
         line: 'Custom software. Built to run it all — and owned outright.',
-        body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. You own the code, not a license: no lock-in, no black box. The same forge that built YardWorx, built for how you actually run.',
+        body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. You own the code, not a license: no lock-in, no black box. The same system that runs YardWorx, built for how you actually work.',
         anchor: 'Agencies bill $75k and burn months on discovery.',
         price: 'From $10,000',
         note: '$5k deposit to start',
@@ -68,7 +68,7 @@ export const COPY = {
         tag: 'Voice',
         line: 'Every missed call is a job booked by someone else.',
         body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-show — while you’re on the job, in a voice no caller clocks as AI. She runs our own front desk. Put her on yours and the phone stops going to voicemail.',
-        anchor: 'An in-house receptionist runs $48,000 a year and clocks out. Maeve never does.',
+        anchor: 'An in-house receptionist costs $48,000 a year and still clocks out at five. Maeve doesn’t clock out.',
         price: 'From $499/mo',
         note: '+ one-time setup',
       },
@@ -76,7 +76,7 @@ export const COPY = {
         id: 'GW–03',
         tag: 'Automations',
         line: 'Workflows that kill the headaches.',
-        body: 'Quoting, follow-up, invoicing, reviews — running on their own, and handing your data back to you to own and leverage like no one else can. No black box, no hostage tool. The same automations that run our own shops.',
+        body: 'Quoting, follow-up, invoicing, reviews — running on their own, and handing your data back to you to own. No black box. No hostage tool. The same automations that run our own shops.',
         anchor: 'By hand, it costs you those hours every week.',
         price: 'From $1,500',
       },
@@ -84,7 +84,7 @@ export const COPY = {
         id: 'GW–04',
         tag: 'Web',
         line: 'Cinematic web that books the truck.',
-        body: 'Studio-grade, cinematic lead-gen that routes every lead straight to your phone — and books the truck instead of just looking good. Built to the standard of the page you’re on.',
+        body: 'A cinematic site that routes every lead straight to your phone and books the truck — not one that just looks good. Built to the standard of the page you’re reading.',
         anchor: 'Premium studios charge $50k+ for this.',
         price: 'From $1,299',
       },
@@ -96,7 +96,7 @@ export const COPY = {
   rates: {
     kicker: 'The Forge Runs Lean',
     head: 'Premium work. Honest prices.',
-    lede: 'Automatic Execution systematizes what agencies bill by the hour — the quoting, the follow-up, the build scaffolding that runs the same every time. You don’t pay less for less. You pay less because the forge runs lean.',
+    lede: 'Automatic Execution systematizes what agencies bill by the hour — the quoting, the follow-up, the setup that runs the same on every job. You don’t pay less for less. You pay less because the forge runs lean.',
     foot: 'Fixed scope. Fixed price. Continental US · 7 Days.',
   },
 
@@ -188,22 +188,22 @@ export const COPY = {
       {
         n: '01',
         head: 'We build what we run.',
-        body: 'Every build starts from decades on the floor — we’ve run the operation, not read the case study. We worked the bottlenecks we automate and lived the problems we solve, so you never pay us to learn your business on your dime.',
+        body: 'Every build starts from years on the floor — we’ve run the operation, not read the case study. We worked the bottlenecks we automate, so you never pay us to learn your business on your dime.',
       },
       {
         n: '02',
         head: 'Built on enterprise ground.',
-        body: 'We build on the same battle-tested rails that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven ground. Behavior you can predict. Nothing held together with hope.',
+        body: 'We build on the same battle-tested rails that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven ground, predictable behavior, nothing held together with hope.',
       },
       {
         n: '03',
         head: 'No black box.',
-        body: 'We point AI at the rote work — never to breed dependence. No black-box oracle, no confident nonsense, no machine pretending to be the human in the room. It does the grunt work, shows its reasoning, and hands judgment back where it belongs — yours. Built to make you sharper, not hooked.',
+        body: 'We point AI at the rote work, never at your judgment. No black-box oracle, no machine pretending to be the person in the room. It does the grunt work, shows its reasoning, and hands the call back to you. Built to make you sharper, not dependent.',
       },
       {
         n: '04',
         head: 'It ships. Then it earns.',
-        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, hours handed back. Every week you wait, the manual way keeps billing you for all three.',
+        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, hours handed back. Every week you wait, the manual way keeps taking all three.',
       },
       {
         n: '05',
@@ -239,6 +239,6 @@ export const COPY = {
 
   footer: {
     mark: 'GAELWORX · One Forge',
-    tag: 'You run the business. We forge the systems that run it.',
+    tag: 'You run the business. We build the systems that run it for you.',
   },
 }

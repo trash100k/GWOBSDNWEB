@@ -85,7 +85,7 @@ export default function Automations() {
           <div className="pg-auto-tax-total">
             <span className="pg-auto-tax-total-label">The tab</span>
             <span className="pg-auto-tax-total-num">≈ 18 hrs / week</span>
-            <span className="pg-auto-tax-total-note">Two full days, gone to admin. Every single week. By hand, that’s the bill.</span>
+            <span className="pg-auto-tax-total-note">Two full days, gone to admin — every single week, by hand.</span>
           </div>
         </div>
 
@@ -238,9 +238,9 @@ export default function Automations() {
           </div>
           <span className="pg-auto-price-range">Project or retainer · $1,500–$5,000</span>
           <p className="pg-auto-price-note">
-            Win back two days a week and the build pays for itself inside a month. It runs the work,
-            it pays for itself. Fixed scope, fixed price — the forge runs lean, so you don’t pay
-            agency rates to systematize what we already systematized.
+            Win back two days a week and the build pays for itself inside a month. Fixed scope, fixed
+            price — the forge runs lean, so you don’t pay agency rates for work we’ve already
+            systematized.
           </p>
         </div>
       </Section>

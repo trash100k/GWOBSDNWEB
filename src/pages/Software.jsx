@@ -64,7 +64,7 @@ const PROBLEMS = [
   {
     Glyph: GlyphSaaS,
     head: 'You outgrew the rented SaaS.',
-    body: 'The platform that fit at ten jobs a week buckles at fifty. You bend your operation to its limits, you wait on a roadmap that isn’t yours — and you pay more every seat, every year, forever. You’re renting a ceiling.',
+    body: 'The platform that fit at ten jobs a week buckles at fifty. You bend the operation to its limits and wait on a roadmap that isn’t yours — and the bill climbs every seat, every year. You’re renting a ceiling.',
   },
   {
     Glyph: GlyphSheet,
@@ -150,10 +150,9 @@ export default function Software() {
       >
         <p className="pg-software-lede-strong">
           Rented SaaS you bend the business to. Spreadsheets one bad paste from a lost
-          day. A stack of apps that hold your data hostage and talk to each other
+          day. A stack of apps that hold your data hostage and talk to each other only
           through you. At some point the software stops serving the business — and the
-          business starts serving the software. That’s the bottleneck. It costs you
-          every single week.
+          business starts serving the software. That’s the bottleneck.
         </p>
 
         <div className="pg-software-problems">
@@ -253,7 +252,7 @@ export default function Software() {
             <Ignite text="YardWorx" />
           </h2>
           <p className="pg-software-proof-body">
-            <BrandText text="YardWorx is a proprietary platform we run ourselves — not a case study we read. We don’t point AI at a problem and hope; we build what we’ve already lived. We’ve worked the bottlenecks we automate, so you never pay us to learn your business on your dime. Then we forge the same caliber for you — and hand you the keys." />
+            <BrandText text="YardWorx is a proprietary platform we run ourselves — not a case study we read. We’ve worked the bottlenecks we automate, so you never pay us to learn your business on your dime. We build the same caliber for you, and we hand you the keys." />
           </p>
           <Link className="pg-software-proof-link" to="/work">
             See the platforms the forge runs →

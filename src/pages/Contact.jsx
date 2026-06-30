@@ -259,8 +259,8 @@ function Success({ business }) {
       <h2 className="pg-contact-success-head flame">The forge is lit.</h2>
       <p className="pg-contact-success-body">
         We have it{business ? <> — and we know <strong>{business}</strong></> : null}. A real answer
-        lands inside 24 hours: the build, the price, and the day it ships. The leak’s been bleeding
-        long enough — we go to work now.
+        lands inside 24 hours: the build, the price, and the day it ships. The bottleneck’s cost you
+        long enough. We start now.
       </p>
       <div className="pg-contact-avail pg-contact-avail--center">
         <i aria-hidden="true" className="pg-contact-pulse" />

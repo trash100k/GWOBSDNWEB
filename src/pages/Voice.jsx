@@ -159,8 +159,8 @@ export default function Voice() {
         <Soundwave bars={44} className="pg-voice-wave--human" />
         <p className="pg-voice-human-body">
           Natural pacing. Real interruptions, handled. Your business name, your services, your tone —
-          a script you control, delivered in a voice that breathes. Callers think they reached your
-          best front-desk hire. They reached a system that answers like one, every single time.
+          a script you control, delivered in a voice that sounds hired, not coded. Callers think they
+          reached your best front-desk hire. They reached a system that answers like one, every single time.
         </p>
         <div className="pg-voice-transcript">
           <p className="pg-voice-t-caller">
@@ -242,8 +242,8 @@ export default function Voice() {
         </div>
         <p className="pg-voice-roi-foot">
           <strong>Roughly an eighth of the cost</strong> — and she catches the calls a receptionist
-          never could. One booked job a month covers her. The rest is profit you’re leaving on the
-          machine right now.
+          never could. One booked job a month covers her. Everything after that is profit you’re
+          leaving on the table right now.
         </p>
       </Section>
 

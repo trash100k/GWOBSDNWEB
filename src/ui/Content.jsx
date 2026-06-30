@@ -62,8 +62,7 @@ export default function Content() {
   const frameRefs = useRef([])
   const carRefs = useRef([])
   const wheelRef = useRef(null)
-  // finale layer refs (problems drain → GAELWORX mark + CTA rise on the obsidian)
-  const problemsRef = useRef(null)
+  // finale layer refs — the GAELWORX mark + CTA fade up and hold on the obsidian
   const markRef = useRef(null)
   const ctaRef = useRef(null)
 
@@ -240,44 +239,32 @@ export default function Content() {
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
 
-      // ── Finale act — the journey resolves on the LIVING OBSIDIAN: the problems
-      //   drain away, then the GAELWORX wordmark + the CTA rise to centre and HOLD
-      //   to the very end (the forge background carries it — no mandala). Opacities
-      //   that end on the hold use c,d > 1 so the trapezoid never ramps back down.
-      // start the sequence as the finale frame SETTLES in (not at its centre), so
-      // the problems arrive the moment the act begins — no empty dead-zone scroll.
+      // ── Finale — a CLEAN close on the LIVING OBSIDIAN: the GAELWORX wordmark + the
+      //   CTA simply fade up to centre and HOLD to the very end. (The old problems-
+      //   drain "story" is retired; a stronger finish is in design.) Opacities end on
+      //   the hold with c,d > 1 so the trapezoid never ramps back down.
       const FIN_START = CENTERS[FINALE] - HALF[FINALE] * 0.8
       const fp = clamp((p - FIN_START) / (1 - FIN_START + 1e-6), 0, 1)
-      const oProblems = env(fp, 0.0, 0.06, 0.26, 0.42)
-      const oMark = env(fp, 0.40, 0.58, 1.2, 1.3) // GAELWORX rises to centre + holds
-      const oCta = env(fp, 0.54, 0.72, 1.2, 1.3) // CTA rises under it + holds
+      const oMark = env(fp, 0.08, 0.30, 1.2, 1.3) // GAELWORX fades up + holds
+      const oCta = env(fp, 0.24, 0.46, 1.2, 1.3) // CTA settles under it + holds
 
-      if (problemsRef.current) {
-        // drains DOWN + spirals + shrinks away as it fades into the forge
-        const out = clamp((fp - 0.16) / 0.12, 0, 1)
-        const e = easeIn(out)
-        problemsRef.current.style.opacity = oProblems.toFixed(3)
-        problemsRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${(e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
-        problemsRef.current.style.filter = !reduced && out > 0.01 ? `blur(${(out * 8).toFixed(1)}px)` : 'none'
-      }
       if (markRef.current) {
-        // GAELWORX rises to dead-centre (a touch high) and STAYS.
-        const inP = clamp((fp - 0.40) / 0.12, 0, 1)
+        // GAELWORX settles to dead-centre (a touch high) and STAYS.
+        const inP = easeOut(clamp((fp - 0.08) / 0.22, 0, 1))
         markRef.current.style.opacity = oMark.toFixed(3)
-        const sc = 0.62 + easeOut(inP) * 0.38
+        const sc = 0.86 + inP * 0.14
         markRef.current.style.transform =
-          `translate(-50%,-50%) translateY(${(-5 - (1 - easeOut(inP)) * 5).toFixed(1)}vh) rotate(${((1 - inP) * -40 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
+          `translate(-50%,-50%) translateY(-5vh) scale(${sc.toFixed(3)})`
       }
       if (ctaRef.current) {
-        // the sword rises just under the wordmark and HOLDS.
-        const inP = clamp((fp - 0.54) / 0.12, 0, 1)
+        // the sword settles just under the wordmark and HOLDS.
+        const inP = easeOut(clamp((fp - 0.24) / 0.2, 0, 1))
         ctaRef.current.style.opacity = oCta.toFixed(3)
         ctaRef.current.style.transform =
-          `translate(-50%,-50%) translateY(8vh) translateY(${((1 - easeOut(inP)) * 24).toFixed(1)}px)`
+          `translate(-50%,-50%) translateY(8vh) translateY(${((1 - inP) * 16).toFixed(1)}px)`
         ctaRef.current.style.pointerEvents = oCta > 0.6 ? 'auto' : 'none'
       }
-      const fmarks = [0.1, 0.4, 0.62]
+      const fmarks = [0.2, 0.42]
       for (const m of fmarks) { if (lastFp < m && fp >= m) forge.strikeAt = performance.now() / 1000 }
       lastFp = fp
 
@@ -386,14 +373,8 @@ export default function Content() {
         {/* 10 — the finale act */}
         <div className="frame frame--finale" ref={setRef(FINALE)}>
           <div className="finale">
-            <div className="fin-layer fin-problems" ref={problemsRef}>
-              {COPY.finale.problems.map((t, i) => (
-                <span key={i} className="fin-line" style={{ '--i': i }}>{t}</span>
-              ))}
-            </div>
-
-            {/* the journey resolves on the living obsidian: the problems drain away,
-                then the GAELWORX wordmark + CTA rise to centre and HOLD (no mandala). */}
+            {/* a clean close on the living obsidian: the GAELWORX wordmark + CTA fade
+                up to centre and HOLD. (The problems-drain story is retired.) */}
             <div className="fin-mark fin-mark--seal" ref={markRef}>
               <button className="mark-btn mark-btn--seal magnetic" onClick={scrollToTop}><Ignite text={COPY.finale.mark} /></button>
             </div>
