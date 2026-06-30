@@ -185,13 +185,13 @@ const ABOUT_CSS = `
 /* the clan seal — monolinear Celtic knot in a sharp Ash frame */
 .pg-about-seal{margin:0; display:flex; flex-direction:column; align-items:center; gap:14px;}
 .pg-about-knot{width:min(74vw,260px); height:auto; display:block;
-  filter:drop-shadow(0 0 26px rgba(232,93,4,0.18));}
+  filter:drop-shadow(0 0 26px rgba(218,44,28,0.18));}
 .pg-about-knot-frame{fill:none; stroke:rgba(141,153,174,0.4); stroke-width:1.5;}
 .pg-about-knot-strands path,.pg-about-knot-strands circle{fill:none;
   stroke:var(--gw-ember); stroke-width:1.5; stroke-linejoin:round; stroke-linecap:round;
   opacity:0.92;}
 .pg-about-knot-core{fill:var(--gw-ember); stroke:none;
-  filter:drop-shadow(0 0 8px rgba(232,93,4,0.9));}
+  filter:drop-shadow(0 0 8px rgba(218,44,28,0.9));}
 .pg-about-seal figcaption{font-family:var(--gw-headline); font-weight:700;
   font-size:11px; letter-spacing:0.3em; text-transform:uppercase; color:var(--gw-steel);}
 
@@ -205,7 +205,7 @@ const ABOUT_CSS = `
   transform:translateX(-50%);}
 .pg-about-trunk-mark{font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
   font-size:clamp(1.1rem,3.4vw,1.9rem); letter-spacing:0.14em; color:var(--gw-bone);
-  text-shadow:0 0 26px rgba(232,93,4,0.3);}
+  text-shadow:0 0 26px rgba(218,44,28,0.3);}
 .pg-about-branch-grid{list-style:none; margin:0; padding:0; display:grid;
   grid-template-columns:repeat(4,1fr); border:1px solid rgba(141,153,174,0.28);
   box-shadow:8px 8px 0 rgba(0,0,0,0.55);}
@@ -215,7 +215,7 @@ const ABOUT_CSS = `
   transition:background .3s var(--ease), box-shadow .3s var(--ease);}
 .pg-about-branch:first-child{border-left:0;}
 .pg-about-branch:hover{background:rgba(31,40,51,0.6);
-  box-shadow:inset 0 0 0 1px rgba(232,93,4,0.35);}
+  box-shadow:inset 0 0 0 1px rgba(218,44,28,0.35);}
 .pg-about-branch-name{font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
   font-size:clamp(0.92rem,2vw,1.3rem); letter-spacing:0.04em; color:var(--gw-bone); line-height:1.1;}
 .pg-about-branch-domain{font-family:var(--gw-headline); font-weight:700; font-size:clamp(11px,1.3vw,13px);
@@ -228,7 +228,7 @@ const ABOUT_CSS = `
   border-bottom:1px solid rgba(141,153,174,0.16);}
 .pg-about-ethic-label{font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
   letter-spacing:0.04em; font-size:clamp(0.95rem,1.9vw,1.25rem); color:var(--gw-ember);
-  text-shadow:0 0 20px rgba(232,93,4,0.3);}
+  text-shadow:0 0 20px rgba(218,44,28,0.3);}
 .pg-about-ethic-val{font-family:var(--gw-headline); font-weight:700; line-height:1.4;
   font-size:clamp(1rem,1.6vw,1.22rem); color:var(--gw-bone);}
 .pg-about-enemy-turn{margin-top:clamp(24px,3.5vh,36px) !important;}
@@ -240,9 +240,9 @@ const ABOUT_CSS = `
   align-items:start; padding:clamp(24px,3vw,40px);}
 .pg-about-pillar-n{font-family:var(--gw-display); font-weight:900; line-height:0.9;
   font-size:clamp(2.4rem,7vw,4.2rem); color:transparent; -webkit-text-fill-color:transparent;
-  background:linear-gradient(180deg,#E85D04,#C1292E 60%,#E34A27);
+  background:linear-gradient(180deg,#DA2C1C,#C1292E 60%,#C1292E);
   -webkit-background-clip:text; background-clip:text;
-  text-shadow:0 0 30px rgba(232,93,4,0.25);}
+  text-shadow:0 0 30px rgba(218,44,28,0.25);}
 .pg-about-pillar-head{margin:0 0 10px; font-family:var(--gw-headline); font-weight:800;
   color:var(--gw-bone); font-size:clamp(1.2rem,2.4vw,1.7rem); line-height:1.08;}
 .pg-about-pillar-body p{margin:0; max-width:62ch;}

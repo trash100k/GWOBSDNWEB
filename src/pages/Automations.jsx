@@ -164,9 +164,9 @@ export default function Automations() {
             {/* the owned core */}
             <g className="pg-auto-u-core">
               <rect x="286" y="78" width="64" height="64" fill="none" stroke="#C1292E" strokeWidth="2" />
-              <rect x="286" y="78" width="64" height="64" fill="#E85D04" opacity="0.08" />
-              <path d="M318 92 l18 12 v20 l-18 12 -18-12 v-20 z" fill="none" stroke="#E85D04" strokeWidth="1.5" />
-              <circle cx="318" cy="114" r="4" fill="#E85D04" />
+              <rect x="286" y="78" width="64" height="64" fill="#DA2C1C" opacity="0.08" />
+              <path d="M318 92 l18 12 v20 l-18 12 -18-12 v-20 z" fill="none" stroke="#DA2C1C" strokeWidth="1.5" />
+              <circle cx="318" cy="114" r="4" fill="#DA2C1C" />
             </g>
             <text x="318" y="166" textAnchor="middle" className="pg-auto-u-tag">OWNED</text>
           </svg>
@@ -194,8 +194,8 @@ export default function Automations() {
           </div>
           <div className="pg-auto-vs-arrow" aria-hidden="true">
             <svg viewBox="0 0 64 24" role="presentation">
-              <path d="M2 12 H56" fill="none" stroke="#E85D04" strokeWidth="2" />
-              <path d="M48 5 L60 12 L48 19" fill="none" stroke="#E85D04" strokeWidth="2" />
+              <path d="M2 12 H56" fill="none" stroke="#DA2C1C" strokeWidth="2" />
+              <path d="M48 5 L60 12 L48 19" fill="none" stroke="#DA2C1C" strokeWidth="2" />
             </svg>
           </div>
           <div className="pg-auto-vs-col pg-auto-vs-after">
@@ -323,7 +323,7 @@ const AUTO_CSS = `
 .pg-auto-own li{position:relative; padding-left:22px; font-size:clamp(1rem,1.5vw,1.12rem);
   line-height:1.55; color:var(--gw-steel);}
 .pg-auto-own li::before{content:""; position:absolute; left:0; top:0.55em; width:9px; height:9px;
-  background:var(--gw-ember); box-shadow:0 0 10px rgba(232,93,4,0.6);}
+  background:var(--gw-ember); box-shadow:0 0 10px rgba(218,44,28,0.6);}
 .pg-auto-own strong{color:var(--gw-bone); font-weight:700;}
 
 .pg-auto-vs{margin-top:clamp(20px,3vh,32px); display:grid; gap:0;
@@ -354,7 +354,7 @@ const AUTO_CSS = `
   align-items:start; padding:clamp(20px,2.8vw,30px) 0;
   border-bottom:1px solid rgba(141,153,174,0.18);}
 .pg-auto-proc-n{font-family:var(--gw-display); font-weight:900; line-height:0.85;
-  font-size:clamp(2rem,5vw,2.9rem); color:rgba(232,93,4,0.85); min-width:1.6em;}
+  font-size:clamp(2rem,5vw,2.9rem); color:rgba(218,44,28,0.85); min-width:1.6em;}
 .pg-auto-proc-head{margin:0 0 8px; font-family:var(--gw-headline); font-weight:800;
   color:var(--gw-bone); font-size:clamp(1.14rem,2.4vw,1.42rem); line-height:1.08;}
 .pg-auto-proc-text{margin:0 !important; max-width:60ch;}
@@ -371,7 +371,7 @@ const AUTO_CSS = `
   font-weight:800; color:var(--gw-steel);}
 .pg-auto-price-num{font-family:var(--gw-display); font-weight:900; line-height:0.9;
   font-size:clamp(3rem,11vw,5rem); color:var(--gw-ember);
-  text-shadow:0 0 28px rgba(232,93,4,0.4);}
+  text-shadow:0 0 28px rgba(218,44,28,0.4);}
 .pg-auto-price-range{margin-top:14px; font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
   font-weight:700; color:var(--gw-bone);}
 .pg-auto-price-note{margin:clamp(18px,2.4vw,26px) 0 0 !important; max-width:54ch;

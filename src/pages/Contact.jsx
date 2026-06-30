@@ -327,7 +327,7 @@ const STYLE = `
   position:relative;}
 /* L2 forge-light — faint inner glow on the rail */
 .pg-contact-rail::after{content:""; position:absolute; inset:0; pointer-events:none;
-  box-shadow:inset 0 0 60px rgba(227,74,39,0.06);}
+  box-shadow:inset 0 0 60px rgba(193,41,46,0.06);}
 .pg-contact-rail-head{margin:0 0 16px; font-family:var(--gw-headline); font-weight:800;
   color:var(--gw-bone); font-size:clamp(1.35rem,2.4vw,1.9rem); line-height:1.1;}
 .pg-contact-rail-body{margin:0; color:var(--gw-steel);
@@ -338,7 +338,7 @@ const STYLE = `
 .pg-contact-promises li{display:flex; align-items:flex-start; gap:12px;
   color:var(--gw-bone); font-size:clamp(0.95rem,1.3vw,1.04rem); line-height:1.4;}
 .pg-contact-tick{flex:0 0 auto; margin-top:1px; color:var(--gw-ember);
-  filter:drop-shadow(0 0 6px rgba(232,93,4,0.45));}
+  filter:drop-shadow(0 0 6px rgba(218,44,28,0.45));}
 
 .pg-contact-avail{display:inline-flex; align-items:center; gap:10px;
   margin-top:clamp(28px,3.4vw,40px); font-size:10.5px; letter-spacing:0.3em;
@@ -369,7 +369,7 @@ const STYLE = `
 .pg-contact-input:hover{border-color:rgba(141,153,174,0.55);}
 /* ember focus state — the molten edge + L3 ember glow */
 .pg-contact-input:focus{border-color:var(--gw-ember); background:rgba(5,6,8,0.85);
-  box-shadow:0 0 0 1px var(--gw-ember), 0 0 22px -4px rgba(232,93,4,0.55);}
+  box-shadow:0 0 0 1px var(--gw-ember), 0 0 22px -4px rgba(218,44,28,0.55);}
 .pg-contact-input.is-error{border-color:var(--gw-forge);
   box-shadow:0 0 0 1px rgba(193,41,46,0.6);}
 .pg-contact-input.is-error:focus{border-color:var(--gw-forge);
@@ -402,7 +402,7 @@ const STYLE = `
 @keyframes pgcReveal{from{opacity:0; filter:blur(10px); transform:translateY(10px);}
   to{opacity:1; filter:blur(0); transform:none;}}
 .pg-contact-anvil{color:var(--gw-ember); margin-bottom:clamp(18px,2.4vh,26px);
-  filter:drop-shadow(0 0 16px rgba(232,93,4,0.5));}
+  filter:drop-shadow(0 0 16px rgba(218,44,28,0.5));}
 .pg-contact-success-head{margin:0 0 14px; font-family:var(--gw-display); font-weight:900;
   text-transform:uppercase; font-size:clamp(1.9rem,5vw,2.8rem); letter-spacing:0.02em;
   line-height:1.05;}

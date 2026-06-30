@@ -24,6 +24,7 @@ PARTS = [
         "docs/research/faceted-obsidian-jewel.md",
         "docs/research/mandala-construction-and-animation.md",
         "docs/research/typography-3d-fontplay.md",
+        "docs/research/color-palette-systems.md",
     ]),
     ("IV · Motion & Pacing", [
         "docs/research/pacing-fluidity-snap.md",

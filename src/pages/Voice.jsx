@@ -305,10 +305,10 @@ const CSS = `
 .pg-voice-badge{display:inline-flex; align-items:center; gap:10px;
   font-family:var(--gw-sans); font-size:11px; letter-spacing:0.26em; text-transform:uppercase;
   font-weight:700; color:var(--gw-bone);
-  border:1px solid rgba(232,93,4,0.5); background:rgba(15,17,22,0.6);
+  border:1px solid rgba(218,44,28,0.5); background:rgba(15,17,22,0.6);
   padding:9px 16px; box-shadow:6px 6px 0 rgba(0,0,0,0.5);}
 .pg-voice-dot{width:9px; height:9px; background:var(--gw-ember);
-  box-shadow:0 0 12px 2px rgba(232,93,4,0.8); animation:pgvPulse 1.5s infinite steps(1,end);}
+  box-shadow:0 0 12px 2px rgba(218,44,28,0.8); animation:pgvPulse 1.5s infinite steps(1,end);}
 @keyframes pgvPulse{0%,55%{opacity:1;}56%,100%{opacity:0.25;}}
 .pg-voice-hero-line{max-width:54ch; margin:clamp(26px,4vh,40px) auto 0;}
 .pg-voice-hero-line strong{color:var(--gw-bone);}
@@ -330,7 +330,7 @@ const CSS = `
   box-shadow:8px 8px 0 rgba(0,0,0,0.55); padding:clamp(18px,2.4vw,30px); text-align:left;}
 .pg-voice-stat{display:block; font-family:var(--gw-display); font-weight:900;
   font-size:clamp(1.9rem,5vw,3.1rem); line-height:1; color:var(--gw-ember);
-  text-shadow:0 0 24px rgba(232,93,4,0.35);}
+  text-shadow:0 0 24px rgba(218,44,28,0.35);}
 .pg-voice-stat-label{display:block; margin-top:10px; font-size:0.86rem; line-height:1.4;
   color:var(--gw-steel); text-transform:uppercase; letter-spacing:0.08em;}
 
@@ -381,7 +381,7 @@ const CSS = `
   font-weight:700; margin-bottom:7px;}
 .pg-voice-t-caller{margin-right:auto !important; max-width:84%;}
 .pg-voice-t-caller span{color:var(--gw-steel);}
-.pg-voice-t-maeve{margin-left:auto !important; max-width:90%; border-color:rgba(232,93,4,0.4) !important;}
+.pg-voice-t-maeve{margin-left:auto !important; max-width:90%; border-color:rgba(218,44,28,0.4) !important;}
 .pg-voice-t-maeve span{color:var(--gw-ember);}
 
 /* 4 · integrations */
@@ -402,14 +402,14 @@ const CSS = `
 .pg-voice-roi-col{border:1px solid rgba(141,153,174,0.25); background:rgba(15,17,22,0.45);
   padding:clamp(22px,3vw,38px); box-shadow:8px 8px 0 rgba(0,0,0,0.55);}
 .pg-voice-roi-old{opacity:0.82;}
-.pg-voice-roi-new{border-color:rgba(232,93,4,0.55);}
+.pg-voice-roi-new{border-color:rgba(218,44,28,0.55);}
 .pg-voice-roi-tag{display:block; font-size:11px; letter-spacing:0.26em; text-transform:uppercase;
   font-weight:700; color:var(--gw-steel); margin-bottom:14px;}
 .pg-voice-roi-new .pg-voice-roi-tag{color:var(--gw-ember);}
 .pg-voice-roi-price{display:block; font-family:var(--gw-display); font-weight:900;
   font-size:clamp(2.1rem,5.5vw,3.4rem); line-height:1; color:var(--gw-bone);}
 .pg-voice-roi-old .pg-voice-roi-price{color:var(--gw-steel);}
-.pg-voice-roi-new .pg-voice-roi-price{color:var(--gw-ember); text-shadow:0 0 26px rgba(232,93,4,0.4);}
+.pg-voice-roi-new .pg-voice-roi-price{color:var(--gw-ember); text-shadow:0 0 26px rgba(218,44,28,0.4);}
 .pg-voice-roi-price small{font-family:var(--gw-sans); font-weight:700; font-size:0.9rem;
   letter-spacing:0.04em; color:var(--gw-steel); margin-left:4px;}
 .pg-voice-roi-col ul{list-style:none; margin:clamp(18px,2.5vh,26px) 0 0; padding:0; display:grid; gap:11px;}
@@ -429,17 +429,17 @@ const CSS = `
 .pg-voice-price-head{margin:0 0 clamp(24px,4vh,40px); font-family:var(--gw-headline);
   font-weight:800; color:var(--gw-bone); font-size:clamp(1.7rem,4.4vw,2.9rem); line-height:1.06;}
 .pg-voice-price-card{max-width:560px; margin:0 auto; text-align:left;
-  border:1px solid rgba(232,93,4,0.5); background:rgba(11,12,16,0.7);
+  border:1px solid rgba(218,44,28,0.5); background:rgba(11,12,16,0.7);
   box-shadow:8px 8px 0 #000; padding:clamp(28px,4vw,48px);
   position:relative; overflow:hidden;}
 .pg-voice-price-card::before{content:""; position:absolute; inset:0; pointer-events:none;
-  box-shadow:inset 0 0 80px rgba(227,74,39,0.1);}
+  box-shadow:inset 0 0 80px rgba(193,41,46,0.1);}
 .pg-voice-price-main{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
 .pg-voice-price-from{font-size:0.95rem; letter-spacing:0.18em; text-transform:uppercase;
   font-weight:700; color:var(--gw-steel);}
 .pg-voice-price-fig{font-family:var(--gw-display); font-weight:900;
   font-size:clamp(3rem,9vw,4.6rem); line-height:1; color:var(--gw-ember);
-  text-shadow:0 0 30px rgba(232,93,4,0.45);}
+  text-shadow:0 0 30px rgba(218,44,28,0.45);}
 .pg-voice-price-per{font-size:1rem; font-weight:600; color:var(--gw-steel);}
 .pg-voice-price-setup{margin-top:18px; padding-top:18px; border-top:1px solid rgba(141,153,174,0.22);}
 .pg-voice-price-setup span{display:block; font-weight:700; color:var(--gw-bone); font-size:1.02rem;}
@@ -449,7 +449,7 @@ const CSS = `
 .pg-voice-price-list li{position:relative; padding-left:22px; color:var(--gw-steel);
   font-size:0.96rem; line-height:1.45;}
 .pg-voice-price-list li::before{content:""; position:absolute; left:0; top:0.5em;
-  width:9px; height:9px; background:var(--gw-ember); box-shadow:0 0 10px rgba(232,93,4,0.6);}
+  width:9px; height:9px; background:var(--gw-ember); box-shadow:0 0 10px rgba(218,44,28,0.6);}
 .pg-voice-cta.cta{display:flex; justify-content:center; margin-top:clamp(26px,4vh,36px); width:100%;}
 .pg-voice-price-anchor{display:block; margin-top:16px; text-align:center; font-size:0.86rem;
   letter-spacing:0.04em; color:var(--gw-steel);}
