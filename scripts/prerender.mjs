@@ -147,8 +147,9 @@ function body(route) {
       <p>${esc(COPY.hero.sub)}</p>
       <section><h2>${esc(COPY.arsenal.head)}</h2>${COPY.arsenal.branches
         .map(
+          // no prices on the home — they live on /pricing + each service page
           (b) =>
-            `<article><h3>${esc(b.tag)} — ${esc(b.line)}</h3><p>${esc(b.body)}</p>${priceLine(b)}<p><a href="/contact">Start the Forge</a></p></article>`,
+            `<article><h3>${esc(b.tag)} — ${esc(b.line)}</h3><p>${esc(b.body)}</p><p><a href="/contact">Start the Forge</a></p></article>`,
         )
         .join('')}</section>
       <section><h2>Why GAELWORX</h2>${COPY.trust.rungs
