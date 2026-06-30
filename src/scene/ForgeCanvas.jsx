@@ -25,9 +25,8 @@ export default function ForgeCanvas({ quality }) {
       <CameraRig />
 
       <ambientLight intensity={0.05} color="#10131a" />
-      {/* one NEUTRAL-COOL key — dimmed so the faceted glass reads as dark obsidian
-          (sharp edge glints, not bright gray slabs) and the veins stay the hero. */}
-      <directionalLight position={[3, 4, 5]} intensity={0.8} color="#eaf0fb" />
+      {/* one NEUTRAL-COOL key for a sharp specular streak across the glass (no orange) */}
+      <directionalLight position={[3, 4, 5]} intensity={1.3} color="#eaf0fb" />
 
       {/* Procedural NEUTRAL-COOL environment for the obsidian's reflections — purely
           built from lightformers (no file load), so it can't suspend/throw like an
@@ -35,14 +34,14 @@ export default function ForgeCanvas({ quality }) {
           are clean cool-white, so the slab reads as dark glass, not orange-washed. */}
       <Suspense fallback={null}>
         <Environment resolution={quality === 'high' ? 256 : 128}>
-          <Lightformer form="rect" intensity={1.4} color="#e8eef8" position={[0, 3, 4]} scale={[14, 2.4, 1]} />
-          <Lightformer form="rect" intensity={0.9} color="#aebccf" position={[-6, 0, 3]} scale={[3, 5, 1]} rotation={[0, 0.4, 0]} />
-          <Lightformer form="ring" intensity={1.1} color="#eef2f8" position={[5, 1.6, 3]} scale={2.4} />
+          <Lightformer form="rect" intensity={2.2} color="#e8eef8" position={[0, 3, 4]} scale={[14, 2.4, 1]} />
+          <Lightformer form="rect" intensity={1.3} color="#aebccf" position={[-6, 0, 3]} scale={[3, 5, 1]} rotation={[0, 0.4, 0]} />
+          <Lightformer form="ring" intensity={1.8} color="#eef2f8" position={[5, 1.6, 3]} scale={2.4} />
           <Lightformer form="rect" intensity={0.5} color="#0a0d12" position={[0, -3, 4]} scale={[14, 4, 1]} />
         </Environment>
       </Suspense>
 
-      {/* The faceted obsidian wall is NOT gated by the environment — always renders. */}
+      {/* The obsidian slab is NOT gated by the environment — always renders. */}
       <ObsidianSlab quality={quality} />
 
       {quality !== 'static' && <Effects quality={quality} />}

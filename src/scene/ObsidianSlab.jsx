@@ -1,5 +1,6 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { RoundedBox } from '@react-three/drei'
 import { useControls, folder } from 'leva'
 import * as THREE from 'three'
 import { forge, range, damp } from '../store.js'
@@ -33,9 +34,11 @@ const HEAD = /* glsl */ `
                   gw_fbm(p*0.9 + vec2(5.0, -uTime*0.04)));
     gwPw = p + w * 1.1;
     gwN = gw_fbm(gwPw);
-    float vein = pow(clamp(1.0 - abs(gwN), 0.0, 1.0), 11.0);
-    float mask = smoothstep(0.0, 0.55, gw_fbm(uv*0.7 + vec2(uTime*0.02, -uTime*0.015)));
-    vein *= mask;
+    // wider veins (lower exponent) + broader coverage mask = denser fire-opal
+    // network, so far less pure-black obsidian shows between the rivers.
+    float vein = pow(clamp(1.0 - abs(gwN), 0.0, 1.0), 6.5);
+    float mask = smoothstep(0.0, 0.40, gw_fbm(uv*0.7 + vec2(uTime*0.02, -uTime*0.015)));
+    vein = max(vein * mask, vein * 0.18);
     gwVein = vein;
     gwCore = pow(clamp(vein, 0.0, 1.0), 2.0);
     gwFlow = 0.5 + 0.5 * sin(gwN * 8.0 - uTime * 1.0);
@@ -69,8 +72,8 @@ export default function ObsidianSlab({ quality }) {
 
   const c = useControls('OBSIDIAN', {
     glass: folder({
-      reflect: { value: 0.6, min: 0, max: 5, step: 0.05, label: 'reflectivity' },
-      roughness: { value: 0.16, min: 0, max: 0.4, step: 0.005 },
+      reflect: { value: 1.4, min: 0, max: 5, step: 0.05, label: 'reflectivity' },
+      roughness: { value: 0.05, min: 0, max: 0.4, step: 0.005 },
       bump: { value: 0.1, min: 0, max: 0.6, step: 0.01, label: 'surface ripple' },
       transmission: { value: 0.1, min: 0, max: 0.8, step: 0.02 },
     }),
@@ -80,10 +83,6 @@ export default function ObsidianSlab({ quality }) {
       iridescence: { value: 1.35, min: 0, max: 2, step: 0.02 },
       scrollFlare: { value: 0.7, min: 0, max: 1.6, step: 0.05, label: 'scroll flare' },
       idleBreath: { value: 0.12, min: 0, max: 0.4, step: 0.01, label: 'idle breath' },
-    }),
-    facets: folder({
-      density: { value: 22, min: 4, max: 40, step: 1, label: 'facet density' },
-      relief: { value: 0.3, min: 0, max: 1.4, step: 0.02, label: 'facet relief' },
     }),
   })
 
@@ -133,36 +132,6 @@ export default function ObsidianSlab({ quality }) {
 
   useEffect(() => () => material.dispose(), [material])
 
-  // Faceted full-frame field — a subdivided plane displaced into angular relief,
-  // then taken NON-INDEXED so each triangle carries its own face normal: the
-  // obsidian reads as a wall of cut facets (rigid edges) instead of a smooth pool,
-  // while the SAME fire-opal vein shader flows across it.
-  const geometry = useMemo(() => {
-    const W = 13
-    const H = 8
-    const segX = c.density
-    const segY = Math.max(3, Math.round(c.density * 0.6))
-    const g = new THREE.PlaneGeometry(W, H, segX, segY)
-    const pos = g.attributes.position
-    const v = new THREE.Vector3()
-    for (let i = 0; i < pos.count; i++) {
-      v.fromBufferAttribute(pos, i)
-      const z =
-        (Math.sin(v.x * 1.25 + 1.3) * Math.cos(v.y * 1.6 - 0.7) +
-          0.55 * Math.sin(v.x * 2.2 + v.y * 1.9 + 2.1) +
-          0.35 * Math.cos(v.x * 3.1 - v.y * 2.6) +
-          0.22 * Math.sin(v.x * 4.3 + v.y * 3.7)) *
-        (c.relief * 0.45)
-      pos.setZ(i, z)
-    }
-    const flat = g.toNonIndexed() // unshared verts → per-facet normals → hard edges
-    flat.computeVertexNormals()
-    g.dispose()
-    return flat
-  }, [c.density, c.relief])
-
-  useEffect(() => () => geometry.dispose(), [geometry])
-
   const onPointerMove = (e) => {
     if (e.uv) {
       pointerTarget.current.set(e.uv.x, e.uv.y)
@@ -203,11 +172,13 @@ export default function ObsidianSlab({ quality }) {
   })
 
   return (
-    <mesh
-      geometry={geometry}
-      material={material}
+    <RoundedBox
+      args={[11, 6.6, 0.6]}
+      radius={0.18}
+      smoothness={4}
       position={[0, 0, 0]}
-      rotation={[-0.06, 0, 0]}
+      rotation={[-0.08, 0, 0]}
+      material={material}
       onPointerMove={onPointerMove}
       onPointerOut={onPointerOut}
     />
