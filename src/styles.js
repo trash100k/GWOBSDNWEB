@@ -483,6 +483,15 @@ html.lenis,html.lenis body{height:auto;}
   font-size:clamp(1.1rem,2.6vw,1.7rem); color:var(--gw-bone); text-shadow:0 2px 18px rgba(0,0,0,0.8);}
 .fin-cta .avail{margin-top:12px;}
 
+/* FINAL RESTING STATE — GAELWORX + the sword seated in the mandala's dark eye and
+   held to the end. Compact, with a heavy dark halo so they read over the forge-glow
+   core. The mandala's own centre well (mWell) is the scrim behind them. */
+.mark-btn--seal{font-size:clamp(1.9rem,6.4vw,3.6rem); letter-spacing:0.06em;
+  text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),0 0 60px rgba(232,93,4,0.45);}
+.fin-cta--seal{gap:14px; width:min(92vw,520px);}
+.fin-cta--seal .avail{margin-top:4px;
+  text-shadow:0 0 12px rgba(0,0,0,0.96),0 1px 8px rgba(0,0,0,0.9);}
+
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:560px){
   .finale{--Rring:clamp(94px,34vw,150px); --Rforge:clamp(72px,27vw,120px);}

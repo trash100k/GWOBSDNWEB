@@ -177,6 +177,29 @@ for (const vp of VIEWPORTS) {
     note(ox <= 8 && oy <= 8, `${g.cls} pivots on centre`, `rotated centre off (${ox.toFixed(1)}, ${oy.toFixed(1)})px`)
   }
 
+  // CHECK: END STATE — the journey settles ONTO the mandala and stops there. At the
+  //   very bottom, the mandala must still be held (not faded out) AND the CTA must be
+  //   live (visible + clickable) — the final resting image with a working sword.
+  const end = await page.evaluate(async () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight
+    const raf = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
+    window.scrollTo(0, max)
+    await raf(); await raf(); await raf()
+    const mand = document.querySelector('.fin-mandala')
+    const cta = document.querySelector('.fin-cta--seal .cta')
+    const cs = cta && getComputedStyle(cta)
+    return {
+      mandOpacity: mand ? parseFloat(getComputedStyle(mand).opacity) : 0,
+      ctaFound: !!cta,
+      ctaOpacity: cs ? parseFloat(getComputedStyle(document.querySelector('.fin-cta--seal')).opacity) : 0,
+      ctaClickable: cs ? getComputedStyle(document.querySelector('.fin-cta--seal')).pointerEvents !== 'none' : false,
+      ctaText: cta ? cta.textContent.trim() : '',
+    }
+  })
+  note(end.mandOpacity >= 0.95, 'mandala held at journey end', `opacity ${end.mandOpacity.toFixed(3)} at scroll bottom`)
+  note(end.ctaFound && end.ctaOpacity >= 0.9 && end.ctaClickable, 'CTA live at the resting state',
+    end.ctaFound ? `"${end.ctaText}" op ${end.ctaOpacity.toFixed(2)} clickable=${end.ctaClickable}` : 'CTA not found')
+
   // CHECK: clean console through the scroll range
   note(errors.length === 0, 'zero console errors', errors.length ? errors.slice(0, 4).join(' | ') : '')
 

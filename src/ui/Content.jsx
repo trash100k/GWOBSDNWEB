@@ -33,7 +33,10 @@ const ARSENAL = 3
 const RATES = 4 // the pricing-ladder beat
 const TRUST_BASE = 5 // first trust-rung frame index
 const FINALE = FRAMES - 1
-const WEIGHTS = [0.6, 0.4, 0.65, 1.6, 0.95, ...TRUST.map(() => 0.6), 2.7]
+// finale trimmed to a single destination (problems drain → mandala forms → it
+// HOLDS as the final resting image with GAELWORX + the CTA seated at its eye), so
+// it needs less internal scroll than the old multi-act sequence (was 2.7).
+const WEIGHTS = [0.6, 0.4, 0.65, 1.6, 0.95, ...TRUST.map(() => 0.6), 1.95]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
 const CENTERS = []
 const HALF = []
@@ -54,19 +57,14 @@ const STEP = 46
 const RADIUS = 232
 const SPAN = 0.5
 
-const FORGES = COPY.finale.forges
-
 export default function Content() {
   const navigate = useNavigate()
   const frameRefs = useRef([])
   const carRefs = useRef([])
   const wheelRef = useRef(null)
-  // finale layer refs
+  // finale layer refs (trimmed: problems → mandala → mark + cta seated at its eye)
   const problemsRef = useRef(null)
   const mandalaRef = useRef(null)
-  const seedRef = useRef(null)
-  const solutionsRef = useRef(null)
-  const forgesRef = useRef(null)
   const markRef = useRef(null)
   const ctaRef = useRef(null)
 
@@ -230,23 +228,20 @@ export default function Content() {
       forge.emit.y = 0.46
       forge.emit.amt = emitAmt
 
-      // ── Finale act — STRICTLY SEQUENCED so no two layers ever pile up:
-      //   problems → drain → mandala whirlpool (+ seed at the eye) → solutions
-      //   rise → four forges → converge to GAELWORX → CTA. Each layer's opacity is
-      //   a trapezoid envelope; the next only starts as the previous finishes.
+      // ── Finale act — the journey SETTLES ONTO THE MANDALA and stops there.
+      //   problems drain into the eye → the mandala (the GAELWORX forge-seal) forms
+      //   and HOLDS as the final resting image → GAELWORX + the CTA seat at its eye
+      //   and hold to the very end. The old solutions / four-forges / spin-to-mark
+      //   tail is folded away — the mandala IS the end state. Opacities that end on
+      //   the hold use c,d > 1 so the trapezoid never ramps back down.
       // start the sequence as the finale frame SETTLES in (not at its centre), so
-      // the problems arrive the moment the act begins — no empty dead-zone scroll
-      // between the trust ladder and the first line.
+      // the problems arrive the moment the act begins — no empty dead-zone scroll.
       const FIN_START = CENTERS[FINALE] - HALF[FINALE] * 0.8
       const fp = clamp((p - FIN_START) / (1 - FIN_START + 1e-6), 0, 1)
-      const oProblems = env(fp, 0.0, 0.04, 0.13, 0.22)
-      const oMandala = env(fp, 0.21, 0.30, 0.40, 0.50)
-      const oSeed = env(fp, 0.40, 0.45, 0.50, 0.56)
-      const oSolutions = env(fp, 0.55, 0.62, 0.69, 0.76)
-      const oForges = env(fp, 0.75, 0.82, 0.86, 0.92)
-      const oMark = env(fp, 0.88, 0.95, 1.2, 1.3)
-      const oCta = env(fp, 0.94, 0.99, 1.2, 1.3)
-      const spin = fp * 680
+      const oProblems = env(fp, 0.0, 0.05, 0.20, 0.32)
+      const oMandala = env(fp, 0.22, 0.40, 1.2, 1.3) // forms, then HOLDS to the end
+      const oMark = env(fp, 0.50, 0.66, 1.2, 1.3) // GAELWORX seats at the eye + holds
+      const oCta = env(fp, 0.62, 0.78, 1.2, 1.3) // CTA rises under it + holds
 
       if (problemsRef.current) {
         // drains DOWN + spirals + shrinks into the whirlpool's eye as it fades
@@ -266,39 +261,23 @@ export default function Content() {
         const sc = 0.92 + easeOut(inP) * 0.08
         mandalaRef.current.style.transform = `translate(-50%,-50%) scale(${sc.toFixed(3)})`
       }
-      if (seedRef.current) seedRef.current.style.opacity = oSeed.toFixed(3)
-      if (solutionsRef.current) {
-        // rises UP out of the eye, un-spiralling into place
-        const inP = clamp((fp - 0.55) / 0.07, 0, 1)
-        const e = 1 - easeOut(inP)
-        solutionsRef.current.style.opacity = oSolutions.toFixed(3)
-        solutionsRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${(-e * 190 * R).toFixed(1)}deg) translateY(${(e * 22 * R).toFixed(1)}vh) scale(${(1 - e * 0.85 * R).toFixed(3)})`
-        solutionsRef.current.style.filter = !reduced && e > 0.01 ? `blur(${(e * 8).toFixed(1)}px)` : 'none'
-      }
-      if (forgesRef.current) {
-        const inP = clamp((fp - 0.75) / 0.07, 0, 1)
-        const conv = clamp((fp - 0.86) / 0.06, 0, 1) // converge inward to the mark
-        forgesRef.current.style.opacity = oForges.toFixed(3)
-        const sc = (0.5 + easeOut(inP) * 0.5) * (1 - conv * 0.9)
-        forgesRef.current.style.transform =
-          `translate(-50%,-50%) rotate(${((spin * 0.4 + inP * 120) * R).toFixed(1)}deg) scale(${Math.max(0.05, sc).toFixed(3)})`
-      }
       if (markRef.current) {
-        const inP = clamp((fp - 0.88) / 0.07, 0, 1)
-        const lift = oCta * 7 // rises above centre once the CTA arrives, so they stack
+        // GAELWORX settles into the upper eye of the held mandala and STAYS.
+        const inP = clamp((fp - 0.50) / 0.10, 0, 1)
         markRef.current.style.opacity = oMark.toFixed(3)
-        const sc = 0.4 + easeOut(inP) * 0.6
+        const sc = 0.62 + easeOut(inP) * 0.38
         markRef.current.style.transform =
-          `translate(-50%,-50%) translateY(${(-lift).toFixed(1)}vh) rotate(${((1 - inP) * -70 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
+          `translate(-50%,-50%) translateY(-6vh) rotate(${((1 - inP) * -40 * R).toFixed(1)}deg) scale(${sc.toFixed(3)})`
       }
       if (ctaRef.current) {
+        // the sword rises just under the wordmark, in the mandala's dark eye, and HOLDS.
+        const inP = clamp((fp - 0.62) / 0.10, 0, 1)
         ctaRef.current.style.opacity = oCta.toFixed(3)
         ctaRef.current.style.transform =
-          `translate(-50%,-50%) translateY(11vh) translateY(${((1 - oCta) * 22).toFixed(1)}px)`
+          `translate(-50%,-50%) translateY(9vh) translateY(${((1 - easeOut(inP)) * 24).toFixed(1)}px)`
         ctaRef.current.style.pointerEvents = oCta > 0.6 ? 'auto' : 'none'
       }
-      const fmarks = [0.1, 0.34, 0.62, 0.82, 0.96]
+      const fmarks = [0.1, 0.32, 0.58, 0.80]
       for (const m of fmarks) { if (lastFp < m && fp >= m) forge.strikeAt = performance.now() / 1000 }
       lastFp = fp
 
@@ -408,29 +387,19 @@ export default function Content() {
               ))}
             </div>
 
+            {/* the mandala IS the destination — the GAELWORX forge-seal. It forms as
+                the problems drain into it, then HOLDS as the final resting image while
+                the wordmark + CTA seat at its eye. (solutions / four-forges tail folded
+                away — see the rAF finale block.) */}
             <div className="fin-layer fin-mandala" ref={mandalaRef} aria-hidden="true">
               <Mandala />
             </div>
-            <div className="fin-seed" ref={seedRef} aria-hidden="true">{COPY.finale.seed}</div>
 
-            <div className="fin-layer fin-solutions" ref={solutionsRef}>
-              {COPY.finale.solutions.map((t, i) => (
-                <span key={i} className="fin-line fin-line--sol" style={{ '--i': i }}>{t}</span>
-              ))}
+            <div className="fin-mark fin-mark--seal" ref={markRef}>
+              <button className="mark-btn mark-btn--seal magnetic" onClick={scrollToTop}><Ignite text={COPY.finale.mark} /></button>
             </div>
 
-            <div className="fin-layer fin-forges" ref={forgesRef} aria-hidden="true">
-              {FORGES.map((t, i) => (
-                <span key={i} className="forge-word" style={{ '--i': i, '--n': FORGES.length }}><Ignite text={t} /></span>
-              ))}
-            </div>
-
-            <div className="fin-mark" ref={markRef}>
-              <button className="mark-btn magnetic" onClick={scrollToTop}><Ignite text={COPY.finale.mark} /></button>
-            </div>
-
-            <div className="fin-cta" ref={ctaRef}>
-              <span className="fin-closer">{COPY.finale.closer}</span>
+            <div className="fin-cta fin-cta--seal" ref={ctaRef}>
               <button className="cta cta--solid magnetic" onClick={() => { strike(); navigate('/contact') }}><span>{COPY.finale.cta}</span></button>
               <span className="avail">{COPY.finale.avail}</span>
             </div>
