@@ -359,7 +359,7 @@ html.lenis,html.lenis body{height:auto;}
 /* ONE gradient layer only. The previous versions stacked TWO background layers
    (glint + steel, or an SVG grain) under background-clip:text — iOS Safari fails
    to PAINT a multi-layer clipped background, so the steel dropped to shadow-only
-   and no `color` could rescue it (-webkit-text-fill-color:transparent wins). The
+   and no solid color could rescue it (-webkit-text-fill-color:transparent wins). The
    A+E ignite (.forge-letter) proves a SINGLE clipped gradient renders fine on the
    same device, so the head is now ONE watered-chrome gradient that shimmers via
    background-position — the exact mechanism the ignite uses. */
