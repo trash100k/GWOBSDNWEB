@@ -69,21 +69,21 @@ export default function ObsidianSlab({ quality }) {
 
   const c = useControls('OBSIDIAN', {
     glass: folder({
-      reflect: { value: 1.4, min: 0, max: 5, step: 0.05, label: 'reflectivity' },
-      roughness: { value: 0.05, min: 0, max: 0.4, step: 0.005 },
+      reflect: { value: 0.6, min: 0, max: 5, step: 0.05, label: 'reflectivity' },
+      roughness: { value: 0.16, min: 0, max: 0.4, step: 0.005 },
       bump: { value: 0.1, min: 0, max: 0.6, step: 0.01, label: 'surface ripple' },
       transmission: { value: 0.1, min: 0, max: 0.8, step: 0.02 },
     }),
     veins: folder({
-      veinGlow: { value: 0.6, min: 0, max: 2, step: 0.02 },
+      veinGlow: { value: 0.85, min: 0, max: 2, step: 0.02 },
       veinScale: { value: 1.8, min: 0.6, max: 4, step: 0.05 },
       iridescence: { value: 1.35, min: 0, max: 2, step: 0.02 },
       scrollFlare: { value: 0.7, min: 0, max: 1.6, step: 0.05, label: 'scroll flare' },
       idleBreath: { value: 0.12, min: 0, max: 0.4, step: 0.01, label: 'idle breath' },
     }),
     facets: folder({
-      density: { value: 13, min: 4, max: 30, step: 1, label: 'facet density' },
-      relief: { value: 0.46, min: 0, max: 1.4, step: 0.02, label: 'facet relief' },
+      density: { value: 22, min: 4, max: 40, step: 1, label: 'facet density' },
+      relief: { value: 0.3, min: 0, max: 1.4, step: 0.02, label: 'facet relief' },
     }),
   })
 
@@ -148,10 +148,11 @@ export default function ObsidianSlab({ quality }) {
     for (let i = 0; i < pos.count; i++) {
       v.fromBufferAttribute(pos, i)
       const z =
-        (Math.sin(v.x * 0.62 + 1.3) * Math.cos(v.y * 0.8 - 0.7) +
-          0.6 * Math.sin(v.x * 1.1 + v.y * 0.9 + 2.1) +
-          0.4 * Math.cos(v.x * 1.7 - v.y * 1.3)) *
-        (c.relief * 0.5)
+        (Math.sin(v.x * 1.25 + 1.3) * Math.cos(v.y * 1.6 - 0.7) +
+          0.55 * Math.sin(v.x * 2.2 + v.y * 1.9 + 2.1) +
+          0.35 * Math.cos(v.x * 3.1 - v.y * 2.6) +
+          0.22 * Math.sin(v.x * 4.3 + v.y * 3.7)) *
+        (c.relief * 0.45)
       pos.setZ(i, z)
     }
     const flat = g.toNonIndexed() // unshared verts → per-facet normals → hard edges
