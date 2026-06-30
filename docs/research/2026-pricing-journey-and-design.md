@@ -164,9 +164,15 @@ flood every feed, designers are pivoting to **grit, grain, and physical imperfec
   "starts at / typical range" anchors + a productized entry rung + an estimator → custom quote;
   keep the final bespoke number a conversation. Sequence the page outcome/proof/process **before**
   the number.
-- **B. Service pricing — LOCKED (2026‑06‑29).** Full anchor card in Part 4. The **Voice Agent**
-  (from $499/mo + ~$2.5k setup) is the productized entry rung; **Web from $1,299**; **Automations
-  $1,500–$5,000**; **Software $10,000–$35,000 with a $5,000 minimum deposit** to start.
+- **B. Service pricing — ⚠️ SUPERSEDED 2026‑06‑30.** The 2026‑06‑29 anchor card below is retained
+  for history only. **Authoritative pricing now lives in `docs/forge-world/PRICING.md`:** Software
+  **$15k–$50k** (25% deposit; repriced UP — the $10–35k band was ~3× too low / signaled
+  "freelancer"); Voice repositioned to **outbound sales agents on a hybrid model** ($2,500 setup +
+  $699/mo/agent incl. minute bucket + $0.30/min overage + $50/booked appt); Automations
+  **$2,500–$7,500 + $500–1,500/mo Forge Care**; Web **$1,499 / $4,999 / $9,999+ + $49–99/mo Forge
+  Care** (loss leader; real margin = recurring care + upsell). *Original 2026‑06‑29 lock (kept for
+  history):* Voice from $499/mo +~$2.5k setup; Web from $1,299; Automations $1,500–$5,000; Software
+  $10,000–$35,000 / $5,000 deposit.
 - **C. Lead-tracking stack** *(open)* — where do leads land and how are they nurtured over the
   ~6-month window? Connectors available: **Supabase, Attio, Gmail/AgentMail, n8n, Lovable.**
 - **D. Price placement on the home journey — LOCKED (2026‑06‑30): tease early, full reveal late.**
@@ -247,7 +253,12 @@ control the comparison).
 > itself proves we deliver far above the price. Charm endpoints ($1,299/$8,999) suit this
 > high-volume front-door role.
 
-### GAELWORX anchor card — LOCKED (decided 2026‑06‑29)
+### GAELWORX anchor card — ⚠️ SUPERSEDED 2026‑06‑30 (see `docs/forge-world/PRICING.md`)
+
+> The table below is the original 2026‑06‑29 lock, kept for history. Current pricing: Software
+> **$15k–$50k** (25% deposit) · Voice **outbound hybrid** ($2,500 setup + $699/mo/agent + $0.30/min
+> overage + $50/booked appt) · Automations **$2,500–$7,500 + care** · Web **$1,499 hook + $49–99/mo
+> Forge Care**. The competitor-landscape data in this Part 4 remains valid as anchor evidence.
 
 | Line | Entry anchor | Range | Model |
 |---|---|---|---|
