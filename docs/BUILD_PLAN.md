@@ -35,6 +35,20 @@
 - **NEXT:** (1) **owner promotes** the preview → production so the public URL is current; (2) owner reads mandala/carousel/pacing on the **iPhone 15** → tune from that verdict; (3) confirm intake email + NAP (AEO placeholders); (4) Phase 2 lead endpoint (`lead-capture`); (5) footer w/ internal links; (6) perf-budget asserts in QA.
 - **PROD DEPLOYS:** owner OK only; on Hobby treat deploys as scarce — push `main`/promote at milestones, not per commit (`git-hygiene`, `deploy-doctor`).
 
+## FACETED OBSIDIAN JEWEL (hero pivot, 2026-06-30)
+- Owner: make the background "an actual obsidian jewel … faceted … not this random spurt." Researched
+  in `docs/research/faceted-obsidian-jewel.md`. Replaced the full-frame vein SLAB with a **centred cut
+  gem**: `src/scene/gem.js` (`buildGem` — flat table → crown → girdle → pavilion → culet, non-indexed
+  → true flat facets, winding auto-corrected) + `src/scene/FacetedJewel.jsx` (flat-shaded REFLECTIVE
+  `MeshPhysicalMaterial` — near-black, low roughness + clearcoat, high envMapIntensity, `iridescence`,
+  Fresnel fire-opal flash via `onBeforeCompile` using the in-scope `normal` (NOT `vNormal` — undeclared
+  under FLAT_SHADED), **no transmission** = obsidian + Chromebook-safe) + **glowing fire EDGES**
+  (`EdgesGeometry` → additive `lineSegments`, opacity rides `--heat`). Slow auto-rotate + scroll-coupled
+  spin + pointer parallax; `?debug` JEWEL panel (sides/roughness/metalness/reflect/iridescence/edgeGlow/
+  scale). `ForgeCanvas` now imports `FacetedJewel`; `ObsidianSlab.jsx` is orphaned (kept for ref/revert).
+  Verified: shader compiles + canvas renders 0 errors (forced-hardware probe, since SwiftShader→poster);
+  finale QA green. **Owner to judge facets/edges/sparkle on the iPhone 15 + tune via the JEWEL panel.**
+
 ## CHROMEBOOK / WEBGL ROBUSTNESS (fixed 2026-06-30)
 - **Symptom:** the 3D background worked on the iPhone but rendered BLACK on a Chromebook.
 - **Root cause:** the iPhone gets tier **`low`** (mobile UA) which has **transmission OFF**; the
