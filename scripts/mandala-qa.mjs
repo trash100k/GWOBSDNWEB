@@ -149,6 +149,34 @@ for (const vp of VIEWPORTS) {
   const dcy = Math.abs(r.cy - m.vh / 2)
   note(dcx <= TOL_VPCENTER && dcy <= TOL_VPCENTER, 'centred in viewport', `off (${dcx.toFixed(1)}, ${dcy.toFixed(1)})px`)
 
+  // CHECK: SPIN PIVOT — the rotating motif groups (.m-spin: petals/dots/ticks/word
+  //   rim) must pivot on the TRUE centre, not a viewBox corner. The skeleton circles
+  //   are NOT in a spin group, so they can never catch this; we must test the groups.
+  //   Deterministic test: force a 90° rotation and confirm each (radially symmetric)
+  //   group's centre STAYS on the viewport centre. A wrong pivot flings it hundreds
+  //   of px (the "split mandala — petals in the corner" bug).
+  const pivot = await page.evaluate(() => {
+    const kill = document.createElement('style')
+    kill.textContent = '.m-spin{animation:none !important;}'
+    document.head.appendChild(kill)
+    const groups = [...document.querySelectorAll('.m-spin')]
+    groups.forEach((g) => { g.style.transform = 'rotate(90deg)' })
+    document.body.getBoundingClientRect() // force reflow
+    const data = groups.map((g) => {
+      const b = g.getBoundingClientRect()
+      const cls = [...g.classList].find((c) => c.startsWith('m-spin--')) || 'm-spin'
+      return { cls, cx: b.x + b.width / 2, cy: b.y + b.height / 2 }
+    })
+    groups.forEach((g) => { g.style.transform = '' })
+    kill.remove()
+    return { data, vw: window.innerWidth, vh: window.innerHeight }
+  })
+  for (const g of pivot.data) {
+    const ox = Math.abs(g.cx - pivot.vw / 2)
+    const oy = Math.abs(g.cy - pivot.vh / 2)
+    note(ox <= 8 && oy <= 8, `${g.cls} pivots on centre`, `rotated centre off (${ox.toFixed(1)}, ${oy.toFixed(1)})px`)
+  }
+
   // CHECK: clean console through the scroll range
   note(errors.length === 0, 'zero console errors', errors.length ? errors.slice(0, 4).join(' | ') : '')
 

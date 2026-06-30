@@ -441,8 +441,12 @@ html.lenis,html.lenis body{height:auto;}
 .m-spoke{stroke:#0a0708; stroke-width:4; stroke-linecap:round;}
 .m-core{fill:#E85D04; filter:drop-shadow(0 0 16px rgba(232,93,4,0.95));}
 /* two slow counter-rotating motif groups (N-fold symmetry stays symmetric under
-   rotation); the concentric circles + boss stay still as the stable skeleton */
-.m-spin{transform-box:view-box; transform-origin:50% 50%; will-change:transform;}
+   rotation); the concentric circles + boss stay still as the stable skeleton.
+   PIVOT on the group's OWN bbox centre (fill-box) — the motifs are authored radially
+   symmetric around the viewBox origin, so their bbox centre IS the true centre.
+   (view-box + 50%/50% resolved to the viewBox CORNER in Chrome and flung the
+   whole band into the bottom-right corner — the "split mandala" bug.) */
+.m-spin{transform-box:fill-box; transform-origin:center; will-change:transform;}
 .m-spin--out{animation:spinR 120s linear infinite;}
 .m-spin--in{animation:spinL 88s linear infinite;}
 @keyframes spinR{to{transform:rotate(360deg);}}

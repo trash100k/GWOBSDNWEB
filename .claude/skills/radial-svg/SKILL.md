@@ -33,7 +33,15 @@ circle `textPath`s and read as scattered hash; the rebuild uses geometry and rea
   (it looks like rotating static). N-fold symmetry means a slow turn always stays symmetric.
 - Reconcile with any container rotation (the finale scroll-jack already spins the whole layer — let
   that be primary; the internal groups add subtle depth). Compositor-only (`transform`); reduced-motion
-  → static. (`transform-box:view-box; transform-origin:50% 50%`.)
+  → static.
+- **PIVOT GOTCHA (cost us a "split mandala"):** to spin a `<g>` around the centre, use
+  `transform-box:fill-box; transform-origin:center` — pivot on the group's OWN bbox centre. Do NOT use
+  `transform-box:view-box; transform-origin:50% 50%` on a **centred viewBox** (e.g. `-500 -500 1000
+  1000`): Chrome resolved `50% 50%` to the viewBox **corner** (user `(500,500)`), not the centre, so the
+  whole rotating band got flung a full box-width into the bottom-right while the still skeleton stayed
+  centred — a mandala torn in two. `fill-box`+`center` sidesteps the viewBox-origin ambiguity (the
+  motifs are authored symmetric, so their bbox centre IS the true centre). The skeleton circles aren't
+  in a spin group, so they CAN'T reveal this — you must test the spin groups (see Verify).
 
 ## Celtic interlace (if used)
 Real plaitwork is **grid-based strict over/under** — what crosses over goes under at the next crossing.
