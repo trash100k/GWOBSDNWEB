@@ -64,44 +64,44 @@ const PROBLEMS = [
   {
     Glyph: GlyphSaaS,
     head: 'You outgrew the rented SaaS.',
-    body: 'The platform that fit at ten jobs a week buckles at fifty. You bend your operation to its limits — and pay more every seat, every year, forever.',
+    body: 'The platform that fit at ten jobs a week buckles at fifty. You bend your operation to its limits, you wait on a roadmap that isn’t yours — and you pay more every seat, every year, forever. You’re renting a ceiling.',
   },
   {
     Glyph: GlyphSheet,
     head: 'The business runs on spreadsheets.',
-    body: 'A dozen tabs, three people who know the formulas, and one wrong paste from chaos. The real system lives in someone’s head, not in software you control.',
+    body: 'A dozen tabs, three people who know the formulas, and one wrong paste from chaos. The real system lives in someone’s head, not in software you control — and the day they leave, it leaves with them.',
   },
   {
     Glyph: GlyphRent,
     head: 'You don’t own the tools.',
-    body: 'Your data sits on someone else’s servers behind someone else’s roadmap. They raise the price, kill the feature, or fold — and your operation is hostage.',
+    body: 'Your data sits on someone else’s servers, behind someone else’s roadmap, priced at someone else’s whim. They raise the rate, kill the feature, or fold — and your operation is the hostage. You built a business on rented ground.',
   },
 ]
 
 const BUILD = [
   {
     head: 'Internal tools',
-    body: 'The dispatch board, the job tracker, the quoting engine — the software your crew actually touches all day, shaped to how you already work.',
+    body: 'The dispatch board, the job tracker, the quoting engine — the software your crew actually touches all day, shaped to how you already work instead of bending you to a stranger’s product.',
   },
   {
     head: 'Proprietary platforms',
-    body: 'A system that is yours alone, not a config of someone else’s product. A real competitive edge no competitor can subscribe to.',
+    body: 'A system that is yours alone, not a config of someone else’s product. A real competitive edge — a moat no competitor can subscribe to and no vendor can switch off.',
   },
   {
     head: 'Custom-built',
-    body: 'Engineered for your operation from the first line — not a template stretched to fit, not a plugin pile held together with tape.',
+    body: 'Engineered for your operation from the first line — not a template stretched to fit, not a plugin pile held together with tape. It fits the business; the business never bends to it.',
   },
   {
     head: 'Documented',
-    body: 'Every decision written down, every system mapped. You get the manual, not a black box only we can open.',
+    body: 'Every decision written down, every system mapped. You get the manual, not a black box only we can open. The opposite of the rented SaaS you can’t see inside.',
   },
   {
     head: 'Open-sourced to you',
-    body: 'The code is handed over, in full, on day one of live. Yours to run, extend, or hand to any engineer. Never held hostage.',
+    body: 'The code is handed over, in full, the day it goes live. Yours to run, extend, or hand to any engineer. No lock-in, no license to renew, never held hostage.',
   },
   {
     head: 'Built on proven ground',
-    body: 'The same battle-tested rails that run banks and fleets — predictable behavior, not last quarter’s frontier model and crossed fingers.',
+    body: 'The same battle-tested rails that run banks and fleets — predictable behavior, not last quarter’s frontier model and crossed fingers. No AI theater. No pilot that rots in “phase two.”',
   },
 ]
 
@@ -110,27 +110,27 @@ const STEPS = [
     n: '01',
     tag: 'Discovery',
     head: 'We map the operation.',
-    body: 'A working session, not discovery-call theater. We walk the bottleneck, name the system that kills it, and scope it in days — not a six-week deck. You leave knowing exactly what we build and what it costs.',
+    body: 'A working session, not discovery-call theater. We walk the bottleneck, name the system that kills it, and scope it in days — not a six-week deck. You leave knowing exactly what we build, what it costs, and a number that doesn’t move.',
   },
   {
     n: '02',
     tag: 'Build',
     head: 'We forge it.',
-    body: 'Small clan, full accountability — you talk to the people writing the code. It ships in weeks, not quarters, documented as we go. No pilots rotting in “phase two.”',
+    body: 'Small clan, full accountability — you talk to the people writing the code, not an account manager. It ships in weeks, not quarters, documented as we go. No pilots rotting in “phase two.”',
   },
   {
     n: '03',
     tag: 'Handover',
     head: 'We open-source it to you.',
-    body: 'It goes live, runs the work, and the code is yours — the full repository, the docs, the keys. You own every bolt. We don’t hold your business hostage to keep the lights on.',
+    body: 'It goes live, runs the work, and the code is yours — the full repository, the docs, the keys. You own every bolt. We don’t hold your business hostage to keep the lights on. That’s the whole point.',
   },
 ]
 
 const OWN = [
-  { k: 'The code', v: 'The full repository, handed over. Run it, fork it, hand it to any engineer.' },
-  { k: 'The platform', v: 'A proprietary system that is yours alone — a moat, not a subscription.' },
-  { k: 'The data', v: 'On your ground, in your shape — yours to leverage like no rented tool allows.' },
-  { k: 'The documentation', v: 'Every system mapped and written down. The manual, not a black box.' },
+  { k: 'The code', v: 'The full repository, handed over. Run it, fork it, hand it to any engineer. No lock-in.' },
+  { k: 'The platform', v: 'A proprietary system that is yours alone — a moat, not a subscription. A vendor can’t switch it off.' },
+  { k: 'The data', v: 'On your ground, in your shape — yours to leverage like no rented tool allows. Never the hostage again.' },
+  { k: 'The documentation', v: 'Every system mapped and written down. The manual, not a black box only we can open.' },
 ]
 
 export default function Software() {
@@ -149,9 +149,11 @@ export default function Software() {
         align="start"
       >
         <p className="pg-software-lede-strong">
-          Rented SaaS you bend to. Spreadsheets one bad paste from chaos. A stack of
-          tools that hold your data hostage. At some point the software stops serving
-          the business and the business starts serving the software.
+          Rented SaaS you bend the business to. Spreadsheets one bad paste from a lost
+          day. A stack of apps that hold your data hostage and talk to each other
+          through you. At some point the software stops serving the business — and the
+          business starts serving the software. That’s the bottleneck. It costs you
+          every single week.
         </p>
 
         <div className="pg-software-problems">
@@ -176,7 +178,8 @@ export default function Software() {
       >
         <p className="pg-software-lede-strong">
           We build the system your business actually runs on — custom-built, fully
-          documented, and open-sourced to you. The same forge that built{' '}
+          documented, and open-sourced to you. You command the platform; you don’t rent
+          it. The same forge that built{' '}
           <BrandText text="YardWorx" />, built for how you operate.
         </p>
 
@@ -223,8 +226,9 @@ export default function Software() {
         align="start"
       >
         <p className="pg-software-lede-strong">
-          No license to renew. No seat to ring up. No roadmap you’re hostage to. When
-          the forge cools, the platform — and the leverage — is entirely yours.
+          No license to renew. No seat to ring up. No roadmap you’re hostage to. No
+          black box. When the forge cools, the platform — and the leverage — is
+          entirely yours.
         </p>
 
         <ul className="pg-software-own">
@@ -249,7 +253,7 @@ export default function Software() {
             <Ignite text="YardWorx" />
           </h2>
           <p className="pg-software-proof-body">
-            <BrandText text="YardWorx is a proprietary platform we run ourselves — not a case study we read. We build what we know, then build the same caliber for you. We’ve worked the bottlenecks we automate, so you never pay us to learn your business on your dime." />
+            <BrandText text="YardWorx is a proprietary platform we run ourselves — not a case study we read. We don’t point AI at a problem and hope; we build what we’ve already lived. We’ve worked the bottlenecks we automate, so you never pay us to learn your business on your dime. Then we forge the same caliber for you — and hand you the keys." />
           </p>
           <Link className="pg-software-proof-link" to="/work">
             See the platforms the forge runs →
@@ -263,7 +267,7 @@ export default function Software() {
           <div className="pg-software-anchor">
             <span className="pg-software-anchor-strike">{b.anchor}</span>
             <span className="pg-software-anchor-note">
-              We forge the same caliber accessible.
+              We forge the same caliber — owned, not rented.
             </span>
           </div>
 
@@ -274,11 +278,11 @@ export default function Software() {
 
           <div className="pg-software-terms">
             <span className="pg-software-term">
-              <strong>$5,000</strong> deposit to start the forge
+              <strong>$5,000</strong> deposit — the line between building and browsing
             </span>
             <span className="pg-software-term-div" aria-hidden="true" />
             <span className="pg-software-term">
-              Scoped in days. Yours on day one.
+              Fixed scope. Fixed price. Scoped in days, yours on day one.
             </span>
           </div>
 

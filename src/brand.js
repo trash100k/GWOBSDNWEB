@@ -35,7 +35,7 @@ export const COPY = {
   hero: {
     eyebrow: 'Four Branches · One Forge',
     headline: 'Automatic Execution',
-    sub: 'We forge AI systems that run your business while you sleep. Built to execute, not to babysit.',
+    sub: 'The system that runs your business while you sleep — booking the jobs, killing the busywork, answering every call. Built to execute, not to babysit.',
     cta: 'Start the Forge',
   },
 
@@ -44,7 +44,7 @@ export const COPY = {
   clan: {
     kicker: '01 · The Clan',
     head: 'One forge. Four branches.',
-    body: 'GAELWORX is an engineering forge, not an agency. We ship our own platforms — YardWorx, RepairWorx, SalesWorx, AgentWorx — and build the same caliber of systems for you. We move like a clan: small, fast, fully accountable. You talk to the people who build it.',
+    body: 'GAELWORX is an engineering forge, not an agency. We run our own platforms on this exact system — YardWorx, RepairWorx, SalesWorx, AgentWorx — and forge the same caliber for you. The enemy is the black box: AI theater that demos and never ships, agencies that bill for motion. We move like a clan — small, fast, on the hook. You talk to the people who build it.',
   },
 
   // Each branch is wired to sell: outcome (line) → first-hand proof (body) →
@@ -52,23 +52,23 @@ export const COPY = {
   arsenal: {
     kicker: '02 · The Arsenal',
     head: 'Four branches. One forge.',
-    intro: 'Tell us the bottleneck. We build the system that ends it.',
+    intro: 'Name the thing eating your week. We forge the system that ends it.',
     branches: [
       {
         id: 'GW–01',
         tag: 'Software',
-        line: 'Custom software. Built to run it all.',
-        body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. The same forge that built YardWorx, built for how you actually run.',
-        anchor: 'Agencies bill $75k and months of discovery.',
+        line: 'Custom software. Built to run it all — and owned outright.',
+        body: 'Internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. You own the code, not a license: no lock-in, no black box. The same forge that built YardWorx, built for how you actually run.',
+        anchor: 'Agencies bill $75k and burn months on discovery.',
         price: 'From $10,000',
         note: '$5k deposit to start',
       },
       {
         id: 'GW–02',
         tag: 'Voice',
-        line: 'Lifelike voice agents that never clock out.',
-        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — in a voice no caller clocks as AI. The same agent that runs our own front desk.',
-        anchor: 'An in-house receptionist runs $48,000 a year.',
+        line: 'Every missed call is a job booked by someone else.',
+        body: 'Maeve answers every call, qualifies the lead, books the job, and chases the no-show — while you’re on the job, in a voice no caller clocks as AI. She runs our own front desk. Put her on yours and the phone stops going to voicemail.',
+        anchor: 'An in-house receptionist runs $48,000 a year and clocks out. Maeve never does.',
         price: 'From $499/mo',
         note: '+ one-time setup',
       },
@@ -76,15 +76,15 @@ export const COPY = {
         id: 'GW–03',
         tag: 'Automations',
         line: 'Workflows that kill the headaches.',
-        body: 'Quoting, follow-up, invoicing, reviews — running on their own, handing you your data to own and leverage like no one else can. The same automations that run our shops.',
+        body: 'Quoting, follow-up, invoicing, reviews — running on their own, and handing your data back to you to own and leverage like no one else can. No black box, no hostage tool. The same automations that run our own shops.',
         anchor: 'By hand, it costs you those hours every week.',
         price: 'From $1,500',
       },
       {
         id: 'GW–04',
         tag: 'Web',
-        line: 'Cinematic web that books the job.',
-        body: 'Studio-grade, cinematic lead-gen sites that turn visitors into booked work and route every lead straight to your phone. Built to the standard of the page you’re on.',
+        line: 'Cinematic web that books the truck.',
+        body: 'Studio-grade, cinematic lead-gen that routes every lead straight to your phone — and books the truck instead of just looking good. Built to the standard of the page you’re on.',
         anchor: 'Premium studios charge $50k+ for this.',
         price: 'From $1,299',
       },
@@ -96,7 +96,7 @@ export const COPY = {
   rates: {
     kicker: 'The Forge Runs Lean',
     head: 'Premium work. Honest prices.',
-    lede: 'Automatic Execution means we’ve systematized what others bill by the hour. You’re not paying less for less — you’re paying less because the forge is efficient.',
+    lede: 'Automatic Execution systematizes what agencies bill by the hour — the quoting, the follow-up, the build scaffolding that runs the same every time. You don’t pay less for less. You pay less because the forge runs lean.',
     foot: 'Fixed scope. Fixed price. Continental US · 7 Days.',
   },
 
@@ -109,71 +109,71 @@ export const COPY = {
     '/software': [
       {
         q: 'How much does custom software cost?',
-        a: 'Custom software starts from $10,000, with a $5k deposit to start. That buys internal tools and proprietary platforms — custom-built, documented, and open-sourced to you. Agencies bill $75k and months of discovery for the same scope.',
+        a: 'Custom software starts from $10,000, with a $5k deposit to start. That buys internal tools and proprietary platforms — custom-built, documented, and open-sourced to you, so you own the code outright. Agencies bill $75k and burn months on discovery for the same scope.',
       },
       {
         q: 'Do I own the code you build?',
-        a: 'Yes — every platform we build is documented and open-sourced to you, so you own the code outright. The same forge that built YardWorx builds for how you actually run. No lock-in, no black box.',
+        a: 'Yes — every platform we build is documented and open-sourced to you on day one, so you own the code outright. No lock-in, no black box, no rented roadmap. The same forge that built YardWorx builds for how you actually run. Custom software from $10,000.',
       },
     ],
     '/voice': [
       {
         q: 'Does Maeve sound human?',
-        a: 'No caller clocks Maeve as AI. She answers every call, qualifies the lead, books the job, and chases no-shows in a lifelike voice — the same agent that runs our own front desk. Voice agents start from $499/mo plus a one-time setup.',
+        a: 'No caller clocks Maeve as AI. She answers every call, qualifies the lead, books the job, and chases the no-show in a voice that breathes — the same agent that runs our own front desk. Voice agents start from $499/mo plus a one-time setup.',
       },
       {
         q: 'How much is an AI voice agent?',
-        a: 'Maeve runs from $499/mo plus a one-time setup. An in-house receptionist runs $48,000 a year and clocks out. Maeve answers every call, qualifies leads, books jobs, and chases no-shows — and never clocks out.',
+        a: 'Maeve runs from $499/mo plus a one-time setup. An in-house receptionist runs $48,000 a year and clocks out at five. Maeve answers every call, qualifies the lead, books the job, and chases the no-show — and never clocks out. Roughly an eighth of the cost.',
       },
       {
         q: 'Can Maeve actually book jobs?',
-        a: 'Yes — Maeve books the job directly and chases the no-shows, not just takes messages. She answers every call, qualifies the lead, and routes it straight to you. From $499/mo plus one-time setup.',
+        a: 'Yes — Maeve books the job straight into your calendar and chases the no-show, not just takes a message. She answers every call, qualifies the lead, and routes the hot ones to you while you work. From $499/mo plus one-time setup.',
       },
     ],
     '/automations': [
       {
         q: 'How much do workflow automations cost?',
-        a: 'Workflow automation starts from $1,500. We put quoting, follow-up, invoicing, and reviews on autopilot — and hand you your data to own and leverage like no one else can. The same automations that run our own shops.',
+        a: 'Workflow automation starts from $1,500. We put quoting, follow-up, invoicing, and reviews on autopilot — then hand you your data to own and leverage like no one else can. No black box. The same automations that run our own shops. One build pays for itself inside a month.',
       },
       {
         q: 'What can you automate for my business?',
-        a: 'We automate quoting, follow-up, invoicing, and review collection — the rote work that costs you hours every week by hand. It runs on its own and hands your data back to you. From $1,500.',
+        a: 'Quoting, follow-up, invoicing, and review collection — the rote work that costs you hours every week by hand. It runs on its own, never drops the ball, and hands your data back to you to own. Not locked in someone else’s tool. From $1,500. It runs the work, it pays for itself.',
       },
     ],
     '/web': [
       {
         q: 'How much does a website cost?',
-        a: 'A GAELWORX site starts from $1,299. You get a studio-grade, cinematic lead-gen site that turns visitors into booked work and routes every lead to your phone. Premium studios charge $50k+ for this.',
+        a: 'A GAELWORX site starts from $1,299. You get studio-grade cinematic lead-gen that routes every lead straight to your phone and books the truck — not just looks good. Premium studios charge $50k+ for this. Fixed scope, fixed price, shipped in 7 days.',
       },
       {
         q: 'How fast can you ship a site?',
-        a: 'Fixed scope, fixed price, shipped in 7 days — Continental US. No pilots that rot in phase two. We put it live, it runs the work, and it pays for itself. Web from $1,299.',
+        a: 'Seven days. Fixed scope, fixed price, Continental US — no pilots that rot in phase two. We put it live, it routes leads straight to your phone, and it books the truck. Web from $1,299, against the $50k+ premium studios charge.',
       },
       {
         q: 'Will the site actually generate leads?',
-        a: 'Yes — every site routes every lead straight to your phone and is built to book the truck, not just look good. Studio-grade and cinematic, from $1,299. Built to the standard of the page you are on.',
+        a: 'Yes. Every site routes every lead straight to your phone and is built to book the truck, not just look good — the outcome is work on your calendar. Studio-grade and cinematic, built to the standard of the page you are reading. From $1,299.',
       },
     ],
     '/pricing': [
       {
         q: 'What is the deposit to start?',
-        a: 'Software requires a $5k deposit to start; all work is fixed scope, fixed price. Voice from $499/mo plus one-time setup, Web from $1,299, Automations from $1,500, Software from $10,000. We carry the risk — you pay when it executes.',
+        a: 'Software takes a $5k deposit to start — it locks scope, not a paywall; it filters for buyers who build, not browse. Voice from $499/mo plus one-time setup, Web from $1,299, Automations from $1,500 start without one. Fixed scope, fixed price. We carry the risk — you pay when it executes.',
       },
       {
         q: 'Why are your prices lower than agencies?',
-        a: 'Fixed scope. Fixed price. Continental US, shipped in 7 days. You are not paying less for less — you are paying less because the forge is efficient. We systematized what others bill by the hour.',
+        a: 'Automatic Execution systematizes what agencies bill by the hour. You don’t pay less for less — you pay less because the forge runs lean. No discovery theater, no layers of management, no year of meetings. Fixed scope, fixed price, shipped in 7 days. Continental US. You own what we build.',
       },
       {
         q: 'What does each branch cost?',
-        a: 'Software starts from $10,000 with a $5k deposit. Voice from $499/mo plus one-time setup, Automations from $1,500, Web from $1,299. Every price is a fixed-scope "from" — name the bottleneck and we scope the build.',
+        a: 'Software from $10,000 with a $5k deposit — agencies bill $75k. Voice from $499/mo plus setup against a $48,000/yr receptionist. Web from $1,299 where studios charge $50k+. Automations from $1,500. Every price is a fixed-scope "from." Name the bottleneck — we put a number on ending it.',
       },
     ],
   },
 
   point: {
     kicker: '03 · Start the Forge',
-    head: 'Tell us the problem.',
-    body: 'One call. No discovery-call theater. You name the bottleneck — we build the system that kills it.',
+    head: 'Name the bottleneck.',
+    body: 'One call. No discovery-call theater. You name the bottleneck — we forge the system that kills it. Fixed scope, fixed price, before you owe a thing.',
     cta: 'Start the Forge',
     avail: 'Available · Continental US · 7 Days',
   },
@@ -187,28 +187,28 @@ export const COPY = {
     rungs: [
       {
         n: '01',
-        head: 'We build what we know.',
-        body: 'Every build starts from decades of first-hand knowledge — we’ve run the operation, not just read the case study. We’ve worked the bottlenecks we automate and lived the problems we solve, so you’re never paying us to learn your business on your dime.',
+        head: 'We build what we run.',
+        body: 'Every build starts from decades on the floor — we’ve run the operation, not read the case study. We worked the bottlenecks we automate and lived the problems we solve, so you never pay us to learn your business on your dime.',
       },
       {
         n: '02',
         head: 'Built on enterprise ground.',
-        body: 'We build on the same battle-tested platforms that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven rails. Behavior you can predict.',
+        body: 'We build on the same battle-tested rails that run banks and logistics fleets — not last quarter’s frontier model and a crossed-fingers prompt. Proven ground. Behavior you can predict. Nothing held together with hope.',
       },
       {
         n: '03',
-        head: 'Curiosity, not reliance.',
-        body: 'We point AI at the redundant work — never to breed dependence. No black-box oracle, no confident nonsense, no machine pretending to be the human in the room. It does the rote, shows its reasoning, and hands judgment back where it belongs — yours. Built to make you sharper, not hooked.',
+        head: 'No black box.',
+        body: 'We point AI at the rote work — never to breed dependence. No black-box oracle, no confident nonsense, no machine pretending to be the human in the room. It does the grunt work, shows its reasoning, and hands judgment back where it belongs — yours. Built to make you sharper, not hooked.',
       },
       {
         n: '04',
         head: 'It ships. Then it earns.',
-        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, and hours handed back to you.',
+        body: 'No pilots that rot in “phase two.” We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, hours handed back. Every week you wait, the manual way keeps billing you for all three.',
       },
       {
         n: '05',
         head: 'We carry the risk.',
-        body: 'Fixed scope. Fixed price. Working on day one. We don’t get paid to experiment on your business — we get paid when it executes.',
+        body: 'Fixed scope. Fixed price. Working on day one. We don’t get paid to experiment on your business — we get paid when it executes. The risk is ours. That’s the point.',
       },
     ],
   },
@@ -218,9 +218,9 @@ export const COPY = {
   // into the four forges, spin into GAELWORX, then the CTA. (PASS → Secure.)
   finale: {
     problems: [
-      'Missed calls. Lost jobs.',
-      'Buried in busywork.',
-      'Six apps. One mess.',
+      'Every missed call. A booked job, gone.',
+      'Hours a week, lost to busywork.',
+      'Six apps. None of them talking.',
       'A site that books nothing.',
     ],
     seed: 'AI everywhere. Execution nowhere.',
@@ -232,7 +232,7 @@ export const COPY = {
     ],
     forges: ['YardWorx', 'RepairWorx', 'SalesWorx', 'AgentWorx'],
     mark: 'GAELWORX',
-    closer: 'We keep up so you don’t have to. We take care of the battlefield.',
+    closer: 'We keep up so you don’t have to. You command the machine — we hold the line.',
     avail: 'Available · Continental US · 7 Days',
     cta: 'Start the Forge',
   },

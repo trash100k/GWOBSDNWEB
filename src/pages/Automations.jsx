@@ -7,10 +7,10 @@ const b = COPY.arsenal.branches.find((x) => x.tag === 'Automations')
 
 // The hours-per-week the manual grind eats — the "busywork tax".
 const TAX = [
-  { hrs: '6', label: 'Quoting by hand', note: 'Retyping the same numbers into a doc, then chasing a signature.' },
+  { hrs: '6', label: 'Quoting by hand', note: 'You retype the same numbers into a doc, then chase the signature.' },
   { hrs: '5', label: 'Follow-up that slips', note: 'Hot leads go cold because nobody had time to chase them.' },
-  { hrs: '4', label: 'Invoicing & chasing pay', note: 'Building invoices twice, then hunting down the overdue ones.' },
-  { hrs: '3', label: 'Begging for reviews', note: 'Forgetting to ask — so the 5-star jobs stay invisible.' },
+  { hrs: '4', label: 'Invoicing & chasing pay', note: 'You build the invoice twice, then hunt down the overdue ones.' },
+  { hrs: '3', label: 'Begging for reviews', note: 'You forget to ask — so the 5-star jobs stay invisible.' },
 ]
 
 // The six apps that don't talk to each other — "six apps, one mess".
@@ -22,31 +22,31 @@ const FLOWS = [
     id: 'A',
     name: 'Quote → Invoice',
     line: 'One trail from first touch to paid.',
-    body: 'The lead lands, the quote builds itself from your numbers, the job converts to an invoice the second it’s approved — and the paperwork never gets keyed in twice.',
+    body: 'The lead lands, the quote builds itself from your numbers, and the second it’s approved it becomes an invoice. Nobody keys the same paperwork in twice. Nobody forgets the follow-through.',
     steps: ['Lead in', 'Quote out', 'Approved', 'Invoiced', 'Paid'],
   },
   {
     id: 'B',
     name: 'Follow-up That Fires',
     line: 'No lead goes cold. Ever.',
-    body: 'Every estimate that goes quiet gets chased on a schedule. No-shows get a nudge. The deal you’d have forgotten about books itself while you’re on the truck.',
+    body: 'Every quiet estimate gets chased on a schedule. No-shows get a nudge. The deal you’d have forgotten books itself while you’re on the truck.',
     steps: ['Sent', 'Silent', 'Nudge', 'Re-engaged', 'Booked'],
   },
   {
     id: 'C',
     name: 'Reviews on Autopilot',
     line: 'Every 5-star job, asked for.',
-    body: 'The moment a job closes, the review request fires to the happiest customers — timed right, worded right — so your reputation compounds without you lifting a finger.',
+    body: 'The moment a job closes, the request fires to your happiest customers — timed right, worded right — so your reputation compounds and you never lift a finger.',
     steps: ['Job done', 'Timed ask', 'Reviewed', 'Ranked', 'Found'],
   },
 ]
 
 // How it works — the build path.
 const PROCESS = [
-  { n: '01', head: 'Map the grind', body: 'We trace one job end-to-end and mark every place a human re-types, copies, or chases. The leaks are obvious once they’re on paper.' },
+  { n: '01', head: 'Map the grind', body: 'We trace one job end-to-end and mark every place a human re-types, copies, or chases. The leaks are obvious the second they hit paper.' },
   { n: '02', head: 'Wire the flow', body: 'We connect the tools you already pay for into one trail — no rip-and-replace. It runs in days, not a quarter.' },
   { n: '03', head: 'Prove it live', body: 'It goes live on your real work, runs the busywork, and we watch it for a week. No pilot that rots in “phase two.”' },
-  { n: '04', head: 'Hand you the keys', body: 'You own the system and the data underneath it — documented, exportable, yours. We don’t hold it hostage.' },
+  { n: '04', head: 'Hand you the keys', body: 'You own the system and the data underneath it — documented, exportable, yours. We don’t hold it hostage. Ever.' },
 ]
 
 export default function Automations() {
@@ -54,7 +54,7 @@ export default function Automations() {
     <PageShell
       kicker="GW–03 · Automations"
       title="The Busywork Runs Itself"
-      lede="Quoting, follow-up, invoicing, reviews — wired into one flow that never forgets, never drops the ball, and hands you your data to own. The same automations that run our own shops, built for yours."
+      lede="Quoting, follow-up, invoicing, reviews — wired into one flow that never forgets and never drops the ball. It runs the work, and it hands your data back to you to own — not locked in someone else’s tool. The same automations that run our own shops, built for yours."
     >
       <style>{AUTO_CSS}</style>
 
@@ -62,7 +62,8 @@ export default function Automations() {
       <Section eyebrow="The Busywork Tax" title="You’re paying it every week." align="start">
         <p>
           Nobody quoted you for it, but it’s the most expensive line on your books: the hours your
-          team burns moving the same information between six apps that don’t talk. Add it up.
+          team burns moving the same numbers between six apps that don’t talk. By hand, every week.
+          Add it up.
         </p>
 
         <div className="pg-auto-tax" role="list">
@@ -84,7 +85,7 @@ export default function Automations() {
           <div className="pg-auto-tax-total">
             <span className="pg-auto-tax-total-label">The tab</span>
             <span className="pg-auto-tax-total-num">≈ 18 hrs / week</span>
-            <span className="pg-auto-tax-total-note">Two full days, gone to admin — every single week.</span>
+            <span className="pg-auto-tax-total-note">Two full days, gone to admin. Every single week. By hand, that’s the bill.</span>
           </div>
         </div>
 
@@ -97,7 +98,8 @@ export default function Automations() {
             ))}
           </div>
           <p className="pg-auto-mess-note">
-            Each one holds a piece of the job. None of them holds the whole thing. The glue is you.
+            Each one holds a piece of the job. None of them holds the whole thing. You’re the glue —
+            and you cost more than all six combined.
           </p>
         </div>
       </Section>
@@ -106,7 +108,7 @@ export default function Automations() {
       <Section eyebrow="What We Automate" title="Three flows that end the grind." align="start">
         <p>
           We don’t hand you another dashboard to babysit. We wire the work itself so it moves on its
-          own — start to finish, no one re-typing a thing.
+          own — start to finish, no one re-typing a thing, no one watching it.
         </p>
 
         <div className="pg-auto-flows">
@@ -137,8 +139,8 @@ export default function Automations() {
       <Section eyebrow="Your Data, Unified" title="One source of truth — and it’s yours." align="start" tone="panel">
         <p>
           Most automations lock your business inside someone else’s tool. We do the opposite. Every
-          flow we build feeds one clean ledger of your customers, jobs, and money — and you own it
-          outright. Documented. Exportable. Never held hostage.
+          flow we build feeds one clean ledger of your customers, jobs, and money — and hands it back
+          to you to own outright. Documented. Exportable. Never held hostage.
         </p>
 
         <div className="pg-auto-unify">
@@ -170,9 +172,9 @@ export default function Automations() {
           </svg>
 
           <ul className="pg-auto-own">
-            <li><strong>One source of truth.</strong> Not scattered across six logins — assembled, every time, automatically.</li>
-            <li><strong>You hold the keys.</strong> Full export, full access. Walk away with everything if you ever choose to.</li>
-            <li><strong>Leverage no one else has.</strong> Your own history, ready to mine — quote faster, follow up smarter, see what actually pays.</li>
+            <li><strong>One source of truth.</strong> Not scattered across six logins — assembled for you, every time, automatically.</li>
+            <li><strong>You hold the keys.</strong> Full export, full access. Walk away with everything the day you choose to.</li>
+            <li><strong>Leverage no one else can give you.</strong> Your own history, ready to mine — quote faster, follow up smarter, and see exactly what pays.</li>
           </ul>
         </div>
       </Section>
@@ -183,11 +185,11 @@ export default function Automations() {
           <div className="pg-auto-vs-col pg-auto-vs-before">
             <span className="pg-auto-vs-tag">Before</span>
             <ul>
-              <li>Quote retyped into three places</li>
-              <li>Leads chased when you remember</li>
-              <li>Invoices built twice, paid late</li>
+              <li>You retype the quote into three places</li>
+              <li>You chase leads when you remember</li>
+              <li>You build invoices twice, you get paid late</li>
               <li>Reviews? When you get around to it</li>
-              <li>The truth lives in your head</li>
+              <li>The truth lives only in your head</li>
             </ul>
           </div>
           <div className="pg-auto-vs-arrow" aria-hidden="true">
@@ -199,9 +201,9 @@ export default function Automations() {
           <div className="pg-auto-vs-col pg-auto-vs-after">
             <span className="pg-auto-vs-tag">After</span>
             <ul>
-              <li>Quote builds itself, once</li>
-              <li>Every lead chased on schedule</li>
-              <li>Invoice fires on approval, paid on time</li>
+              <li>The quote builds itself, once</li>
+              <li>Every lead gets chased on schedule</li>
+              <li>The invoice fires on approval — paid on time</li>
               <li>Reviews ask themselves at the right moment</li>
               <li>The truth lives in a ledger you own</li>
             </ul>
@@ -236,9 +238,9 @@ export default function Automations() {
           </div>
           <span className="pg-auto-price-range">Project or retainer · $1,500–$5,000</span>
           <p className="pg-auto-price-note">
-            Win back two days a week and you’ve paid for the build inside a month. Fixed scope, fixed
-            price — the forge runs lean, so you don’t pay agency rates to systematize what we’ve
-            already systematized.
+            Win back two days a week and the build pays for itself inside a month. It runs the work,
+            it pays for itself. Fixed scope, fixed price — the forge runs lean, so you don’t pay
+            agency rates to systematize what we already systematized.
           </p>
         </div>
       </Section>

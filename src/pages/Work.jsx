@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import PageShell from '../ui/PageShell.jsx'
 import Section from '../ui/Section.jsx'
 import Ignite from '../ui/Ignite.jsx'
@@ -13,27 +14,35 @@ import BrandText from '../ui/BrandText.jsx'
 const PLATFORMS = [
   {
     name: 'YardWorx',
-    what: 'Operations platform for landscape & outdoor crews — scheduling, crews, and job costing in one system.',
+    link: '/software',
+    problem: 'Landscape & outdoor crews ran the day on whiteboards and group texts — dispatch guessed, paperwork piled, jobs slipped.',
+    mechanism: 'One operations platform: scheduling, crews, and job costing on a single rail. Built on the GAELWORX stack, owned outright.',
     metric: '40%',
-    metricLabel: 'less time on dispatch & paperwork',
+    metricLabel: 'less time lost to dispatch & paperwork',
   },
   {
     name: 'RepairWorx',
-    what: 'Service & repair management — intake, work orders, parts, and customer history on one rail.',
+    link: '/software',
+    problem: 'Service shops drowned in voicemail and sticky notes — intake, work orders, parts, and customer history scattered across six tools.',
+    mechanism: 'Intake, work orders, parts, and full customer history on one system — every job accountable from call to close.',
     metric: '2.3×',
     metricLabel: 'more jobs closed per tech, per week',
   },
   {
     name: 'SalesWorx',
-    what: 'Pipeline and quoting engine — leads in, quotes out, follow-up that never drops a thread.',
+    link: '/automations',
+    problem: 'Leads came in and died waiting — quotes sat for days, follow-up depended on whoever remembered.',
+    mechanism: 'A pipeline-and-quoting engine: leads in, quotes out, follow-up that never drops a thread — automated end to end.',
     metric: '31%',
     metricLabel: 'lift in quote-to-close rate',
   },
   {
     name: 'AgentWorx',
-    what: 'The control layer for voice + automation agents — every call, task, and handoff, accountable.',
+    link: '/voice',
+    problem: 'Every missed call after hours was a missed job — and a receptionist who clocks out costs $48k a year.',
+    mechanism: 'The control layer for Maeve and the voice + automation agents — every call answered, every task and handoff accountable.',
     metric: '24/7',
-    metricLabel: 'coverage with zero added headcount',
+    metricLabel: 'coverage, zero added headcount',
   },
 ]
 
@@ -43,17 +52,17 @@ const PROCESS = [
   {
     n: '01',
     head: 'Structured discovery',
-    body: 'We map the real bottleneck in a working session — not a sales call. You name the problem; we trace where the hours and the money actually leak.',
+    body: 'We map the real bottleneck in a working session — not a sales call. You name the problem; we trace exactly where the hours and the money leak. No discovery-call theater.',
   },
   {
     n: '02',
-    head: 'De-risked scope',
-    body: 'Fixed scope, fixed price, documented decisions. You know what ships, what it costs, and what it does before a single line is forged.',
+    head: 'Fixed scope. Fixed price.',
+    body: 'You know what ships, what it costs, and what it does before a single line is forged. The number doesn’t move. We carry the project risk — that’s the point.',
   },
   {
     n: '03',
-    head: 'Earned in weeks',
-    body: 'No pilots rotting in phase two. We put it live, it runs the work, and it earns its keep — measured in weeks, never slide decks.',
+    head: 'Live in weeks — then it earns',
+    body: 'No phase two to rot in. We put it live, it runs the work, and it pays for itself — counted in jobs booked, calls answered, and hours handed back to you.',
   },
 ]
 
@@ -63,23 +72,23 @@ const STUDIES = [
   {
     sector: 'Field Service',
     problem: 'Missed calls bled into missed jobs; the front desk drowned in voicemail.',
-    build: 'A managed voice agent on the GAELWORX stack, wired to the booking calendar.',
-    result: '__ %',
-    resultLabel: 'of after-hours calls captured & booked',
+    build: 'A managed Maeve voice agent on the GAELWORX stack, wired straight to the booking calendar.',
+    result: '[__%]',
+    resultLabel: 'of after-hours calls captured & booked — to confirm',
   },
   {
     sector: 'Trades & Repair',
     problem: 'Quotes sat for days; follow-up depended on whoever remembered.',
-    build: 'An automated quote-and-chase workflow with owned, unified job data.',
-    result: '__ days',
-    resultLabel: 'cut from quote-to-decision time',
+    build: 'An automated quote-and-chase workflow on unified, owned job data.',
+    result: '[__ days]',
+    resultLabel: 'cut from quote-to-decision time — to confirm',
   },
   {
     sector: 'Multi-location',
     problem: 'Six disconnected apps, no single source of truth, no command view.',
-    build: 'A custom platform consolidating ops onto one rail — your data, owned.',
-    result: '__ hrs',
-    resultLabel: 'handed back to the owner each week',
+    build: 'A custom platform consolidating ops onto one rail — your data, owned outright.',
+    result: '[__ hrs]',
+    resultLabel: 'handed back to the owner each week — to confirm',
   },
 ]
 
@@ -87,19 +96,19 @@ export default function Work() {
   return (
     <PageShell
       kicker="The Proof"
-      title="We Build What We Know"
-      lede="Every build comes from decades of first-hand knowledge — we’ve run the operation, not read the case study. The proof is the forge’s own platforms, the way we work, and the results we put our name on."
+      title="We Build What We Sell"
+      lede="We didn’t read the case study — we built the company in it. YardWorx, RepairWorx, SalesWorx, and AgentWorx are ours: shipped, in production, running real work every day. That’s the proof. Not a logo wall we rented — four platforms we forged and still run. This is the caliber we build for you."
     >
       <style>{WORK_CSS}</style>
 
       {/* ── THE FORGE'S OWN PLATFORMS — first-hand proof ────────────────── */}
       <Section
         eyebrow="The Forge’s Own"
-        title="Four platforms. One forge."
+        title="Four platforms. Already in production."
         align="center"
       >
         <p className="pg-work-intro">
-          <BrandText text="We don’t learn on your dime. YardWorx, RepairWorx, SalesWorx, and AgentWorx are platforms we built — and run — for the trades we came up in. Same forge. Same caliber we build for you." />
+          <BrandText text="Most studios show you someone else’s results and ask you to trust the screenshot. We hand you ours. YardWorx, RepairWorx, SalesWorx, and AgentWorx run live, in the trades we came up in — built, owned, and operated by GAELWORX. Same forge. Same fire. Same caliber we build for you." />
         </p>
 
         <div className="pg-work-platforms">
@@ -107,9 +116,22 @@ export default function Work() {
             <article key={p.name} className="pg-work-card pg-work-card--platform">
               <span className="pg-work-card__tag">Built &amp; Run by GAELWORX</span>
               <h3 className="pg-work-card__name">
-                <Ignite text={p.name} />
+                <Link to={p.link} className="pg-work-card__link">
+                  <Ignite text={p.name} />
+                </Link>
               </h3>
-              <p className="pg-work-card__what">{p.what}</p>
+              <dl className="pg-work-card__dl">
+                <div className="pg-work-card__row">
+                  <dt>Problem</dt>
+                  <dd>{p.problem}</dd>
+                </div>
+                <div className="pg-work-card__row">
+                  <dt>What we built</dt>
+                  <dd>
+                    <BrandText text={p.mechanism} />
+                  </dd>
+                </div>
+              </dl>
               <div className="pg-work-metric">
                 <span className="pg-work-metric__value">{p.metric}</span>
                 <span className="pg-work-metric__label">{p.metricLabel}</span>
@@ -118,21 +140,23 @@ export default function Work() {
           ))}
         </div>
         <p className="pg-work-foot">
-          Internal benchmarks from the forge’s own operations. Your numbers get
-          measured live — and put on this page.
+          Internal benchmarks from the forge’s own operations — our shops, our
+          numbers, measured live. Yours get measured the same way, and they go on
+          this page.
         </p>
       </Section>
 
       {/* ── HOW WE WORK — de-risk the buy ───────────────────────────────── */}
       <Section
         eyebrow="How We Work"
-        title="Earned in weeks, not slide decks."
+        title="Shipped in weeks. Not pilots that rot."
         align="start"
       >
         <p className="pg-work-lead">
-          Credible builds earn trust in weeks, not decks. We run structured
-          discovery, de-risk the scope before we forge a thing, and ship work
-          that pays for itself — fast.
+          The industry’s dirty secret is the pilot that never ships — the
+          proof-of-concept that wins the meeting, then rots in “phase two” while you
+          keep paying and nothing runs. We don’t sell pilots. We scope it cold, name
+          the number, build it, and put it live. The platforms above are the receipt.
         </p>
 
         <ol className="pg-work-process">
@@ -152,13 +176,16 @@ export default function Work() {
 
       {/* ── CASE STUDIES — consistent Problem → Build → Result slots ─────── */}
       <Section
-        eyebrow="Case Studies"
-        title="Results we put our name on."
+        eyebrow="Client Results"
+        title="Your numbers go here. Earned, not invented."
         align="start"
       >
         <p className="pg-work-lead">
-          Real studies, scoped to jobs like yours, are forged in. Each one lands
-          the same way — the problem, what we built, and the result, in numbers.
+          We won’t show you a metric we didn’t earn. These slots are built and
+          waiting — same Problem → Build → Result shape as the platforms above — and
+          they fill with real, client-verified numbers as the work ships. No stock
+          photos. No borrowed logos. No “results may vary.” When yours land, they
+          land here, with your name on them.
         </p>
 
         <div className="pg-work-studies">
@@ -194,8 +221,9 @@ export default function Work() {
           ))}
         </div>
         <p className="pg-work-foot">
-          Placeholders today. Live, client-verified metrics drop into these exact
-          slots as the work ships.
+          Placeholders today — and we’re telling you so. The moment a build ships and
+          the client signs off on the number, it drops into these exact slots. That’s
+          the difference between proof and a screenshot you can’t verify.
         </p>
       </Section>
     </PageShell>
@@ -239,6 +267,22 @@ const WORK_CSS = `
 .pg-work-card__what{
   margin:0; font-size:clamp(0.98rem,1.4vw,1.1rem) !important; line-height:1.5;
   color:var(--gw-steel); max-width:42ch;
+}
+.pg-work-card__link{
+  color:inherit; text-decoration:none;
+  border-bottom:2px solid rgba(232,93,4,0.35);
+  transition:border-color .25s var(--ease);
+}
+.pg-work-card__link:hover{border-bottom-color:var(--gw-ember);}
+.pg-work-card__dl{margin:0; display:flex; flex-direction:column; gap:14px;}
+.pg-work-card__row{margin:0;}
+.pg-work-card__row dt{
+  font-size:10px; letter-spacing:0.26em; font-weight:700; text-transform:uppercase;
+  color:var(--gw-ember); margin-bottom:6px;
+}
+.pg-work-card__row dd{
+  margin:0; font-size:clamp(0.96rem,1.35vw,1.06rem); line-height:1.5;
+  color:var(--gw-steel); max-width:46ch;
 }
 .pg-work-metric{
   margin-top:clamp(18px,2.4vw,26px); padding-top:16px;

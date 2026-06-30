@@ -49,7 +49,7 @@ export default function About() {
     <PageShell
       kicker="The Clan"
       title="One Forge. Four Branches."
-      lede="GAELWORX is an engineering forge, not an agency. We ship our own platforms and build the same caliber of systems for you — moving like a clan: small, fast, fully accountable."
+      lede="GAELWORX is an engineering forge — not an agency. We ship our own platforms and forge the same caliber of system for you. We move like a clan: small, fast, fully accountable. You talk to the people who build it — never an account manager standing between you and the work."
     >
       <style>{ABOUT_CSS}</style>
 
@@ -58,12 +58,13 @@ export default function About() {
         <div className="pg-about-ethos">
           <div className="pg-about-ethos-copy">
             <p>
-              <BrandText text="No account managers. No layers between you and the work. GAELWORX moves like a clan — small, fast, fully accountable for every line we ship." />
+              <BrandText text="No account managers. No layers between you and the work. GAELWORX moves like a clan — small enough to move fast, accountable for every line we ship. The hand that writes the code is the hand you shake." />
             </p>
             <p>
               You talk to the people who build it. The same hands that forged
               <BrandText text=" YardWorx, RepairWorx, SalesWorx, and AgentWorx" /> sit
-              across from you and answer for the system that runs your business.
+              across from you and answer for the system that runs your business. We eat
+              our own forge before we sell you a bite of it.
             </p>
           </div>
           <figure className="pg-about-seal">
@@ -96,34 +97,57 @@ export default function About() {
       {/* ── WE BUILD WHAT WE KNOW — first-hand knowledge ──────────────────── */}
       <Section eyebrow="02 · The Ground" title="We build what we know." align="start" tone="panel">
         <p>
-          Every build starts from decades of first-hand knowledge. We have
-          <strong> run the operation, not read the case study</strong> — worked the
-          bottlenecks we automate and lived the problems we solve.
+          Every build starts from years on the floor of the businesses we now
+          automate. We have <strong>run the operation, not read the case study</strong> —
+          worked the bottlenecks we kill and lived the problems we solve. We have
+          signed the front of the paycheck, not just the back of it.
         </p>
         <p>
-          So you are never paying us to learn your business on your dime. We arrive
-          knowing the work, and we forge for how you actually run it.
+          So you never pay us to learn your business on your dime. We walk in
+          knowing the work, and we forge for how you actually run it — not for how a
+          slide deck says you should.
+        </p>
+      </Section>
+
+      {/* ── THE FOUNDING ENEMY — why GAELWORX exists ──────────────────────── */}
+      <Section eyebrow="The Enemy" title="We were built against the theater." align="start">
+        <p>
+          <BrandText text="GAELWORX exists because the AI market got loud and stopped shipping. Two rackets sell motion as progress. We were forged to end both." />
+        </p>
+        <div className="pg-about-ethic">
+          <div className="pg-about-ethic-row">
+            <span className="pg-about-ethic-label">AI theater</span>
+            <span className="pg-about-ethic-val">Black-box oracles. Confident nonsense. Last quarter’s frontier model wrapped in a crossed-fingers prompt — demoed once, never shipped, never accountable.</span>
+          </div>
+          <div className="pg-about-ethic-row">
+            <span className="pg-about-ethic-label">The bloated agency</span>
+            <span className="pg-about-ethic-val">Months of discovery. A pilot that rots in phase two. Six layers of account manager between you and anyone who can actually write the code.</span>
+          </div>
+        </div>
+        <p className="pg-about-enemy-turn">
+          <BrandText text="We do not sell the theater. We burn it down and build the system that should have been there — owned by you, documented to you, running the work on day one. The fire is for the fakes. The forge is for you." />
         </p>
       </Section>
 
       {/* ── THE AI PHILOSOPHY — curiosity, not reliance ───────────────────── */}
       <Section eyebrow="03 · The Ethic" title="Curiosity, not reliance." align="start">
         <p>
-          Our goal is to inspire curiosity, never to breed dependence. No black-box
-          oracle. No confident nonsense. No machine pretending to be the human in the room.
+          We point AI at the rote work — never to make you need us. No black-box
+          oracle. No confident nonsense. No machine pretending to be the human in the
+          room. You stay the operator; the machine stays the tool.
         </p>
         <div className="pg-about-ethic">
           <div className="pg-about-ethic-row">
             <span className="pg-about-ethic-label">The machine</span>
-            <span className="pg-about-ethic-val">does the rote, and shows its reasoning.</span>
+            <span className="pg-about-ethic-val">does the rote — and shows its reasoning, every step.</span>
           </div>
           <div className="pg-about-ethic-row">
             <span className="pg-about-ethic-label">The judgment</span>
-            <span className="pg-about-ethic-val">stays where it belongs — yours.</span>
+            <span className="pg-about-ethic-val">stays where it belongs. Yours.</span>
           </div>
           <div className="pg-about-ethic-row">
             <span className="pg-about-ethic-label">The result</span>
-            <span className="pg-about-ethic-val">grounded teaching that makes you sharper, not hooked.</span>
+            <span className="pg-about-ethic-val">grounded teaching that makes you sharper, never hooked.</span>
           </div>
         </div>
       </Section>
@@ -207,6 +231,7 @@ const ABOUT_CSS = `
   text-shadow:0 0 20px rgba(232,93,4,0.3);}
 .pg-about-ethic-val{font-family:var(--gw-headline); font-weight:700; line-height:1.4;
   font-size:clamp(1rem,1.6vw,1.22rem); color:var(--gw-bone);}
+.pg-about-enemy-turn{margin-top:clamp(24px,3.5vh,36px) !important;}
 
 /* the five pillars — numbered brutalist cards, single column for rhythm/measure */
 .pg-about-pillars{list-style:none; margin:clamp(28px,4vh,46px) 0 0; padding:0;

@@ -60,8 +60,8 @@ export default function Voice() {
   return (
     <PageShell
       kicker="GW–02 · Voice Agent"
-      title="The Voice That Never Clocks Out"
-      lede="Maeve answers every call, qualifies the lead, books the job, and chases the no-shows — in a voice no caller clocks as AI. The same agent that runs our own front desk, running yours around the clock."
+      title="The Receptionist That Never Clocks Out"
+      lede="Maeve answers every call, qualifies the lead, books the job, and chases the no-show — while you’re on the job, in a voice no caller clocks as AI. She runs our own front desk. Put her on yours, around the clock."
     >
       <style>{CSS}</style>
 
@@ -73,7 +73,7 @@ export default function Voice() {
         </div>
         <Soundwave bars={36} className="pg-voice-wave--hero" />
         <p className="pg-voice-hero-line">
-          One ring. Every time. Day or night, holidays, the second line during the rush —{' '}
+          One ring. Every time. Nights, weekends, holidays, the second line during the rush —{' '}
           <strong>nothing goes to voicemail.</strong>
         </p>
       </Section>
@@ -81,19 +81,19 @@ export default function Voice() {
       {/* ── 1 · THE COST OF MISSED CALLS ───────────────────────────────────── */}
       <Section
         eyebrow="The Bleed"
-        title="Every missed call is a job you handed to your competitor."
+        title="Every missed call is a job your competitor just booked."
         align="start"
       >
         <p>
-          You are on a roof, under a sink, on the other line. The phone rings out. The caller does
-          not leave a message — <strong>they call the next name on the list.</strong> That is not a
-          missed call. That is a booked job, lost, while you were doing the work.
+          You’re on a roof, under a sink, on the other line. The phone rings out. The caller doesn’t
+          leave a message — <strong>they dial the next name on the list.</strong> That’s not a
+          missed call. That’s a booked job, lost, while you were doing the work.
         </p>
 
         <div className="pg-voice-cost">
           <div className="pg-voice-cost-card">
             <span className="pg-voice-stat">1 in 3</span>
-            <span className="pg-voice-stat-label">calls to trades go unanswered</span>
+            <span className="pg-voice-stat-label">calls to the trades go unanswered</span>
           </div>
           <div className="pg-voice-cost-card">
             <span className="pg-voice-stat">80%</span>
@@ -101,7 +101,7 @@ export default function Voice() {
           </div>
           <div className="pg-voice-cost-card">
             <span className="pg-voice-stat">$0</span>
-            <span className="pg-voice-stat-label">earned from a phone you can't reach</span>
+            <span className="pg-voice-stat-label">earned by a phone no one answers</span>
           </div>
         </div>
 
@@ -125,8 +125,8 @@ export default function Voice() {
         align="start"
       >
         <p>
-          Maeve does not read a phone tree. She talks — listens, asks, decides, and books — like the
-          best receptionist you have ever hired, except she never sleeps, never quits, and never puts
+          Maeve doesn’t read a phone tree. She talks — listens, asks, decides, books — like the
+          best receptionist you ever hired, except she never sleeps, never quits, and never puts
           a caller on hold.
         </p>
 
@@ -136,15 +136,15 @@ export default function Voice() {
             No menu, no hold music, no voicemail.
           </FlowStep>
           <FlowStep n="02" icon={ICONS.filter} title="Qualifies the lead">
-            Asks the right questions, captures the job details, and filters tire-kickers from real
-            work before it ever hits your phone.
+            Asks the right questions, captures the job details, and sorts tire-kickers from real
+            work before anything hits your phone.
           </FlowStep>
           <FlowStep n="03" icon={ICONS.calendar} title="Books the job">
             Reads your live availability and drops the appointment straight into your calendar —
             confirmed, with the address and the scope.
           </FlowStep>
-          <FlowStep n="04" icon={ICONS.loop} title="Chases the no-shows">
-            Confirms ahead of time, follows up on the ones who ghost, and refills the slot — so a
+          <FlowStep n="04" icon={ICONS.loop} title="Chases the no-show">
+            Confirms ahead, follows up on the ones who ghost, and refills the slot — so a
             no-show never costs you the hour.
           </FlowStep>
         </div>
@@ -158,7 +158,7 @@ export default function Voice() {
         </h2>
         <Soundwave bars={44} className="pg-voice-wave--human" />
         <p className="pg-voice-human-body">
-          Natural pacing. Real interruptions handled. Your business name, your services, your tone —
+          Natural pacing. Real interruptions, handled. Your business name, your services, your tone —
           a script you control, delivered in a voice that breathes. Callers think they reached your
           best front-desk hire. They reached a system that answers like one, every single time.
         </p>
@@ -169,7 +169,7 @@ export default function Voice() {
           </p>
           <p className="pg-voice-t-maeve">
             <span>Maeve</span>
-            "We do. I can get a technician to you this evening — what's the address, and what's going
+            "We do. I can get a technician out to you this evening — what's the address, and what's going
             on with the unit?"
           </p>
         </div>
@@ -178,22 +178,22 @@ export default function Voice() {
       {/* ── 4 · INTEGRATIONS / YOUR SCRIPT AROUND THE CLOCK ────────────────── */}
       <Section
         eyebrow="Wired In"
-        title="Your script, your tools, around the clock."
+        title="Your script. Your tools. Around the clock."
         align="start"
       >
         <p>
-          Maeve does not live in a silo. She plugs into the systems you already run, books against
+          Maeve doesn’t live in a silo. She plugs into the systems you already run, books against
           your real calendar, and writes every lead and call summary where your team will see it —
           so the front desk and the field stay in lockstep.
         </p>
         <div className="pg-voice-int">
           {[
             ['Your calendar', 'Books live against real availability'],
-            ['Your CRM', 'Every lead + call summary, logged'],
-            ['Your numbers', 'Forwards your existing line — no new number to learn'],
+            ['Your CRM', 'Every lead and call summary, logged'],
+            ['Your number', 'Forwards your existing line — no new number to learn'],
             ['Your text + email', 'Confirmations and follow-ups, sent automatically'],
             ['Your script', 'Your services, pricing rules, and tone — under your control'],
-            ['Your team', 'Hot leads handed off the instant they qualify'],
+            ['Your team', 'Hot leads handed off the second they qualify'],
           ].map(([t, d]) => (
             <div className="pg-voice-int-cell" key={t}>
               <span className="pg-voice-int-t">{t}</span>
@@ -211,7 +211,7 @@ export default function Voice() {
       >
         <p>
           An in-house receptionist runs <strong>$48,000 a year</strong> — and still clocks out at
-          five, takes lunch, calls in sick, and only works one line at a time. Maeve runs every line,
+          five, takes lunch, calls in sick, and works one line at a time. Maeve runs every line,
           every hour, for a fraction of one paycheck.
         </p>
 
@@ -223,7 +223,7 @@ export default function Voice() {
               <li>9-to-5, one line at a time</li>
               <li>Lunches, sick days, holidays, turnover</li>
               <li>Misses the after-hours rush entirely</li>
-              <li>You hire, train, and manage them</li>
+              <li>You hire her, train her, manage her</li>
             </ul>
           </div>
           <div className="pg-voice-roi-vs">VS</div>
@@ -242,8 +242,8 @@ export default function Voice() {
         </div>
         <p className="pg-voice-roi-foot">
           <strong>Roughly an eighth of the cost</strong> — and she catches the calls a receptionist
-          never could. One booked job a month covers her. The rest is profit you were leaving on the
-          machine.
+          never could. One booked job a month covers her. The rest is profit you’re leaving on the
+          machine right now.
         </p>
       </Section>
 
@@ -273,7 +273,7 @@ export default function Voice() {
             <span>Put Maeve on the Desk</span>
           </Link>
           <span className="pg-voice-price-anchor">
-            vs. a <s>$48,000/yr</s> receptionist · live in days, not months
+            vs. a <s>$48,000/yr</s> receptionist who clocks out · live in days, not months
           </span>
         </div>
       </Section>

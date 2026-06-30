@@ -47,13 +47,13 @@ const PILLARS = [
     n: '01',
     icon: 'depth',
     head: 'Cinematic 3D',
-    body: 'A living scene — real obsidian, real fire, real depth — rendered in the browser. Not a stock hero. The first three seconds that make a visitor stop, lean in, and trust you before they read a word.',
+    body: 'A living scene — real obsidian, real fire, real depth — rendered in the browser. Not a stock hero. The first three seconds make a visitor stop, lean in, and trust you before they read a word.',
   },
   {
     n: '02',
     icon: 'convert',
-    head: 'Built to convert',
-    body: 'Every section points the sword. One clear path from cold visitor to booked job — call, quote, form — engineered, tested, and aimed at the only number that matters: work on your calendar.',
+    head: 'Built to book',
+    body: 'Every section points the sword. One straight path from cold visitor to booked job — call, quote, form — routed to your phone and aimed at the only number that counts: work on your calendar.',
   },
   {
     n: '03',
@@ -65,7 +65,7 @@ const PILLARS = [
     n: '04',
     icon: 'speed',
     head: 'Blistering speed',
-    body: 'Sub-second loads on a phone over cell service. Speed is conversion: every wasted second bleeds visitors. We forge sites that snap — no spinners, no bloat, no excuses.',
+    body: 'Sub-second loads on a phone over cell service. Speed is conversion: every wasted second leaks a visitor to the competitor who picks up. We forge sites that snap — no spinners, no bloat, no excuses.',
   },
 ]
 
@@ -83,7 +83,7 @@ function Standard() {
     },
     {
       k: 'No template',
-      v: 'Bespoke on-brand SVG and CSS, hand-built for your business. The same forge that built this page builds yours — to this exact bar.',
+      v: 'Bespoke on-brand SVG and CSS, hand-built for your business. The same forge that built this page builds yours — to this exact bar, and shipped in 7 days.',
     },
   ]
   return (
@@ -102,15 +102,16 @@ export default function Web() {
   return (
     <PageShell
       kicker="GW–04 · Web"
-      title="Cinematic Web That Books the Job"
-      lede="The page you’re reading is the pitch. Real obsidian, real fire, real speed — every site we forge is built to this bar, and aimed at one outcome: booked work."
+      title="Cinematic Web That Books the Truck"
+      lede="The page you’re reading is the pitch. Real obsidian, real fire, real speed — we forge every site to this bar and aim it at one outcome: every lead routed straight to your phone, the truck booked."
     >
       {/* ── THE PROOF — the page is the argument ───────────────────────── */}
       <Section eyebrow="The standard" title="This page is the proof." align="start">
         <p>
           No slideshow. No before-and-after. You’re standing inside the work — the obsidian behind
           this copy is a live 3D scene, not an image, running smooth on the phone in your hand. If a
-          site can stop you here, it can stop your customers. That’s the entire pitch.
+          site stops you here, it stops your customers before they leave to call someone who picks
+          up. That’s the whole pitch.
         </p>
         <div className="pg-web-proof">
           <div className="pg-web-proof-stat">
@@ -131,9 +132,10 @@ export default function Web() {
       {/* ── WHY MOST SITES FAIL — dead card vs living forge ────────────── */}
       <Section eyebrow="The problem" title="Most contractor sites book nothing." align="start">
         <p>
-          They’re digital business cards — a logo, a phone number, a stock photo of a handshake.
-          Slow to load, invisible to Google, identical to every competitor. A site that just sits
-          there isn’t marketing. It’s a brochure nobody asked for, quietly losing you jobs.
+          They’re digital business cards — a logo, a phone number, a stock handshake. Slow to load,
+          invisible to Google, identical to every competitor. Here’s the leak: the visitor lands,
+          waits, gives up, and calls the next shop who picks up. A site that just sits there isn’t
+          marketing. It’s a brochure that quietly hands your jobs to someone else.
         </p>
         <div className="pg-web-versus">
           <div className="pg-web-card pg-web-card--dead">
@@ -142,7 +144,7 @@ export default function Web() {
               <li>Loads slow, bounces fast</li>
               <li>Buried on page 4 of Google</li>
               <li>Looks like every other shop</li>
-              <li>No clear path to book</li>
+              <li>No path to the call</li>
               <li>Sits there. Books nothing.</li>
             </ul>
           </div>
@@ -155,18 +157,18 @@ export default function Web() {
               <li>Snaps open in under a second</li>
               <li>Ranked, structured, AI-quotable</li>
               <li>Unmistakably, only yours</li>
-              <li>Every section points to the call</li>
-              <li>Works the phones while you sleep</li>
+              <li>Routes every lead to your phone</li>
+              <li>Books the truck while you sleep</li>
             </ul>
           </div>
         </div>
       </Section>
 
       {/* ── WHAT YOU GET — four forged pillars, layered brutalist panels ── */}
-      <Section eyebrow="What you get" title="A site engineered to earn." align="start">
+      <Section eyebrow="What you get" title="A site engineered to book the truck." align="start">
         <p>
-          Four things, non-negotiable. Each one is a system we’ve already proven on the page you’re
-          on — bolted together into a site that doesn’t just look the part, it does the work.
+          Four things, non-negotiable. We’ve already proven each one on the page you’re on — bolted
+          together into a site that doesn’t just look the part, it routes the lead and books the work.
         </p>
         <div className="pg-web-pillars">
           {PILLARS.map((p) => (
@@ -190,7 +192,7 @@ export default function Web() {
           text="We forge the web like iron."
         />
         <p className="pg-web-std-lede">
-          <BrandText text="Anyone can ship a template. GAELWORX ships craft — Automatic Execution, in the browser. Real motion. Sharp brutalist build. Zero compromise on the only number that matters." />
+          <BrandText text="Anyone can ship a template. GAELWORX ships craft — Automatic Execution, in the browser. Real motion. Sharp brutalist build. Built to the standard of the page you’re on, and aimed at the only number that matters: the truck booked." />
         </p>
         <Standard />
       </Section>
@@ -199,8 +201,8 @@ export default function Web() {
       <Section eyebrow="Investment" title="Premium craft. Front-door price." align="center">
         <p className="pg-web-invest-lede">
           Premium studios bill <s>$15,000–$50,000+</s> for cinematic web. We forged the process, so
-          you don’t pay for the discovery theater. Pick your scope — the number is the bridge, not
-          the barrier.
+          you skip the discovery theater and pay for the build, not the meetings. Fixed scope, fixed
+          price before we strike — pick your scope.
         </p>
         <div className="pg-web-ledger">
           <div className="pg-web-tier">
@@ -208,8 +210,8 @@ export default function Web() {
             <span className="pg-web-tier-price">$1,299</span>
             <span className="pg-web-tier-sub">starting at</span>
             <p className="pg-web-tier-body">
-              A fast, ranked, single-page site engineered to convert. Cinematic where it counts,
-              live in days, built to this standard.
+              A fast, ranked, single-page site engineered to book. Cinematic where it counts, every
+              lead routed to your phone, shipped in 7 days — built to this standard.
             </p>
           </div>
           <div className="pg-web-tier pg-web-tier--flagship">
@@ -218,12 +220,13 @@ export default function Web() {
             <span className="pg-web-tier-price">$8,999</span>
             <span className="pg-web-tier-sub">up to</span>
             <p className="pg-web-tier-body">
-              A full multi-page cinematic build — 3D scene, custom motion, lead capture wired to your
-              phone, AI-quotable and search-dominant. The page you’re on, made yours.
+              A full multi-page cinematic build — 3D scene, custom motion, lead capture wired
+              straight to your phone, AI-quotable and search-dominant. The page you’re on, made
+              yours, booking the truck.
             </p>
           </div>
         </div>
-        <p className="pg-web-ledger-foot">Scoped to the job. Fixed price before we strike. Continental US · 7 days.</p>
+        <p className="pg-web-ledger-foot">Scoped to the job. Fixed price before we strike. No pilots that rot in phase two. Continental US · 7 days.</p>
       </Section>
 
       <style>{`

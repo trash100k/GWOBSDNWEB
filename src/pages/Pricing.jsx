@@ -48,36 +48,36 @@ const LINES = [
 ]
 
 const INCLUDED = [
-  ['Fixed scope, fixed price', 'We scope it once, in writing. The number does not move mid-build. No surprise invoices, no scope-creep tax.'],
-  ['You own everything', 'Source code, accounts, and your data — handed over and open-sourced to you. No rented platform. No hostage situation.'],
-  ['Working on day one', 'We ship live, not into a “phase two” that never lands. It runs the work before the final balance is due.'],
-  ['You talk to the forge', 'No account managers, no ticket queue. You talk to the people who build it — direct, the whole way through.'],
+  ['Fixed scope, fixed price', 'We scope it once, in writing. The number does not move mid-build. No surprise invoices. No scope-creep tax.'],
+  ['You own everything', 'Source code, accounts, your data — handed over and open-sourced to you. No rented platform. No hostage situation.'],
+  ['Working on day one', 'We ship it live, not into a “phase two” that never lands. It runs the work before the final balance comes due.'],
+  ['You talk to the forge', 'No account managers. No ticket queue. You talk to the people who build it — direct, the whole way through.'],
 ]
 
 const FAQ = [
   [
     'How long does it take?',
-    'Most engagements move in weeks, not quarters. A voice agent or a web build lands in days to a couple of weeks; a custom software platform runs longer but ships in stages you can see — never a year of silence.',
+    'Weeks, not quarters. A voice agent or a web build lands in days to a couple of weeks. A custom software platform runs longer but ships in stages you can see — never a year of silence.',
   ],
   [
     'Do I own the code?',
-    'Yes. Source code, infrastructure, and accounts are handed over and open-sourced to you. You are buying an asset you keep — not access to a platform we can switch off.',
+    'Yes. Source code, infrastructure, and accounts are handed over and open-sourced to you. You buy an asset you keep — not access to a platform we can switch off.',
   ],
   [
     'What is the deposit?',
-    'Software starts with a $5,000 minimum deposit to lock scope and put the forge to work. Voice, Web, and Automations start without one — the productized lines you can transact on now.',
+    'Software starts with a $5,000 deposit to lock scope and put the forge to work. It filters for buyers who build, not browse. Voice, Web, and Automations start without one — the productized lines you transact on now.',
   ],
   [
     'Why is it cheaper than agencies?',
-    'Because the forge is efficient, not because the work is cheap. We have systematized what agencies bill by the hour and the slide deck. You pay for the build — not for discovery theater, layers of management, or a year of meetings.',
+    'Because the forge runs lean — not because the work is cheap. Automatic Execution systematizes what agencies bill by the hour and the slide deck. You pay for the build, not for discovery theater, layers of management, or a year of meetings.',
   ],
   [
     'Are the prices final?',
-    'The numbers are honest anchors — where each line starts. Every job is scoped to what you actually need, so the final figure is a short conversation, not a surprise. You will know it before any work begins.',
+    'The numbers are honest anchors — where each line starts. We scope every job to what you actually need, so the final figure is a short conversation, not a surprise. You know it before any work begins.',
   ],
   [
     'How do you take payment?',
-    'A deposit to start, the balance on delivery — fixed against the scope we agreed. Software is deposit-gated; the rest bill against milestones you can see ship.',
+    'A deposit to start, the balance on delivery — fixed against the scope we agreed. Software is deposit-gated; the rest bill against milestones you watch ship. We carry the risk — you pay when it executes.',
   ],
 ]
 
@@ -97,7 +97,7 @@ export default function Pricing() {
     <PageShell
       kicker={COPY.rates.kicker}
       title="The Forge Runs Lean"
-      lede="Premium work. Honest prices. You name the bottleneck — we put a number on ending it, before any work begins."
+      lede="Premium work. Honest prices. Name the bottleneck — we put a number on ending it before any work begins, and we carry the risk until it executes."
       cta={false}
     >
       {/* ── THE LEDGER ─────────────────────────────────────────────── */}
@@ -108,7 +108,7 @@ export default function Pricing() {
           <BrandText text="Four lines. Every number anchored." />
         </h2>
         <p className="pg-pricing-ledger-lede">
-          <BrandText text="What it costs elsewhere is struck through. What the forge charges is lit. No naked numbers — outcome first, then the price." />
+          <BrandText text="What it costs elsewhere is struck out. What the forge charges is lit. Outcome first, then the price — no naked numbers, nothing to negotiate up." />
         </p>
 
         <ul className="rate-ledger pg-pricing-ledger">
@@ -135,7 +135,7 @@ export default function Pricing() {
         <span className="pg-pricing-eyebrow">Efficiency, not discount</span>
         <h2 className="pg-h2">Cheaper is the symptom. Efficient is the cause.</h2>
         <p>
-          <BrandText text="You are not paying less for less. Automatic Execution means we have systematized what others bill by the hour — the quoting, the follow-up, the build scaffolding, the parts that run the same every time. The forge runs lean, so the price does." />
+          <BrandText text="You don’t pay less for less. Automatic Execution systematizes what others bill by the hour — the quoting, the follow-up, the build scaffolding, the parts that run the same every time. The forge runs lean, so the price runs lean." />
         </p>
         <div className="pg-pricing-ledger-split" aria-hidden="true">
           <div className="pg-pricing-split-col pg-pricing-split-them">
@@ -153,7 +153,7 @@ export default function Pricing() {
               <li>The build, scoped once</li>
               <li>A system that runs day one</li>
               <li>Code and data you own</li>
-              <li>Direct line to the forge</li>
+              <li>A direct line to the forge</li>
             </ul>
           </div>
         </div>
@@ -183,7 +183,7 @@ export default function Pricing() {
           <div className="pg-pricing-deposit-body">
             <span className="pg-pricing-deposit-k">Deposit terms</span>
             <p className="pg-pricing-deposit-p">
-              <BrandText text="Software builds start with a $5,000 minimum deposit — it locks scope and puts the forge to work. Fixed scope, fixed price: the figure is set before the first line ships and does not move. Voice, Web, and Automations start without a deposit." />
+              <BrandText text="Software builds start with a $5,000 deposit — it locks scope and puts the forge to work. It is the line between buyers who build and browsers who don’t, not a paywall. Fixed scope, fixed price: the figure is set before the first line ships and does not move. Voice, Web, and Automations start without a deposit." />
             </p>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function Pricing() {
       <section className="pg-cta pg-measure">
         <h2 className="pg-cta-head flame">Name the Number</h2>
         <p className="pg-lede">
-          <BrandText text="Tell us the bottleneck. We put an honest price on ending it — fixed scope, fixed price, working on day one." />
+          <BrandText text="Tell us the bottleneck. We put an honest price on ending it — fixed scope, fixed price, working on day one. We carry the risk; you pay when it executes." />
         </p>
         <Link className="cta cta--solid" to="/contact">
           <span>Start the Forge</span>

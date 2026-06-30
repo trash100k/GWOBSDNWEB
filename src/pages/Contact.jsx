@@ -9,11 +9,11 @@ import { COPY } from '../brand.js'
 // state. Backend wiring is Phase 2 (see TODO + the mailto fallback below).
 
 const SERVICES = [
-  ['', 'Select a service…'],
-  ['software', 'Software — custom platforms'],
-  ['voice', 'Voice — Maeve, the AI front desk'],
+  ['', 'Point me at the right branch…'],
+  ['software', 'Software — a platform that runs it all'],
+  ['voice', 'Voice — Maeve, the front desk that never clocks out'],
   ['automations', 'Automations — kill the busywork'],
-  ['web', 'Web — cinematic, built to convert'],
+  ['web', 'Web — a site that books the job'],
   ['unsure', 'Not sure yet — point me'],
 ]
 
@@ -27,7 +27,7 @@ function validate(form) {
   if (!form.name.trim()) e.name = 'Name the smith we’re talking to.'
   if (!form.business.trim()) e.business = 'What do we call the operation?'
   if (!form.email.trim()) e.email = 'We need a line back to you.'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = 'That email won’t deliver.'
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = 'That email won’t deliver — check it.'
   if (!form.service) e.service = 'Pick the branch you need.'
   if (!form.bottleneck.trim()) e.bottleneck = 'Name the bottleneck — that’s the whole job.'
   return e
@@ -88,27 +88,27 @@ export default function Contact() {
         <div className="pg-contact-grid">
           {/* LEFT RAIL — the promise + the terms, so the form reads as effortless */}
           <aside className="pg-contact-rail">
-            <span className="pg-eyebrow">The intake</span>
+            <span className="pg-eyebrow">The Intake</span>
             <h2 className="pg-contact-rail-head">
-              <BrandText text="One message. We bring the system that ends it." />
+              <BrandText text="One message. We bring the system that ends the leak." />
             </h2>
             <p className="pg-contact-rail-body">
-              No discovery-call theater. No forms that vanish into a void. You name the
-              bottleneck — we name the build, the price, and the day it ships.
+              No discovery-call theater. No form that drops into a void. Name the
+              bottleneck — we name the build, the price, and the day it ships back fixed.
             </p>
 
             <ul className="pg-contact-promises">
               <li>
                 <ForgeTick />
-                <span>Read by the people who build it — never a queue.</span>
+                <span>Read by the smiths who build it — never a queue, never a bot.</span>
               </li>
               <li>
                 <ForgeTick />
-                <span>A real answer in 24 hours. Fixed scope, fixed price.</span>
+                <span>A real answer in 24 hours: fixed scope, fixed price.</span>
               </li>
               <li>
                 <ForgeTick />
-                <span>No obligation, no pressure, no sales theater.</span>
+                <span>No obligation. No pressure. No sales theater.</span>
               </li>
             </ul>
 
@@ -126,7 +126,7 @@ export default function Contact() {
               <form className="pg-contact-form" onSubmit={onSubmit} noValidate>
                 <Field
                   id="name"
-                  label="Your name"
+                  label="Your Name"
                   required
                   value={form.name}
                   onChange={set('name')}
@@ -141,7 +141,7 @@ export default function Contact() {
                   value={form.business}
                   onChange={set('business')}
                   error={errors.business}
-                  placeholder="The operation’s name"
+                  placeholder="The operation we’re arming"
                   autoComplete="organization"
                 />
 
@@ -171,7 +171,7 @@ export default function Contact() {
 
                 <label className="pg-contact-field" htmlFor="pgc-service">
                   <span className="pg-contact-label">
-                    Service of interest <em className="pg-contact-req">*</em>
+                    What You Need <em className="pg-contact-req">*</em>
                   </span>
                   <div className="pg-contact-select-wrap">
                     <select
@@ -202,17 +202,19 @@ export default function Contact() {
                     value={form.bottleneck}
                     onChange={set('bottleneck')}
                     rows={5}
-                    placeholder="Missed calls? Drowning in busywork? Six apps and one mess? Tell us what’s costing you."
+                    placeholder="Missed calls? Drowning in busywork? Six apps and one mess? Tell us what it’s costing you — that’s the whole job."
                     aria-invalid={errors.bottleneck ? 'true' : undefined}
                   />
                   {errors.bottleneck && <span className="pg-contact-error">{errors.bottleneck}</span>}
                 </label>
 
                 <button type="submit" className="cta cta--solid pg-contact-submit">
-                  <span>Light the Forge</span>
+                  <span>Send It — Start the Build</span>
                 </button>
 
                 <p className="pg-contact-fineprint">
+                  Fixed scope. Fixed price. We carry the risk — you pay when it executes. · Continental US · 7 Days
+                  <br />
                   We answer in 24 hours. Your details stay in the clan — never sold, never spammed.
                 </p>
               </form>
@@ -256,8 +258,9 @@ function Success({ business }) {
       <Anvil />
       <h2 className="pg-contact-success-head flame">The forge is lit.</h2>
       <p className="pg-contact-success-body">
-        We have it{business ? <> — and we know <strong>{business}</strong></> : null}. Expect a real
-        answer within 24 hours: the build, the price, and the day it ships. No theater.
+        We have it{business ? <> — and we know <strong>{business}</strong></> : null}. A real answer
+        lands inside 24 hours: the build, the price, and the day it ships. The leak’s been bleeding
+        long enough — we go to work now.
       </p>
       <div className="pg-contact-avail pg-contact-avail--center">
         <i aria-hidden="true" className="pg-contact-pulse" />
