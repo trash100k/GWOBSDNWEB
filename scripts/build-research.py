@@ -37,6 +37,7 @@ PARTS = [
     ]),
     ("VII · Deploy & Ops", [
         "docs/research/vercel-hobby-deploy-limits.md",
+        "docs/research/cloudflare-pages-migration.md",
     ]),
     ("VIII · Appendix — Copy application drafts (per-page lever maps + final strings)", [
         "docs/research/copy/drafts/home.md",

@@ -1,0 +1,5 @@
+# Cloudflare Pages SPA fallback.
+# Prerendered per-route files (e.g. /software/index.html) are static assets and
+# are served FIRST; this catch-all only handles deep links with no matching file,
+# handing them index.html so the React router can resolve them client-side.
+/*    /index.html    200
