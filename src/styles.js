@@ -42,7 +42,7 @@ html.lenis,html.lenis body{height:auto;}
   background-size:100% 200%;
   -webkit-background-clip:text; background-clip:text; color:transparent;
   -webkit-text-fill-color:transparent;
-  text-shadow:0 0 22px rgba(232,93,4,0.45);
+  text-shadow:0 0 6px rgba(0,0,0,0.5);
   animation:lavaFlow 3s infinite alternate ease-in-out;
 }
 @keyframes lavaFlow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
@@ -144,30 +144,14 @@ html.lenis,html.lenis body{height:auto;}
    so the 3D scene stays scroll-reactive and the nav still scrubs. ───────────── */
 .stage{position:fixed; inset:0; z-index:2; pointer-events:none;
   padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);}
-/* ambient vignette (legibility) + only a WHISPER of warm wash — the orange now
-   lives in the moving forge-light, not a global tint, so the obsidian + jewel read. */
+/* ambient vignette ONLY — no warm wash. Pure dark edges for legibility; the only
+   fire on screen is the veins in the glass + the jewel type. */
 .stage::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:
-    radial-gradient(64% 52% at 50% 46%, rgba(232,93,4,0.025), transparent 64%),
-    radial-gradient(82% 68% at 50% 50%, rgba(4,5,8,0.6), rgba(4,5,8,0.16) 56%, transparent 84%);}
+  background:radial-gradient(82% 68% at 50% 50%, rgba(4,5,8,0.6), rgba(4,5,8,0.16) 56%, transparent 84%);}
 .scroll-track{position:relative; z-index:0; width:1px; opacity:0; pointer-events:none;}
 
-/* ── atmosphere: mid-ground haze (behind copy) · foreground embers · grain ─── */
-.haze{position:fixed; inset:-12%; z-index:1; pointer-events:none; mix-blend-mode:screen;
-  background:
-    radial-gradient(38% 30% at 22% 30%, rgba(232,93,4,0.055), transparent 70%),
-    radial-gradient(40% 34% at 80% 66%, rgba(193,41,46,0.055), transparent 72%),
-    radial-gradient(52% 42% at 50% 52%, rgba(227,74,39,0.03), transparent 76%);
-  background-size:150% 150%;
-  transform:translate3d(calc(var(--px,0) * -2.4vw), calc(var(--py,0) * -2vh), 0);
-  animation:hazeDrift 26s ease-in-out infinite alternate; will-change:transform, background-position;}
-@keyframes hazeDrift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
-.atmos{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;}
-/* shared forge-light — a warm pool that follows the finger and screen-blends over
-   BOTH the obsidian and the copy beneath it, so one touch lights the whole surface */
-.forge-light{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;
-  background:radial-gradient(300px 300px at var(--mx,50%) var(--my,42%),
-    rgba(232,93,4,0.26), rgba(193,41,46,0.10) 46%, transparent 72%);}
+/* ── atmosphere: just a fine film grain (the warm haze + pointer forge-light pool
+   were removed — no ambient orange light/glow anywhere) ─────────────────────── */
 .grain{position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-size:140px 140px; animation:grain .5s steps(3) infinite;}
@@ -365,9 +349,8 @@ html.lenis,html.lenis body{height:auto;}
   -webkit-background-clip:text; background-clip:text;
   color:transparent; -webkit-text-fill-color:transparent;
   animation:lavaFlow 5s infinite alternate ease-in-out;}
-/* dark halo so the fire pops over BOTH dark obsidian and bright veins + warm bloom */
-.flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
-  0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
+/* dark halo only (no orange glow) so the fire FILL pops over the dark obsidian */
+.flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85), 0 2px 8px rgba(0,0,0,0.7);}
 
 /* ── LIQUID OBSIDIAN — display heads cut from the SAME jewel as the slab, so the
    type and the glass read as one material:
@@ -381,25 +364,25 @@ html.lenis,html.lenis body{height:auto;}
    Display/brand heads only — body copy stays grotesk + crisp. */
 .jewel,.jewel .word>span{
   background:
-    linear-gradient(74deg, transparent 41%, rgba(255,243,222,0.5) 47%, rgba(255,255,255,0.95) 50%,
-      rgba(255,243,222,0.5) 53%, transparent 59%),
-    linear-gradient(96deg, transparent 40%, rgba(90,225,255,0.55) 48%, rgba(178,120,255,0.55) 52%,
-      transparent 60%),
+    linear-gradient(74deg, transparent 36%, rgba(255,250,240,0.7) 45%, #ffffff 50%,
+      rgba(255,250,240,0.7) 55%, transparent 64%),
+    linear-gradient(96deg, transparent 36%, rgba(86,232,255,0.85) 47%, rgba(186,128,255,0.85) 53%,
+      transparent 64%),
     linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
-  background-size:300% 100%, 240% 100%, 100% 260%;
-  background-position:-50% 0%, 130% 0%, 0% 0%;
+  background-size:320% 100%, 250% 100%, 100% 260%;
+  background-position:-60% 0%, 140% 0%, 0% 0%;
   -webkit-background-clip:text; background-clip:text;
   color:transparent; -webkit-text-fill-color:transparent;
-  animation:jewelSweep 7.5s ease-in-out infinite;}
+  animation:jewelSweep 5s ease-in-out infinite;}
 /* warm glint rakes L→R, cool OPAL streak (play-of-color) counter-rakes R→L, the
    fire flows in Y — the two streaks crossing throw the iridescent jewel flash. */
 @keyframes jewelSweep{
-  0%,100%{background-position:-50% 0%, 130% 0%, 0% 0%;}
-  50%{background-position:150% 0%, -30% 0%, 0% 100%;}}
-/* the head surges WITH the forge — brighter + bigger ember bloom on scroll/strike */
-.jewel{filter:brightness(calc(1 + var(--heat,0)*0.5)) saturate(calc(1 + var(--heat,0)*0.32));
-  text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
-    0 0 calc(26px + var(--heat,0)*36px) rgba(232,93,4,calc(0.3 + var(--heat,0)*0.4)), 0 2px 8px rgba(0,0,0,0.7);}
+  0%,100%{background-position:-60% 0%, 140% 0%, 0% 0%;}
+  50%{background-position:160% 0%, -40% 0%, 0% 100%;}}
+/* the head brightens with the forge --heat (a FILL brighten, not an orange glow —
+   no ambient halo); only dark halos for legibility over the dark glass. */
+.jewel{filter:brightness(calc(1 + var(--heat,0)*0.55)) saturate(calc(1 + var(--heat,0)*0.3));
+  text-shadow:0 0 10px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85), 0 2px 8px rgba(0,0,0,0.7);}
 /* SURFACE FROM THE GLASS — heavier emerge-from-obsidian than the base reveal */
 .jewel .word>span{transform:translateY(0.42em) scale(1.05); filter:blur(16px) brightness(1.7);}
 .jewel.shown .word>span{transform:none; filter:blur(0) brightness(1);}
@@ -465,8 +448,7 @@ html.lenis,html.lenis body{height:auto;}
    obsidian. Compact, with a heavy dark halo so they read over the forge-glow veins. */
 .mark-btn--seal{font-size:clamp(1.9rem,6.4vw,3.6rem); letter-spacing:0.06em;
   filter:brightness(calc(1 + var(--heat,0)*0.4));
-  text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),
-    0 0 calc(60px + var(--heat,0)*50px) rgba(232,93,4,calc(0.45 + var(--heat,0)*0.4));}
+  text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),0 2px 10px rgba(0,0,0,0.7);}
 .fin-cta--seal{gap:14px; width:min(92vw,520px);}
 .fin-cta--seal .avail{margin-top:4px;
   text-shadow:0 0 12px rgba(0,0,0,0.96),0 1px 8px rgba(0,0,0,0.9);}

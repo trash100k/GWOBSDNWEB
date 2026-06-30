@@ -1,14 +1,8 @@
 /**
- * Ambient atmosphere — the warm haze behind the copy, the shared forge-light
- * that follows the pointer, and a fine grain. No particles, no mist: the
- * obsidian fire-opal veins are the effect.
+ * Ambient atmosphere — just a fine film grain. The warm haze + pointer forge-light
+ * pool were removed (no ambient orange light/glow); the obsidian fire-opal veins and
+ * the jewel type are the ONLY fire, and they're precise, not an atmospheric wash.
  */
 export default function Atmosphere() {
-  return (
-    <>
-      <div className="haze" aria-hidden="true" />
-      <div className="forge-light" aria-hidden="true" />
-      <div className="grain" aria-hidden="true" />
-    </>
-  )
+  return <div className="grain" aria-hidden="true" />
 }

@@ -58,12 +58,8 @@ const COLOR = /* glsl */ `
   float gwIrN = gw_fbm(gwPw * 2.2 + 5.0);
   vec3 opal = gwOpal(gwIrN * 1.6 + uTime * 0.08 + gwFres * 0.6);
   vec3 veinCol = mix(body, opal * 1.5, clamp(uIrid * (0.45 + 0.55 * gwIrN), 0.0, 0.85));
-  // shared forge-light: a warm pool follows the finger and lights the bare glass,
-  // not just the veins — the same touch that lights the copy lights the obsidian.
-  float gwCur = exp(-distance(vUv, uPointer) * 2.6) * uPointerOn;
-  float nearCur = gwCur * 1.15;
-  vec3 fire = (veinCol * gwVein * gwFlow * 1.1 + ${v3(PAL.hot)} * gwCore * 1.3) * (uVeinGlow + uSurge + nearCur);
-  gl_FragColor.rgb += ${v3(PAL.ember)} * gwCur * 0.11;
+  // fire lives ONLY in the veins now — no cursor pool, no ambient orange wash.
+  vec3 fire = (veinCol * gwVein * gwFlow * 1.1 + ${v3(PAL.hot)} * gwCore * 1.3) * (uVeinGlow + uSurge);
   gl_FragColor.rgb += fire;
 `
 
