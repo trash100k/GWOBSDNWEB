@@ -121,11 +121,13 @@ export default function ForgeExperience() {
       <Loader />
       <div className="canvas-fixed">
         <CanvasBoundary>
-          {sceneReady ? (
+          {sceneReady && quality !== 'static' ? (
             <Suspense fallback={<div className="canvas-fixed canvas-fallback" />}>
               <ForgeCanvas quality={quality} />
             </Suspense>
           ) : (
+            // not-yet-idle, OR a software-GL / no-WebGL / reduced-motion device →
+            // the static obsidian poster instead of a black or fragile canvas.
             <div className="canvas-fixed canvas-fallback" />
           )}
         </CanvasBoundary>

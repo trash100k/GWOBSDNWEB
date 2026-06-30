@@ -32,6 +32,18 @@
 - **NEXT:** (1) **owner promotes** the preview → production so the public URL is current; (2) owner reads mandala/carousel/pacing on the **iPhone 15** → tune from that verdict; (3) confirm intake email + NAP (AEO placeholders); (4) Phase 2 lead endpoint (`lead-capture`); (5) footer w/ internal links; (6) perf-budget asserts in QA.
 - **PROD DEPLOYS:** owner OK only; on Hobby treat deploys as scarce — push `main`/promote at milestones, not per commit (`git-hygiene`, `deploy-doctor`).
 
+## CHROMEBOOK / WEBGL ROBUSTNESS (fixed 2026-06-30)
+- **Symptom:** the 3D background worked on the iPhone but rendered BLACK on a Chromebook.
+- **Root cause:** the iPhone gets tier **`low`** (mobile UA) which has **transmission OFF**; the
+  Chromebook landed on **`high`** → **transmission ON**, and `MeshPhysicalMaterial` transmission
+  renders BLACK on weak/software GPUs (the Chromebook), while working on the phone.
+- **Fix (`hooks.js` `detectQuality` + `ForgeExperience`):** probe the real GPU via
+  `WEBGL_debug_renderer_info` — **software renderer (SwiftShader/llvmpipe/…) or no WebGL → `static`**,
+  which now renders the **CSS obsidian poster** (no fragile canvas). **ChromeOS (`CrOS` UA) + mobile +
+  ≤4-core → `low`** (no transmission — the proven phone path). Only real desktop GPUs get
+  `high`/transmission. De-oranged the `.canvas-fallback` poster. Verified: SwiftShader → poster, no
+  black canvas. **Owner to confirm on the actual Chromebook.**
+
 ## ARCHITECTURE (decided 2026-06-29)
 - **Routed + prerendered.** Real per-page URLs, each prerendered to static HTML so
   content + prices + JSON-LD ship WITHOUT JS (SEO/AEO/GEO correct at the root).

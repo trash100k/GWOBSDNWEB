@@ -63,9 +63,11 @@ html.lenis,html.lenis body{height:auto;}
    no orange horizon bar reads behind the nav. Veins/embers below are untouched. */
 .canvas-fixed::after{content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(180deg, #050507 0%, rgba(5,5,7,0.95) 13%, rgba(5,5,7,0.62) 24%, rgba(5,5,7,0.2) 33%, rgba(5,5,7,0) 41%);}
+/* static obsidian poster (software-GL / no-WebGL / reduced-motion) — clean dark
+   glass, NO orange. A cool depth gradient + a whisper of brand crimson, no glow. */
 .canvas-fallback{background:
-  radial-gradient(70% 50% at 50% 75%, rgba(255,80,25,0.20), transparent 60%),
-  linear-gradient(180deg,#05060a,#000); }
+  radial-gradient(120% 85% at 50% 24%, #0e1118 0%, #070810 52%, #000 100%),
+  radial-gradient(55% 38% at 50% 82%, rgba(193,41,46,0.07), transparent 72%); }
 
 /* ── loader ──────────────────────────────────────────────────────────── */
 .loader{position:fixed; inset:0; z-index:200; display:flex; flex-direction:column;
