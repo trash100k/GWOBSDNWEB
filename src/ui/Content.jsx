@@ -25,18 +25,19 @@ const env = (x, a, b, c, d) =>
 // Weighted scroll allocation = how much SCROLL each act costs (weight × 100vh).
 // Tightened ~40% (was 16.5 → ~9.9 screens) so the journey isn't draggy: short
 // frames cost well under a screen; only the arsenal carousel + finale (which have
-// internal phases) get real room. Order: hero · draw · clan · arsenal · rates ·
-// 5 trust rungs · finale.
+// internal phases) get real room. Order: hero · draw · clan · arsenal · 5 trust
+// rungs · rates · finale — the PRICE lands LATE, after outcome + proof, right
+// before the close (sales research: sequence the number last; never a naked one).
 const TRUST = COPY.trust.rungs
-const FRAMES = 5 + TRUST.length + 1 // hero,draw,clan,arsenal,rates + trust + finale
+const FRAMES = 5 + TRUST.length + 1 // hero,draw,clan,arsenal + trust + rates + finale
 const ARSENAL = 3
-const RATES = 4 // the pricing-ladder beat
-const TRUST_BASE = 5 // first trust-rung frame index
+const TRUST_BASE = 4 // trust rungs occupy 4 … 4+TRUST.length-1
+const RATES = FRAMES - 2 // the pricing ladder — penultimate, right before the finale
 const FINALE = FRAMES - 1
 // finale trimmed to a single destination (problems drain → mandala forms → it
 // HOLDS as the final resting image with GAELWORX + the CTA seated at its eye), so
 // it needs less internal scroll than the old multi-act sequence (was 2.7).
-const WEIGHTS = [0.6, 0.4, 0.65, 1.6, 0.95, ...TRUST.map(() => 0.6), 1.95]
+const WEIGHTS = [0.6, 0.4, 0.65, 1.6, ...TRUST.map(() => 0.6), 0.95, 1.95]
 const TOTAL = WEIGHTS.reduce((a, b) => a + b, 0)
 const CENTERS = []
 const HALF = []
@@ -343,7 +344,23 @@ export default function Content() {
           </div>
         </div>
 
-        {/* 04 — the rates beat: the whole ladder at once. Premium craft, accessible
+        {/* 04–08 — the trust ladder: a 5-step escalating whirlwind. A giant
+            ghosted numeral turns behind centered copy (priming the finale's
+            spin); each rung whips in alternating sides, harder than the last.
+            This is the proof/de-risk work that earns the price that follows. */}
+        {TRUST.map((r, k) => (
+          <div className="frame frame--trust" key={r.n} ref={setRef(TRUST_BASE + k)}>
+            <span className="trust-num" aria-hidden="true">{r.n}</span>
+            <div className="fbody">
+              <span className="kicker">{COPY.trust.kicker}</span>
+              <ForgeText as="h2" className="head flame" text={r.head} />
+              <p className="body"><BrandText text={r.body} /></p>
+            </div>
+          </div>
+        ))}
+
+        {/* 09 — the rates beat, LATE by design: the whole anchored ladder at once,
+            after outcome + proof, right before the close. Premium craft, accessible
             prices — reconciled by "the forge runs lean". Each row anchors the price
             against what it costs elsewhere (never a naked number). */}
         <div className="frame frame--rates" ref={setRef(RATES)}>
@@ -363,20 +380,6 @@ export default function Content() {
             <span className="rate-foot">{COPY.rates.foot}</span>
           </div>
         </div>
-
-        {/* 05–09 — the trust ladder: a 5-step escalating whirlwind. A giant
-            ghosted numeral turns behind centered copy (priming the finale's
-            spin); each rung whips in alternating sides, harder than the last. */}
-        {TRUST.map((r, k) => (
-          <div className="frame frame--trust" key={r.n} ref={setRef(TRUST_BASE + k)}>
-            <span className="trust-num" aria-hidden="true">{r.n}</span>
-            <div className="fbody">
-              <span className="kicker">{COPY.trust.kicker}</span>
-              <ForgeText as="h2" className="head flame" text={r.head} />
-              <p className="body"><BrandText text={r.body} /></p>
-            </div>
-          </div>
-        ))}
 
         {/* 10 — the finale act */}
         <div className="frame frame--finale" ref={setRef(FINALE)}>
