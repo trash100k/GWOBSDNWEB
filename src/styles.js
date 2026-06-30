@@ -356,27 +356,24 @@ html.lenis,html.lenis body{height:auto;}
    in shadow are GONE — only a thin forged edge for legibility. Shared by EVERY display
    head (.flame); the hero + finale (.jewel) add the live --heat + surface reveal.
    (Dropped feDisplacementMap — it renders dark/unreliably on iOS Safari.) */
-/* Two PURE-CSS gradient layers only — a watered-steel base + a sweeping glint.
-   The old SVG feTurbulence grain + background-blend-mode:soft-light silently
-   failed to paint under background-clip:text on iOS Safari, dropping the heads to
-   shadow-only. Gradients clip reliably, so the steel always shows. A solid steel
-   color stands behind the clip as a last-ditch fallback. */
+/* ONE gradient layer only. The previous versions stacked TWO background layers
+   (glint + steel, or an SVG grain) under background-clip:text — iOS Safari fails
+   to PAINT a multi-layer clipped background, so the steel dropped to shadow-only
+   and no `color` could rescue it (-webkit-text-fill-color:transparent wins). The
+   A+E ignite (.forge-letter) proves a SINGLE clipped gradient renders fine on the
+   same device, so the head is now ONE watered-chrome gradient that shimmers via
+   background-position — the exact mechanism the ignite uses. */
 .flame,.flame .word>span,.jewel,.jewel .word>span{
-  background:
-    linear-gradient(74deg, transparent 40%, rgba(255,255,255,0.9) 48%, #ffffff 50%,
-      rgba(255,255,255,0.9) 52%, transparent 60%),
-    linear-gradient(164deg, #f3f6fc 0%, #b7c2d2 13%, #eef3fa 25%, #9fabbd 39%, #e2e9f3 51%,
-      #aeb9ca 63%, #f1f5fc 77%, #c3cedd 90%, #e8eef7 100%);
-  background-size:300% 100%, 100% 100%;
-  background-position:-60% 0%, 0 0;
-  background-repeat:no-repeat, no-repeat;
+  background:linear-gradient(100deg, #c3cedd 0%, #f3f6fc 14%, #aeb9ca 28%, #ffffff 42%,
+    #b7c2d2 56%, #eef3fa 70%, #9fabbd 84%, #e8eef7 100%);
+  background-size:240% 100%;
+  background-position:0% 50%;
   -webkit-background-clip:text; background-clip:text;
-  color:#e3eaf4; -webkit-text-fill-color:transparent;
-  animation:damascusSheen 5s ease-in-out infinite;}
-/* only the glint (layer 1) sweeps; the steel holds still */
+  color:#e6ecf5; -webkit-text-fill-color:transparent;
+  animation:damascusSheen 6s ease-in-out infinite;}
 @keyframes damascusSheen{
-  0%,100%{background-position:-60% 0%, 0 0;}
-  50%{background-position:160% 0%, 0 0;}}
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}}
 /* thin forged edge ONLY — no heavy dark halo (that was trapping the heads in shadow) */
 .flame,.jewel{text-shadow:0 1px 1px rgba(8,10,16,0.6), 0 0 1px rgba(8,10,16,0.85);}
 /* hero + finale heads sharpen with the live forge --heat (brightness + contrast) */
