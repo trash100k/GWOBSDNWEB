@@ -242,7 +242,7 @@ export default function Pricing() {
         .pg-pricing-row{grid-template-columns:minmax(104px,0.7fr) 1.6fr auto;
           padding-block:clamp(15px,2.4vh,22px); padding-inline:clamp(14px,2.4vw,26px);
           transition:background .18s var(--ease);}
-        .pg-pricing-row:hover{background:rgba(218,44,28,0.06);}
+        .pg-pricing-row:hover{background:rgba(116,211,232,0.06);}
         .pg-pricing-row .rate-tag{align-self:center;}
         .pg-pricing-cell{display:flex; flex-direction:column; gap:4px; text-align:left;}
         .pg-pricing-line{font-family:var(--gw-headline); font-weight:700; color:var(--gw-bone);
@@ -273,7 +273,7 @@ export default function Pricing() {
           text-decoration-color:rgba(193,41,46,0.45);}
         .pg-pricing-split-them li::before{background:rgba(141,153,174,0.5);}
         .pg-pricing-split-us li::before{background:var(--gw-ember);
-          box-shadow:0 0 10px rgba(218,44,28,0.6);}
+          box-shadow:0 0 10px rgba(116,211,232,0.6);}
         .pg-pricing-recon-foot{margin-top:0 !important; color:var(--gw-steel);
           border-left:2px solid var(--gw-ember); padding-left:16px;}
 
@@ -285,7 +285,7 @@ export default function Pricing() {
           border:1px solid rgba(141,153,174,0.25); background:rgba(15,17,22,0.5);
           box-shadow:8px 8px 0 rgba(0,0,0,0.5), inset 0 0 40px rgba(193,41,46,0.06);
           transition:border-color .2s var(--ease), transform .2s var(--ease);}
-        .pg-pricing-incl-card:hover{border-color:rgba(218,44,28,0.6); transform:translate(-1px,-1px);}
+        .pg-pricing-incl-card:hover{border-color:rgba(116,211,232,0.6); transform:translate(-1px,-1px);}
         .pg-pricing-incl-n{display:block; font-family:var(--gw-display); font-weight:900;
           font-size:0.95rem; letter-spacing:0.08em; color:var(--gw-forge); margin-bottom:10px;}
         .pg-pricing-incl-h{margin:0 0 8px; font-family:var(--gw-headline); font-weight:800;

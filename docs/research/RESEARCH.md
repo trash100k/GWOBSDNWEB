@@ -2592,6 +2592,27 @@ you want this locked as the new rule, `CLAUDE.md`'s palette section should be up
 say the word and I'll align it.
 </content>
 
+---
+
+## UPDATE — direction changed to full iridescence (applied)
+
+Owner call after seeing the forge-red: **take the ember out entirely and replace the accent with
+iridescence** (the opal play-of-color), keeping the crimson structure that matches the background
+fire. Final token state in `styles.js`:
+
+| Token | Now | Role |
+|---|---|---|
+| `--gw-ember` | `#74D3E8` | opal **cyan** — accent hue (kickers, eyebrows, prices, glints, ticks) |
+| `--gw-ember-deep` | `#9E86E6` | opal **violet** — deep accent / gradient partner |
+| `--gw-forge` | `#C1292E` | Celtic Blood crimson — structure/borders (kept; matches the veins) |
+| `.forge-letter` (A+E ignite) | animated `linear-gradient(110deg,#7FE8E2,#79B8FF,#B58CFF,#F29BE0,#7FE8E2)` via `iriShift` | holographic play-of-color shimmer on the ignited letters |
+| ember glow literals | `rgba(218,44,28,…)` → `rgba(116,211,232,…)` | glints/glows now opal cyan |
+
+Net: **crimson structure (warm, matches the veins) + opal cyan/violet accents + a shimmering
+iridescent A+E** — the fire-opal split made literal (UI = the opal, background fire = the warm).
+Scene untouched. Bulk accents are a flat opal hue (a 1px border can't shimmer); the live shimmer
+lives on the ignite. Follow-up if wanted: extend the animated gradient to the big prices / heads.
+
 
 ---
 

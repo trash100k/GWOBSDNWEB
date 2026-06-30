@@ -242,7 +242,7 @@ export default function Web() {
         .pg-web-proof-stat:last-child{border-right:0;}
         .pg-web-proof-n{font-family:var(--gw-display); font-weight:900; line-height:1;
           font-size:clamp(1.5rem,4.4vw,2.6rem); color:var(--gw-ember);
-          text-shadow:0 0 24px rgba(218,44,28,0.35);}
+          text-shadow:0 0 24px rgba(116,211,232,0.35);}
         .pg-web-proof-l{font-size:clamp(11px,1.3vw,13px); letter-spacing:0.04em; line-height:1.35;
           text-transform:uppercase; font-weight:700; color:var(--gw-steel);}
 
@@ -283,14 +283,14 @@ export default function Web() {
           padding:clamp(22px,2.8vw,34px); color:var(--gw-steel);
           transition:border-color .3s var(--ease), box-shadow .3s var(--ease),
             transform .3s var(--ease);}
-        .pg-web-pillar:hover{border-color:rgba(218,44,28,0.7); transform:translate(-2px,-2px);
+        .pg-web-pillar:hover{border-color:rgba(116,211,232,0.7); transform:translate(-2px,-2px);
           box-shadow:10px 10px 0 rgba(0,0,0,0.6), inset 0 0 50px rgba(193,41,46,0.08);}
         .pg-web-pillar-top{display:flex; align-items:center; justify-content:space-between;
           margin-bottom:clamp(16px,2vw,22px);}
         .pg-web-pillar-n{font-family:var(--gw-display); font-weight:900; line-height:1;
           font-size:clamp(1.3rem,2.4vw,1.8rem); color:rgba(141,153,174,0.55);}
         .pg-web-pillar:hover .pg-web-pillar-n{color:var(--gw-ember);
-          text-shadow:0 0 22px rgba(218,44,28,0.4);}
+          text-shadow:0 0 22px rgba(116,211,232,0.4);}
         .pg-web-pillar-ico{color:var(--gw-steel); display:flex; transition:color .3s var(--ease);}
         .pg-web-pillar:hover .pg-web-pillar-ico{color:var(--gw-ember);}
         .pg-web-ico{display:block;}
@@ -343,7 +343,7 @@ export default function Web() {
         .pg-web-tier-price{font-family:var(--gw-display); font-weight:900; line-height:1;
           font-size:clamp(2.2rem,6vw,3.4rem); color:var(--gw-bone);}
         .pg-web-tier--flagship .pg-web-tier-price{color:var(--gw-ember);
-          text-shadow:0 0 30px rgba(218,44,28,0.4);}
+          text-shadow:0 0 30px rgba(116,211,232,0.4);}
         .pg-web-tier-sub{font-size:11px; letter-spacing:0.22em; font-weight:700; text-transform:uppercase;
           color:var(--gw-steel); margin-top:8px;}
         .pg-web-tier-body{margin:clamp(16px,2vw,22px) 0 0; font-size:clamp(0.97rem,1.4vw,1.1rem);

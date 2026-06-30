@@ -6,8 +6,8 @@ export const STYLES = `
   --gw-obsidian:#0a0b10; --gw-iron:#1F2833;  /* Cold Steel */
   --gw-steel:#8D99AE;       /* Ash */
   --gw-bone:#F1F2F6;        /* Fog White */
-  --gw-ember:#DA2C1C;       /* Ember Glow */
-  --gw-ember-deep:#C1292E; --gw-forge:#C1292E;  /* Celtic Blood */
+  --gw-ember:#74D3E8;       /* Iridescence — opal cyan (was Ember) */
+  --gw-ember-deep:#9E86E6; --gw-forge:#C1292E;  /* opal violet · Celtic Blood */
   /* Type — Cinzel Decorative (brand/display, 700-900 only) · Bricolage (headlines) · Hanken (body) */
   --gw-display:'Cinzel Decorative','Times New Roman',serif;
   --gw-headline:'Bricolage Grotesque Variable',ui-sans-serif,system-ui,sans-serif;
@@ -38,14 +38,17 @@ html.lenis,html.lenis body{height:auto;}
   /* sit flush with adjacent display letters — no baseline float from the
      gradient-clipped glyph. inline-block + baseline align + matched metrics. */
   display:inline-block; vertical-align:baseline; line-height:1;
-  background:linear-gradient(to bottom, #DA2C1C, #C1292E, #C1292E, #C0392B);
-  background-size:100% 200%;
+  /* iridescence: the opal play-of-color from the fire-opal background — a cool
+     holographic sweep (no ember/orange), shimmering across the ignited A+E. */
+  background:linear-gradient(110deg, #7FE8E2, #79B8FF, #B58CFF, #F29BE0, #7FE8E2);
+  background-size:220% 100%;
   -webkit-background-clip:text; background-clip:text; color:transparent;
   -webkit-text-fill-color:transparent;
   text-shadow:0 0 6px rgba(0,0,0,0.5);
-  animation:lavaFlow 3s infinite alternate ease-in-out;
+  animation:iriShift 6s infinite alternate ease-in-out;
 }
 @keyframes lavaFlow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
+@keyframes iriShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
 
 /* Brand proper-nouns inline in body copy. A+E ignite is a display/wordmark rule
    only (Cinzel has no lowercase — igniting mid-sentence looks like ransom-note
@@ -109,7 +112,7 @@ html.lenis,html.lenis body{height:auto;}
   background:rgba(141,153,174,0.16);}
 .nav-spine__fill{position:absolute; top:0; left:0; right:0; height:100%;
   transform-origin:top; transform:scaleY(0); background:linear-gradient(180deg,var(--gw-ember),var(--gw-forge));
-  box-shadow:0 0 5px rgba(218,44,28,0.45);}
+  box-shadow:0 0 5px rgba(116,211,232,0.45);}
 
 .menu{position:fixed; inset:0; z-index:50; display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:6px; opacity:0; visibility:hidden;
@@ -237,7 +240,7 @@ html.lenis,html.lenis body{height:auto;}
   color:rgba(160,167,180,0.85); text-shadow:0 2px 22px rgba(0,0,0,0.85);}
 /* the front branch lights up — ember rim + warm glow */
 .car-item.is-front .branch-id{color:var(--gw-ember);}
-.car-item.is-front .branch-line{color:#fff; text-shadow:0 0 28px rgba(218,44,28,0.55), 0 2px 10px rgba(0,0,0,0.6);}
+.car-item.is-front .branch-line{color:#fff; text-shadow:0 0 28px rgba(116,211,232,0.55), 0 2px 10px rgba(0,0,0,0.6);}
 
 /* branch price — TEASE only: the "from" entry anchor, to pre-qualify + signal
    accessibility while exploring. The full anchored reveal (elsewhere-comparison +
@@ -248,7 +251,7 @@ html.lenis,html.lenis body{height:auto;}
   font-size:clamp(1.05rem,2.1vw,1.4rem); color:var(--gw-bone);}
 .branch-price em{font-style:normal; font-weight:600; font-size:0.66em; letter-spacing:0.04em;
   text-transform:uppercase; color:var(--gw-steel);}
-.car-item.is-front .branch-price{color:var(--gw-ember); text-shadow:0 0 24px rgba(218,44,28,0.4);}
+.car-item.is-front .branch-price{color:var(--gw-ember); text-shadow:0 0 24px rgba(116,211,232,0.4);}
 
 /* ── the rates beat — the whole ladder as a forged ledger. Premium register,
    accessible numbers; the "forge runs lean" lede reconciles the two. ────────── */
@@ -266,7 +269,7 @@ html.lenis,html.lenis body{height:auto;}
 .rate-anchor{font-size:clamp(11px,1.4vw,14px); line-height:1.3; color:rgba(141,153,174,0.72);
   text-decoration:line-through; text-decoration-color:rgba(193,41,46,0.5);}
 .rate-price{font-family:var(--gw-headline); font-weight:800; white-space:nowrap; text-align:right;
-  font-size:clamp(1.02rem,2.3vw,1.5rem); color:var(--gw-ember); text-shadow:0 0 22px rgba(218,44,28,0.35);}
+  font-size:clamp(1.02rem,2.3vw,1.5rem); color:var(--gw-ember); text-shadow:0 0 22px rgba(116,211,232,0.35);}
 .rate-price em{display:block; font-style:normal; font-weight:600; font-size:0.6em; letter-spacing:0.04em;
   text-transform:uppercase; color:var(--gw-steel); text-shadow:none; margin-top:2px;}
 .rate-foot{display:block; margin-top:clamp(18px,2.4vh,28px); font-size:11px; letter-spacing:0.32em;
@@ -393,7 +396,7 @@ html.lenis,html.lenis body{height:auto;}
   font-family:var(--gw-display); font-weight:900; line-height:1; white-space:nowrap;
   font-size:clamp(11rem,46vw,26rem); letter-spacing:-0.02em;
   color:transparent; -webkit-text-fill-color:transparent;
-  background:linear-gradient(180deg,#DA2C1C,#C1292E 55%,#C1292E); background-size:100% 220%;
+  background:linear-gradient(180deg,#74D3E8,#C1292E 55%,#C1292E); background-size:100% 220%;
   -webkit-background-clip:text; background-clip:text; opacity:0.1;
   transform:translate(-50%,-50%);
   animation:trustWhirl 52s linear infinite, lavaFlow 6s infinite alternate ease-in-out;}
@@ -428,7 +431,7 @@ html.lenis,html.lenis body{height:auto;}
 .mark-btn{background:none; border:0; cursor:pointer; padding:0; white-space:nowrap;
   font-family:var(--gw-display); font-weight:900; text-transform:uppercase;
   font-size:clamp(2.4rem,9vw,6rem); line-height:1; letter-spacing:0.04em; color:var(--gw-bone);
-  text-shadow:0 0 40px rgba(218,44,28,0.4),0 2px 12px rgba(0,0,0,0.7);}
+  text-shadow:0 0 40px rgba(116,211,232,0.4),0 2px 12px rgba(0,0,0,0.7);}
 
 /* the sword */
 .fin-cta{position:absolute; top:50%; left:50%; opacity:0; width:min(92vw,640px);
