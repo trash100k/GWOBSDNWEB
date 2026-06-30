@@ -144,19 +144,20 @@ html.lenis,html.lenis body{height:auto;}
    so the 3D scene stays scroll-reactive and the nav still scrubs. ───────────── */
 .stage{position:fixed; inset:0; z-index:2; pointer-events:none;
   padding:var(--safe-t) var(--safe-r) var(--safe-b) var(--safe-l);}
-/* ambient vignette + faint warm forge-light — legibility over the veins, no edges */
+/* ambient vignette (legibility) + only a WHISPER of warm wash — the orange now
+   lives in the moving forge-light, not a global tint, so the obsidian + jewel read. */
 .stage::before{content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
   background:
-    radial-gradient(64% 52% at 50% 46%, rgba(232,93,4,0.06), transparent 64%),
+    radial-gradient(64% 52% at 50% 46%, rgba(232,93,4,0.025), transparent 64%),
     radial-gradient(82% 68% at 50% 50%, rgba(4,5,8,0.6), rgba(4,5,8,0.16) 56%, transparent 84%);}
 .scroll-track{position:relative; z-index:0; width:1px; opacity:0; pointer-events:none;}
 
 /* ── atmosphere: mid-ground haze (behind copy) · foreground embers · grain ─── */
 .haze{position:fixed; inset:-12%; z-index:1; pointer-events:none; mix-blend-mode:screen;
   background:
-    radial-gradient(38% 30% at 22% 30%, rgba(232,93,4,0.11), transparent 70%),
-    radial-gradient(40% 34% at 80% 66%, rgba(193,41,46,0.11), transparent 72%),
-    radial-gradient(52% 42% at 50% 52%, rgba(227,74,39,0.06), transparent 76%);
+    radial-gradient(38% 30% at 22% 30%, rgba(232,93,4,0.055), transparent 70%),
+    radial-gradient(40% 34% at 80% 66%, rgba(193,41,46,0.055), transparent 72%),
+    radial-gradient(52% 42% at 50% 52%, rgba(227,74,39,0.03), transparent 76%);
   background-size:150% 150%;
   transform:translate3d(calc(var(--px,0) * -2.4vw), calc(var(--py,0) * -2vh), 0);
   animation:hazeDrift 26s ease-in-out infinite alternate; will-change:transform, background-position;}
@@ -165,8 +166,8 @@ html.lenis,html.lenis body{height:auto;}
 /* shared forge-light — a warm pool that follows the finger and screen-blends over
    BOTH the obsidian and the copy beneath it, so one touch lights the whole surface */
 .forge-light{position:fixed; inset:0; z-index:3; pointer-events:none; mix-blend-mode:screen;
-  background:radial-gradient(260px 260px at var(--mx,50%) var(--my,42%),
-    rgba(232,93,4,0.18), rgba(193,41,46,0.07) 46%, transparent 72%);}
+  background:radial-gradient(300px 300px at var(--mx,50%) var(--my,42%),
+    rgba(232,93,4,0.26), rgba(193,41,46,0.10) 46%, transparent 72%);}
 .grain{position:fixed; inset:0; z-index:4; pointer-events:none; opacity:0.05; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   background-size:140px 140px; animation:grain .5s steps(3) infinite;}
@@ -368,6 +369,37 @@ html.lenis,html.lenis body{height:auto;}
 .flame{text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
   0 0 30px rgba(232,93,4,0.4), 0 2px 8px rgba(0,0,0,0.7);}
 
+/* ── LIQUID OBSIDIAN — display heads cut from the SAME jewel as the slab, so the
+   type and the glass read as one material:
+   • the fire-opal flows THROUGH the glyphs, and a specular GLIMMER rakes across them
+     — ONE diagonal background sweep moves the tall fire layer in Y (flow) and the
+     wide glint layer in X (rake), with a faint cool opal edge on the glint;
+   • the whole head brightens + blooms with the LIVE forge --heat (scroll energy +
+     strikes, set per frame in Content.jsx) — type and slab on one clock;
+   • on reveal each glyph SURFACES up through the glass: a blurred molten smear that
+     sharpens + cools into solid jewel.
+   Display/brand heads only — body copy stays grotesk + crisp. */
+.jewel,.jewel .word>span{
+  background:
+    linear-gradient(74deg, transparent 41%, rgba(255,243,222,0.5) 47%, rgba(255,255,255,0.95) 50%,
+      rgba(206,247,236,0.5) 53%, transparent 59%),
+    linear-gradient(178deg, #FFE3B8, #FF8A3C 26%, #E85D04 50%, #C1292E 78%, #E34A27);
+  background-size:300% 100%, 100% 260%;
+  background-position:-50% 0%, 0% 0%;
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+  animation:jewelSweep 7.5s ease-in-out infinite;}
+@keyframes jewelSweep{
+  0%,100%{background-position:-50% 0%, 0% 0%;}
+  50%{background-position:150% 0%, 0% 100%;}}
+/* the head surges WITH the forge — brighter + bigger ember bloom on scroll/strike */
+.jewel{filter:brightness(calc(1 + var(--heat,0)*0.5)) saturate(calc(1 + var(--heat,0)*0.32));
+  text-shadow:0 0 11px rgba(0,0,0,0.92), 0 0 4px rgba(0,0,0,0.85),
+    0 0 calc(26px + var(--heat,0)*36px) rgba(232,93,4,calc(0.3 + var(--heat,0)*0.4)), 0 2px 8px rgba(0,0,0,0.7);}
+/* SURFACE FROM THE GLASS — heavier emerge-from-obsidian than the base reveal */
+.jewel .word>span{transform:translateY(0.42em) scale(1.05); filter:blur(16px) brightness(1.7);}
+.jewel.shown .word>span{transform:none; filter:blur(0) brightness(1);}
+
 /* ── the trust ladder — a 5-step ESCALATING whirlwind on "why GAELWORX".
    Centered copy over a giant ghosted Cinzel numeral that slowly turns (priming
    the finale's spin); the frames whip in from alternating sides, harder each
@@ -428,7 +460,9 @@ html.lenis,html.lenis body{height:auto;}
 /* FINAL RESTING STATE — GAELWORX + the sword rise to centre and hold on the living
    obsidian. Compact, with a heavy dark halo so they read over the forge-glow veins. */
 .mark-btn--seal{font-size:clamp(1.9rem,6.4vw,3.6rem); letter-spacing:0.06em;
-  text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),0 0 60px rgba(232,93,4,0.45);}
+  filter:brightness(calc(1 + var(--heat,0)*0.4));
+  text-shadow:0 0 16px rgba(0,0,0,0.96),0 0 36px rgba(0,0,0,0.85),
+    0 0 calc(60px + var(--heat,0)*50px) rgba(232,93,4,calc(0.45 + var(--heat,0)*0.4));}
 .fin-cta--seal{gap:14px; width:min(92vw,520px);}
 .fin-cta--seal .avail{margin-top:4px;
   text-shadow:0 0 12px rgba(0,0,0,0.96),0 1px 8px rgba(0,0,0,0.9);}
@@ -455,7 +489,7 @@ html.lenis,html.lenis body{height:auto;}
   .forge-text .word>span{transition:none; opacity:1; transform:none; filter:none;}
   .loader-mark{animation:none;} .loader-bar i{animation:none; width:100%;}
   .scrollcue i{animation:none;} .menu-item{transition:none; opacity:1; transform:none;}
-  .flame,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
+  .flame,.jewel,.jewel .word>span,.haze,.grain{animation:none;} .haze,.fbody{transform:none;}
   .trust-num{animation:none;}
 }
 `

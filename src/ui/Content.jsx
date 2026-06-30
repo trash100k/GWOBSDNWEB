@@ -144,6 +144,12 @@ export default function Content() {
         root.style.setProperty('--mx', (forge.pointer.x * 50 + 50).toFixed(1) + '%')
         root.style.setProperty('--my', (forge.pointer.y * -50 + 50).toFixed(1) + '%')
       }
+      // forge HEAT → the jewel headings surge WITH the slab: scroll energy (living
+      // veins) + the strike pulse, the SAME signals that drive the obsidian, so the
+      // type and the glass breathe on one clock.
+      const sinceStrike = performance.now() / 1000 - forge.strikeAt
+      const strikePulse = sinceStrike >= 0 && sinceStrike < 1.2 ? Math.exp(-sinceStrike * 3) * 0.5 : 0
+      root.style.setProperty('--heat', (reduced ? 0 : clamp(Math.min(forge.scrollVel * 0.6, 0.7) + strikePulse, 0, 1)).toFixed(3))
 
       let arsenalOpacity = 0, frontI = -1, frontOp = 0, emitAmt = 0
       for (let i = 0; i < FRAMES; i++) {
@@ -284,7 +290,7 @@ export default function Content() {
         <div className="frame frame--hero" ref={setRef(0)}>
           <div className="fbody">
             <span className="eyebrow">{COPY.hero.eyebrow}</span>
-            <ForgeText as="h1" className="headline etched flame" text={COPY.hero.headline} delay={1200} ignite />
+            <ForgeText as="h1" className="headline jewel" text={COPY.hero.headline} delay={1200} ignite />
             <p className="hero-sub">{COPY.hero.sub}</p>
             <button className="cta magnetic" onClick={() => { strike(); navigate('/contact') }}>
               <span>{COPY.hero.cta}</span>
