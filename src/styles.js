@@ -47,6 +47,15 @@ html.lenis,html.lenis body{height:auto;}
   text-shadow:0 0 6px rgba(0,0,0,0.5);
   animation:iriShift 6s infinite alternate ease-in-out;
 }
+/* Inside a display head (.flame/.jewel), the head's chrome gradient rule
+   `.flame .word>span` out-specifies plain `.forge-letter`, so the ignited A+E
+   were swallowed into the silver chrome. Re-assert the iridescent pool with a
+   matching-specificity selector so the fire A/E survive in headings. */
+.flame .word>span.forge-letter,.jewel .word>span.forge-letter{
+  background:linear-gradient(110deg, #7FE8E2, #79B8FF, #B58CFF, #F29BE0, #7FE8E2);
+  background-size:220% 100%;
+  -webkit-text-fill-color:transparent;
+  animation:iriShift 6s infinite alternate ease-in-out;}
 @keyframes lavaFlow{0%{background-position:0% 0%}100%{background-position:0% 100%}}
 @keyframes iriShift{0%{background-position:0% 50%}100%{background-position:100% 50%}}
 

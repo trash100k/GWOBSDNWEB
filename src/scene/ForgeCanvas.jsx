@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, AdaptiveDpr, Lightformer } from '@react-three/drei'
 import * as THREE from 'three'
 import CameraRig from './CameraRig.jsx'
-import EmeraldGem from './EmeraldGem.jsx'
 import Effects from './Effects.jsx'
 
 export default function ForgeCanvas({ quality }) {
@@ -48,8 +47,6 @@ export default function ForgeCanvas({ quality }) {
         </Environment>
       </Suspense>
 
-      {/* The emerald gem is NOT gated by the environment — always renders. */}
-      <EmeraldGem quality={quality} />
 
       {quality !== 'static' && <Effects quality={quality} />}
       <AdaptiveDpr pixelated />
